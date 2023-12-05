@@ -66,27 +66,22 @@ class _AddRoomState extends State<AddRoom> {
                   hintText: 'Enter Room location',
                 ),
               ),
-
               SizedBox(
                 height: 40,
               ),
-
               MaterialButton(
                 onPressed: () {
-                
-                Map<String, String> roomsMap = {
-                  'roomName': roomName.text,
-                  'roomLocation' : roomLocation.text
-                };
+                  Map<String, String> roomsMap = {
+                    'roomName': roomName.text,
+                    'roomLocation': roomLocation.text
+                  };
 
-                dbRef.push().set(roomsMap);
-                
-              },
-              color: Colors.blueAccent,
-              textColor: Colors.white,
-              height: 35,
-
-              child: const Text('Create room'),
+                  dbRef.push().set(roomsMap);
+                },
+                color: Colors.blueAccent,
+                textColor: Colors.white,
+                height: 35,
+                child: const Text('Create room'),
               )
             ],
           ),
