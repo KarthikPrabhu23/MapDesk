@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 
-class getRoom extends StatefulWidget {
-  const getRoom({super.key});
+class GetRoom extends StatefulWidget {
+  const GetRoom({super.key});
 
   @override
-  State<getRoom> createState() => _getRoomState();
+  State<GetRoom> createState() => _GetRoomState();
 }
 
-class _getRoomState extends State<getRoom> {
+class _GetRoomState extends State<GetRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -3,14 +3,14 @@
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 
-class addRoom extends StatefulWidget {
-  const addRoom({super.key});
+class AddRoom extends StatefulWidget {
+  const AddRoom({super.key});
 
   @override
-  State<addRoom> createState() => _addRoomState();
+  State<AddRoom> createState() => _AddRoomState();
 }
 
-class _addRoomState extends State<addRoom> {
+class _AddRoomState extends State<AddRoom> {
   final roomName = TextEditingController();
   final roomLocation = TextEditingController();
 
