@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PlacePicker extends StatefulWidget {
-  const PlacePicker({super.key});
+  PlacePicker({super.key});
+
+  String lat = PlacePickerState().lat;
+  String long = PlacePickerState().long;
 
   @override
   State<PlacePicker> createState() => PlacePickerState();
@@ -10,6 +13,11 @@ class PlacePicker extends StatefulWidget {
 
 class PlacePickerState extends State<PlacePicker> {
   // Completer<GoogleMapController> _controller = Completer();
+
+  late GoogleMapController _googleMapController;
+
+  String lat = "";
+  String long = "";
 
   List<Marker> myMarker = [];
 
@@ -24,21 +32,25 @@ class PlacePickerState extends State<PlacePicker> {
       body: GoogleMap(
         initialCameraPosition: _kGooglePlex,
         myLocationButtonEnabled: true,
-
         markers: Set.from(myMarker),
-        // markers: Set.from(allMarkers),
-
-        // onTap: setmarkers(),
         onTap: _handleTap,
-        // onMapCreated: (GoogleMapController controller) {
-        //   _controller.complete(controller);
-        // },
+        onMapCreated: (GoogleMapController controller) {
+          _googleMapController = controller;
+        },
       ),
     );
   }
 
   _handleTap(LatLng tappedPoint) {
     print(tappedPoint);
+    print(tappedPoint.latitude);
+    print(tappedPoint.longitude);
+
+    lat = tappedPoint.latitude.toString();
+    long = tappedPoint.longitude.toString();
+
+    print("latitude is " + lat);
+    print("longitude is " + long);
 
     setState(
       () {
@@ -47,6 +59,8 @@ class PlacePickerState extends State<PlacePicker> {
           Marker(
             markerId: MarkerId(tappedPoint.toString()),
             position: tappedPoint,
+            infoWindow:
+                const InfoWindow(title: 'Target', snippet: 'Choose a target'),
             draggable: true,
             icon: BitmapDescriptor.defaultMarkerWithHue(
                 BitmapDescriptor.hueAzure),
@@ -55,9 +69,10 @@ class PlacePickerState extends State<PlacePicker> {
             },
           ),
         );
-
       },
     );
+
+    return tappedPoint;
   }
 
   setmarkers() {

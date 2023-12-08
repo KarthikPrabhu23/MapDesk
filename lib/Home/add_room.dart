@@ -1,15 +1,19 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import
-
-import 'dart:async';
-
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutterflow_ui/flutterflow_ui.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:map1/Map/place_picker.dart' as place;
 import 'package:map1/Map/place_picker.dart';
 
 class AddRoom extends StatefulWidget {
-  const AddRoom({super.key});
+  AddRoom({super.key});
+
+  final String lat = PlacePickerState().lat;
+  final String long = PlacePickerState().long;
 
   @override
   State<AddRoom> createState() => _AddRoomState();
@@ -18,6 +22,9 @@ class AddRoom extends StatefulWidget {
 class _AddRoomState extends State<AddRoom> {
   final roomName = TextEditingController();
   final roomLocation = TextEditingController();
+  
+  final String lat = PlacePicker().lat;
+  final String long = PlacePicker().long;
 
   late DatabaseReference dbRef;
 
@@ -78,13 +85,15 @@ class _AddRoomState extends State<AddRoom> {
                 height: 400,
                 child: PlacePicker(),
 
-                // print("hi");
               ),
               MaterialButton(
                 onPressed: () {
                   Map<String, String> roomsMap = {
                     'roomName': roomName.text,
-                    'roomLocation': roomLocation.text
+                    'roomLocation': roomLocation.text,
+                    // 'location' : _googleMapController. 
+                    'latitude' : lat,
+                    'longitide': long,
                   };
 
                   dbRef.push().set(roomsMap);
