@@ -1,7 +1,12 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import
+
+import 'dart:async';
 
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
+import 'package:map1/Home/home_page.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:map1/Map/place_picker.dart';
 
 class AddRoom extends StatefulWidget {
   const AddRoom({super.key});
@@ -14,6 +19,7 @@ class _AddRoomState extends State<AddRoom> {
   final roomName = TextEditingController();
   final roomLocation = TextEditingController();
 
+
   late DatabaseReference dbRef;
 
   @override
@@ -21,6 +27,7 @@ class _AddRoomState extends State<AddRoom> {
     super.initState();
     dbRef = FirebaseDatabase.instance.ref().child('Rooms');
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +76,12 @@ class _AddRoomState extends State<AddRoom> {
               SizedBox(
                 height: 40,
               ),
+              Container(
+                  height: 400,
+                  child:  PlacePicker(),
+
+                  // print("hi");
+                  ),
               MaterialButton(
                 onPressed: () {
                   Map<String, String> roomsMap = {
@@ -82,7 +95,17 @@ class _AddRoomState extends State<AddRoom> {
                 textColor: Colors.white,
                 height: 35,
                 child: const Text('Create room'),
-              )
+              ),
+              ElevatedButton(
+                child: const Text('Open route'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MyHomePage(title: 'title')),
+                  );
+                },
+              ),
             ],
           ),
         ),

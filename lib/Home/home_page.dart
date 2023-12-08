@@ -3,6 +3,7 @@
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
+import 'package:map1/Home/add_room.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -63,7 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                       child: Text(
                         // 'Room Name',
                         room['roomName'],
@@ -73,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                     Padding(
+                    Padding(
                       padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
@@ -298,10 +300,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       scrollDirection: Axis.horizontal,
                       children: [
                         // CONTENT STARTS
-                        // roomElement("Room1", "RoomLoc1"),
-                        // roomElement("Room1", "RoomLoc1"),
-                        // roomElement("Room1", "RoomLoc1"),
-                        // ELEMENT ENDS
 
                         SizedBox(
                           // width: double.infinity,
@@ -322,10 +320,32 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                           ),
                         ),
+
+                        // CONTENT ENDS
                       ],
                     ),
                   ),
                 ),
+              ),
+              // FloatingActionButton.extended(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => const AddRoom()),
+              //     );
+              //   },
+              //   icon: const Icon(Icons.add),
+              //   label: const Text('Add room'),
+              // ),
+              ElevatedButton(
+                child: const Text('Open route'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddRoom()),
+                  );
+                },
               ),
             ],
           ),
