@@ -13,6 +13,8 @@ class PlacePickerState extends State<PlacePicker> {
 
   List<Marker> myMarker = [];
 
+  List<Marker> allMarkers = [];
+
   static const CameraPosition _kGooglePlex =
       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
 
@@ -24,6 +26,9 @@ class PlacePickerState extends State<PlacePicker> {
         myLocationButtonEnabled: true,
 
         markers: Set.from(myMarker),
+        // markers: Set.from(allMarkers),
+
+        // onTap: setmarkers(),
         onTap: _handleTap,
         // onMapCreated: (GoogleMapController controller) {
         //   _controller.complete(controller);
@@ -43,14 +48,34 @@ class PlacePickerState extends State<PlacePicker> {
             markerId: MarkerId(tappedPoint.toString()),
             position: tappedPoint,
             draggable: true,
-            
-            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueAzure),
             onDragEnd: (dragEndPosition) {
               print(dragEndPosition);
             },
           ),
         );
+
       },
     );
+  }
+
+  setmarkers() {
+    allMarkers.add(
+      Marker(
+        markerId: MarkerId(3.toString()),
+        position: const LatLng(12.1799, 74.1984734),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueAzure),
+      ),
+    );
+    allMarkers.add(
+      Marker(
+        markerId: MarkerId(5.toString()),
+        position: const LatLng(12.3799, 74.084734),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+      ),
+    );
+
+    return allMarkers;
   }
 }

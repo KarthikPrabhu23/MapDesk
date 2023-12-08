@@ -19,7 +19,6 @@ class _AddRoomState extends State<AddRoom> {
   final roomName = TextEditingController();
   final roomLocation = TextEditingController();
 
-
   late DatabaseReference dbRef;
 
   @override
@@ -27,7 +26,6 @@ class _AddRoomState extends State<AddRoom> {
     super.initState();
     dbRef = FirebaseDatabase.instance.ref().child('Rooms');
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +75,11 @@ class _AddRoomState extends State<AddRoom> {
                 height: 40,
               ),
               Container(
-                  height: 400,
-                  child:  PlacePicker(),
+                height: 400,
+                child: PlacePicker(),
 
-                  // print("hi");
-                  ),
+                // print("hi");
+              ),
               MaterialButton(
                 onPressed: () {
                   Map<String, String> roomsMap = {
