@@ -11,6 +11,9 @@ class MapLoc extends StatefulWidget {
 class _MapLocState extends State<MapLoc> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Center(
+      child: Text('Hi'),
+      
+    );
   }
 }

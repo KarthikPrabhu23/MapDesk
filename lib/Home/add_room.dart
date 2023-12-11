@@ -10,7 +10,7 @@ import 'package:map1/Map/place_picker.dart' as place;
 import 'package:map1/Map/place_picker.dart';
 
 class AddRoom extends StatefulWidget {
-  AddRoom({super.key});
+  const AddRoom({super.key});
 
   @override
   State<AddRoom> createState() => _AddRoomState();
@@ -22,6 +22,7 @@ class _AddRoomState extends State<AddRoom> {
 
   late DatabaseReference dbRef;
 
+  // ignore: unused_field
   late GoogleMapController _mapController;
 
   String lat = "";
@@ -128,6 +129,7 @@ class _AddRoomState extends State<AddRoom> {
                 child: GoogleMap(
                   initialCameraPosition: _kGooglePlex,
                   myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
                   markers: Set.from(myMarker),
                   onTap: _handleTap,
                   onMapCreated: (GoogleMapController controller) {
@@ -145,6 +147,11 @@ class _AddRoomState extends State<AddRoom> {
                   };
 
                   dbRef.push().set(roomsMap);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MyHomePage()),
+                  );
                 },
                 color: Colors.blueAccent,
                 textColor: Colors.white,
