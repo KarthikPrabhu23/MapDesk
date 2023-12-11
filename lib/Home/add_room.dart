@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutterflow_ui/flutterflow_ui.dart';
+// import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
@@ -12,9 +12,6 @@ import 'package:map1/Map/place_picker.dart';
 class AddRoom extends StatefulWidget {
   AddRoom({super.key});
 
-  final String lat = PlacePickerState().lat;
-  final String long = PlacePickerState().long;
-
   @override
   State<AddRoom> createState() => _AddRoomState();
 }
@@ -22,11 +19,55 @@ class AddRoom extends StatefulWidget {
 class _AddRoomState extends State<AddRoom> {
   final roomName = TextEditingController();
   final roomLocation = TextEditingController();
-  
-  final String lat = PlacePicker().lat;
-  final String long = PlacePicker().long;
 
   late DatabaseReference dbRef;
+
+  late GoogleMapController _mapController;
+
+  String lat = "";
+  String long = "";
+
+  List<Marker> myMarker = [];
+
+  List<Marker> allMarkers = [];
+
+  static const CameraPosition _kGooglePlex =
+      CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
+
+  _handleTap(LatLng tappedPoint) {
+    print(tappedPoint);
+
+    // print(lat);
+    // print(long);
+
+    lat = tappedPoint.latitude.toString();
+    long = tappedPoint.longitude.toString();
+
+    setState(
+      () {
+        myMarker = [];
+        myMarker.add(
+          Marker(
+            markerId: MarkerId(tappedPoint.toString()),
+            position: tappedPoint,
+            infoWindow:
+                const InfoWindow(title: 'Target', snippet: 'Choose a target'),
+            draggable: true,
+            icon: BitmapDescriptor.defaultMarkerWithHue(
+                BitmapDescriptor.hueAzure),
+            // onDragEnd: (dragEndPosition) {
+            //   print(dragEndPosition);
+            // },
+          ),
+        );
+      },
+    );
+
+    // lat = tappedPoint.latitude.toString();
+    // long = tappedPoint.longitude.toString();
+
+    // return tappedPoint;
+  }
 
   @override
   void initState() {
@@ -81,18 +122,25 @@ class _AddRoomState extends State<AddRoom> {
               SizedBox(
                 height: 40,
               ),
-              Container(
+              SizedBox(
                 height: 400,
-                child: PlacePicker(),
-
+                // child: PlacePicker(),
+                child: GoogleMap(
+                  initialCameraPosition: _kGooglePlex,
+                  myLocationButtonEnabled: true,
+                  markers: Set.from(myMarker),
+                  onTap: _handleTap,
+                  onMapCreated: (GoogleMapController controller) {
+                    _mapController = controller;
+                  },
+                ),
               ),
               MaterialButton(
                 onPressed: () {
                   Map<String, String> roomsMap = {
                     'roomName': roomName.text,
                     'roomLocation': roomLocation.text,
-                    // 'location' : _googleMapController. 
-                    'latitude' : lat,
+                    'latitude': lat,
                     'longitide': long,
                   };
 
@@ -102,16 +150,6 @@ class _AddRoomState extends State<AddRoom> {
                 textColor: Colors.white,
                 height: 35,
                 child: const Text('Create room'),
-              ),
-              ElevatedButton(
-                child: const Text('Open route'),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MyHomePage(title: 'title')),
-                  );
-                },
               ),
             ],
           ),
