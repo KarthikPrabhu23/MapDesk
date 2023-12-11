@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 // import 'package:flutterflow_ui/flutterflow_ui.dart';
@@ -82,83 +82,86 @@ class _AddRoomState extends State<AddRoom> {
       appBar: AppBar(
         title: const Text('Add room'),
       ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(5),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              const Text(
-                'Create a new room',
-                style: TextStyle(
-                  fontSize: 20,
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextField(
-                controller: roomName,
-                keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Room name',
-                  hintText: 'Enter Room name',
+                const Text(
+                  'Create a new room',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextField(
-                controller: roomLocation,
-                keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Room location',
-                  hintText: 'Enter Room location',
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              SizedBox(
-                height: 400,
-                // child: PlacePicker(),
-                child: GoogleMap(
-                  initialCameraPosition: _kGooglePlex,
-                  myLocationButtonEnabled: true,
-                  myLocationEnabled: true,
-                  markers: Set.from(myMarker),
-                  onTap: _handleTap,
-                  onMapCreated: (GoogleMapController controller) {
-                    _mapController = controller;
+                TextField(
+                  controller: roomName,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Room name',
+                    hintText: 'Enter Room name',
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: roomLocation,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Room location',
+                    hintText: 'Enter Room location',
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                SizedBox(
+                  height: 400,
+                  // child: PlacePicker(),
+                  child: GoogleMap(
+                    initialCameraPosition: _kGooglePlex,
+                    myLocationButtonEnabled: true,
+                    myLocationEnabled: true,
+                    markers: Set.from(myMarker),
+                    onTap: _handleTap,
+                    onMapCreated: (GoogleMapController controller) {
+                      _mapController = controller;
+                    },
+                  ),
+                ),
+                MaterialButton(
+                  onPressed: () {
+                    Map<String, String> roomsMap = {
+                      'roomName': roomName.text,
+                      'roomLocation': roomLocation.text,
+                      'latitude': lat,
+                      'longitide': long,
+                    };
+        
+                    dbRef.push().set(roomsMap);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MyHomePage()),
+                    );
                   },
+                  color: Colors.blueAccent,
+                  textColor: Colors.white,
+                  height: 35,
+                  child: const Text('Create room'),
                 ),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Map<String, String> roomsMap = {
-                    'roomName': roomName.text,
-                    'roomLocation': roomLocation.text,
-                    'latitude': lat,
-                    'longitide': long,
-                  };
-
-                  dbRef.push().set(roomsMap);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const MyHomePage()),
-                  );
-                },
-                color: Colors.blueAccent,
-                textColor: Colors.white,
-                height: 35,
-                child: const Text('Create room'),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

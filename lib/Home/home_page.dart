@@ -134,6 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         body: Center(
           child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -315,7 +316,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           // CONTENT STARTS
-
+          
                           SizedBox(
                             // width: double.infinity,
                             width: 500,
@@ -328,14 +329,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Animation<double> animation,
                                   int index) {
                                 Map room = snapshot.value as Map;
-
+          
                                 room['key'] = snapshot.key;
-
+          
                                 return roomElement(room: room);
                               },
                             ),
                           ),
-
+          
                           // CONTENT ENDS
                         ],
                       ),
@@ -347,7 +348,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: TextButton(
                     style: TextButton.styleFrom(
                         iconColor: Colors.blue,
-                        backgroundColor: Color.fromARGB(115, 108, 172, 90)
+                        backgroundColor: const Color.fromARGB(115, 108, 172, 90)
                         // icon: const Icon(Icons.map_rounded),
                         ),
                     onPressed: () {
@@ -356,7 +357,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => const MapLoc()),
                       );
                     },
-                    child: Text('Open Map'),
+                    child: const Text('Open Map'),
                   ),
                 ),
                 // IconButton(
