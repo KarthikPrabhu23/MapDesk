@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/add_room.dart';
 import 'package:map1/Home/home_page.dart';
+import 'package:map1/Map/map_loc.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,13 +23,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Map1',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage()
+      // home: const MyHomePage()
       // home: AddRoom(),
+      home: MapLoc(),
     );
   }
 }

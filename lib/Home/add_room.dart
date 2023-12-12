@@ -8,6 +8,7 @@ import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Map/place_picker.dart' as place;
 import 'package:map1/Map/place_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddRoom extends StatefulWidget {
   const AddRoom({super.key});
@@ -32,11 +33,11 @@ class _AddRoomState extends State<AddRoom> {
 
   List<Marker> allMarkers = [];
 
-  static const CameraPosition _kGooglePlex =
+  static const CameraPosition _CEClocation =
       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
 
   _handleTap(LatLng tappedPoint) {
-    print(tappedPoint);
+    (tappedPoint);
 
     // print(lat);
     // print(long);
@@ -74,6 +75,7 @@ class _AddRoomState extends State<AddRoom> {
   void initState() {
     super.initState();
     dbRef = FirebaseDatabase.instance.ref().child('Rooms');
+    // Firestore.instance.collection('Target');
   }
 
   @override
@@ -129,7 +131,7 @@ class _AddRoomState extends State<AddRoom> {
                   height: 400,
                   // child: PlacePicker(),
                   child: GoogleMap(
-                    initialCameraPosition: _kGooglePlex,
+                    initialCameraPosition: _CEClocation,
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     markers: Set.from(myMarker),
@@ -145,9 +147,9 @@ class _AddRoomState extends State<AddRoom> {
                       'roomName': roomName.text,
                       'roomLocation': roomLocation.text,
                       'latitude': lat,
-                      'longitide': long,
+                      'longitude': long,
                     };
-        
+
                     dbRef.push().set(roomsMap);
                     Navigator.push(
                       context,

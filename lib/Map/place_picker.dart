@@ -22,14 +22,14 @@
 
 //   List<Marker> allMarkers = [];
 
-//   static const CameraPosition _kGooglePlex =
+//   static const CameraPosition _CEClocation =
 //       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       body: GoogleMap(
-//         initialCameraPosition: _kGooglePlex,
+//         initialCameraPosition: _CEClocation,
 //         myLocationButtonEnabled: true,
 //         markers: Set.from(myMarker),
 //         onTap: _handleTap,
