@@ -316,7 +316,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           // CONTENT STARTS
-          
+
                           SizedBox(
                             // width: double.infinity,
                             width: 500,
@@ -329,14 +329,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Animation<double> animation,
                                   int index) {
                                 Map room = snapshot.value as Map;
-          
+
                                 room['key'] = snapshot.key;
-          
+
                                 return roomElement(room: room);
                               },
                             ),
                           ),
-          
+
                           // CONTENT ENDS
                         ],
                       ),
