@@ -323,7 +323,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             height: 300,
                             child: FirebaseAnimatedList(
                               scrollDirection: Axis.horizontal,
-                              query: dbRef,
+                              query: dbRef.orderByChild("roomName"),
                               itemBuilder: (BuildContext context,
                                   DataSnapshot snapshot,
                                   Animation<double> animation,
