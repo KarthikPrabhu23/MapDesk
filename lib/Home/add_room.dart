@@ -33,7 +33,7 @@ class _AddRoomState extends State<AddRoom> {
 
   List<Marker> allMarkers = [];
 
-  static const CameraPosition _CEClocation =
+  static const CameraPosition _cecLocation =
       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
 
   _handleTap(LatLng tappedPoint) {
@@ -131,7 +131,7 @@ class _AddRoomState extends State<AddRoom> {
                   height: 400,
                   // child: PlacePicker(),
                   child: GoogleMap(
-                    initialCameraPosition: _CEClocation,
+                    initialCameraPosition: _cecLocation,
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     markers: Set.from(myMarker),
