@@ -2,7 +2,7 @@
     <application
         android:label="TrackNow"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/tracknow">
 
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyAP14xUw0sMffll9Vn20eGPbmf2EqH4XJw"/>

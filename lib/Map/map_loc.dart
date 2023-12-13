@@ -45,6 +45,7 @@ class _MapLocState extends State<MapLoc> {
       values.forEach((key, values) {
         targetLocation.add(Marker(
           markerId: MarkerId(key),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
           position: LatLng(
             double.parse(values['latitude'].toString()),
             double.parse(values['longitude'].toString()),
@@ -83,7 +84,8 @@ class _MapLocState extends State<MapLoc> {
               padding: const EdgeInsets.all(2.0),
               child: Text(
                 element.infoWindow.title.toString(),
-                style : const TextStyle(color: Colors.white),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -99,7 +101,18 @@ class _MapLocState extends State<MapLoc> {
           target: LatLng(element.position.latitude, element.position.longitude),
           zoom: 18,
           bearing: 90,
-          tilt: 45,
+          tilt: 50,
+        ),
+      ),
+    );
+  }
+
+  zoomOutMarker() {
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        const CameraPosition(
+          target: LatLng(12.898799, 74.984734),
+          zoom: 16,
         ),
       ),
     );
@@ -115,32 +128,37 @@ class _MapLocState extends State<MapLoc> {
               SizedBox(
                 height: MediaQuery.of(context).size.height,
                 child: GoogleMap(
-                  onMapCreated: onMapCreated,
+                  onMapCreated: (GoogleMapController controller) {
+                      mapController = controller;
+                    },
                   initialCameraPosition: _cecLocation,
                   myLocationButtonEnabled: true,
                   myLocationEnabled: true,
+                  trafficEnabled: true,
+                  mapToolbarEnabled: true,
+                  mapType: MapType.normal,
+
                   markers: targetLocation,
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height - 200,
-                child: SizedBox(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-                  child: clientsToggle
-                      ? ListView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.all(9),
-                          children: targetLocation.map((element) {
-                            return targetCard(element);
-                          }).toList(),
-                        )
-                      : const SizedBox(
-                          height: 1,
-                          width: 1,
-                        ),
-                ),
-              )
+                  top: MediaQuery.of(context).size.height - 200,
+                  child: SizedBox(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: clientsToggle
+                        ? ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.all(9),
+                            children: targetLocation.map((element) {
+                              return targetCard(element);
+                            }).toList(),
+                          )
+                        : const SizedBox(
+                            height: 1,
+                            width: 1,
+                          ),
+                  ))
             ],
           )
         ],
@@ -178,3 +196,25 @@ class _MapLocState extends State<MapLoc> {
     });
   }
 }
+
+
+// SizedBox(
+                      //   height: 150,
+                      //   child: Column(
+                          
+                      //       children: [
+                      //         IconButton(
+                      //           onPressed: zoomOutMarker,
+                      //           icon: const Icon(Icons.adjust_rounded),
+                      //         ),
+                      //         ListView(
+                      //           scrollDirection: Axis.horizontal,
+                      //           padding: const EdgeInsets.all(9),
+                      //           children: targetLocation.map((element) {
+                      //             return targetCard(element);
+                      //           }).toList(),
+                      //         ),
+                      //       ],
+                      //     ),
+                      // )
+            

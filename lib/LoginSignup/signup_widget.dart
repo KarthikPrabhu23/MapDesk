@@ -10,8 +10,8 @@
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:provider/provider.dart';
 
-// // import 'sign_up_model.dart';
-// // export 'sign_up_model.dart';
+// import 'sign_up_model.dart';
+// export 'sign_up_model.dart';
 
 // class SignUpWidget extends StatefulWidget {
 //   const SignUpWidget({Key? key}) : super(key: key);
@@ -22,9 +22,9 @@
 
 // class _SignUpWidgetState extends State<SignUpWidget>
 //     with TickerProviderStateMixin {
-//   // late SignUpModel _model;
+//   late SignUpModel _model;
 
-//   // final scaffoldKey = GlobalKey<ScaffoldState>();
+//   final scaffoldKey = GlobalKey<ScaffoldState>();
 
 //   final animationsMap = {
 //     'containerOnPageLoadAnimation': AnimationInfo(
@@ -63,29 +63,29 @@
 //     ),
 //   };
 
-//   // @override
-//   // void initState() {
-//   //   super.initState();
-//   //   _model = createModel(context, () => SignUpModel());
+//   @override
+//   void initState() {
+//     super.initState();
+//     _model = createModel(context, () => SignUpModel());
 
-//   //   _model.emailAddressController ??= TextEditingController();
-//   //   _model.emailAddressFocusNode ??= FocusNode();
+//     _model.emailAddressController ??= TextEditingController();
+//     _model.emailAddressFocusNode ??= FocusNode();
 
-//   //   _model.userNameController ??= TextEditingController();
-//   //   _model.userNameFocusNode ??= FocusNode();
+//     _model.userNameController ??= TextEditingController();
+//     _model.userNameFocusNode ??= FocusNode();
 
-//   //   _model.passwordController ??= TextEditingController();
-//   //   _model.passwordFocusNode ??= FocusNode();
+//     _model.passwordController ??= TextEditingController();
+//     _model.passwordFocusNode ??= FocusNode();
 
-//   //   WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
-//   // }
+//     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+//   }
 
-//   // @override
-//   // void dispose() {
-//   //   _model.dispose();
+//   @override
+//   void dispose() {
+//     _model.dispose();
 
-//   //   super.dispose();
-//   // }
+//     super.dispose();
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
