@@ -1,25 +1,34 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
 import "package:flutter/material.dart";
 
 class myTextFormField extends StatelessWidget {
   final MyController;
   final String hintText;
   final labelText;
+  // final ObscureText;
 
-  const myTextFormField(
-      {super.key,
-      required this.MyController,
-      required this.hintText,
-      this.labelText});
+  const myTextFormField({
+    super.key,
+    required this.MyController,
+    required this.hintText,
+    this.labelText,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
       child: TextFormField(
         controller: MyController,
+        validator: (text) {
+          if (text == null || text.isEmpty) {
+            return ' ${hintText} is here';
+          }
+          return null;
+        },
+        keyboardType: TextInputType.text,
         decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
+          enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(
               color: Colors.white,
             ),

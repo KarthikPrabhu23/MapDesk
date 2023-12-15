@@ -1,22 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
-import 'package:map1/LoginSignup/login_page.dart';
+import 'package:map1/LoginSignup/signup_page.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _username = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
-  final _confirmPassword = TextEditingController();
 
   signInWithEmailAndPassword() async {
     try {
@@ -64,18 +63,11 @@ class _SignUpState extends State<SignUp> {
                       height: 15,
                     ),
                     const Text(
-                      'SignUp Page',
+                      'Login Page',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 34),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    myTextFormField(
-                      MyController: _username,
-                      hintText: "Enter username",
-                      labelText: "Username",
-                    ),
+                   
                     const SizedBox(
                       height: 15,
                     ),
@@ -92,15 +84,7 @@ class _SignUpState extends State<SignUp> {
                       hintText: "Enter password",
                       labelText: "Password",
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    myTextFormField(
-                      MyController: _confirmPassword,
-                      hintText: "Confirm password",
-                      labelText: "Confirm password",
-                      // ObscureText: true,
-                    ),
+                    
                     const SizedBox(
                       height: 30,
                     ),
@@ -114,7 +98,7 @@ class _SignUpState extends State<SignUp> {
                           }
                         },
                         child: const Text(
-                          "SignUp",
+                          "Login",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -129,7 +113,7 @@ class _SignUpState extends State<SignUp> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Not a new user? ',
+                          'New user? ',
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.white,
@@ -140,11 +124,11 @@ class _SignUpState extends State<SignUp> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
+                                  builder: (context) => const SignUp()),
                             );
                           },
                           child: Text(
-                            'Login here',
+                            'SignUp here',
                             style: TextStyle(
                               color: Colors.blue[600],
                               fontWeight: FontWeight.w800,
