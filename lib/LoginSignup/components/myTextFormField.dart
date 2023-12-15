@@ -22,7 +22,7 @@ class myTextFormField extends StatelessWidget {
         controller: MyController,
         validator: (text) {
           if (text == null || text.isEmpty) {
-            return ' ${hintText} is here';
+            return ' $hintText here';
           }
           return null;
         },

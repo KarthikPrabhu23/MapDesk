@@ -4,6 +4,7 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Home/add_room.dart';
+import 'package:map1/Home/profile_page.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/Home/home_page.dart';
 
@@ -132,6 +133,41 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'TrackNow',
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+          actions: <Widget>[
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
+                  ),
+                );
+              },
+              child: const Padding(
+                padding: EdgeInsets.only(right: 28.0),
+                child: CircleAvatar(
+                  radius: 23,
+                  backgroundColor: Colors.amber,
+                  child: CircleAvatar(
+                    radius: 20.0,
+                    backgroundImage: NetworkImage(
+                        'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         body: Center(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -139,21 +175,6 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(6, 3, 3, 12),
-                      child: Text(
-                        'TrackNow',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
                   child: Container(
@@ -253,8 +274,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             0, 0, 4, 0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(30),
-                                      child:
-                                       Image.network(
+                                      child: Image.network(
                                         'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
                                         width: 44,
                                         height: 44,

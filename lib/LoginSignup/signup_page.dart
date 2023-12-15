@@ -1,4 +1,6 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
@@ -19,26 +21,7 @@ class _SignUpState extends State<SignUp> {
   final _password = TextEditingController();
   final _confirmPassword = TextEditingController();
 
-  signInWithEmailAndPassword() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _email.text, password: _password.text);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("No User found"),
-          ),
-        );
-      } else if (e.code == 'wrong-password') {
-        return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Wrong password provided"),
-          ),
-        );
-      }
-    }
-  }
+  DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +100,16 @@ class _SignUpState extends State<SignUp> {
                                     email: _email.text,
                                     password: _password.text)
                                 .then((value) {
-                              print("Created new account");
+                              ref.child(value.user!.uid.toString()).set({
+                                'uid': value.user!.uid.toString(),
+                                'email': value.user!.email.toString(),
+                                'username': _username.text.toString(),
+                                'status': '',
+                              });
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MyHomePage(),
+                                  builder: (context) => const MyHomePage(),
                                 ),
                               );
                             }).onError((error, stackTrace) {
