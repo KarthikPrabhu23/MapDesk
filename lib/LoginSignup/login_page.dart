@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
+// import 'package:map1/LoginSignup/auth_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -13,7 +15,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
-  final _username = TextEditingController();
+  // final _username = TextEditingController();
   final _email = TextEditingController();
   final _password = TextEditingController();
 
@@ -38,10 +40,25 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  void signUserIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: _email.text,
+      password: _password.text,
+    );
+  }
+
+  // Widget forgotPassword(BuildContext context){
+  //   return Container(
+  //     width: MediaQuery.of(context).size.width,
+  //     height: 35,
+  //     alignment: Alignment.bottomRight,
+  //   )
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.grey[350],
       body: Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -67,7 +84,6 @@ class _LoginPageState extends State<LoginPage> {
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 34),
                     ),
-                   
                     const SizedBox(
                       height: 15,
                     ),
@@ -84,7 +100,28 @@ class _LoginPageState extends State<LoginPage> {
                       hintText: "Enter password",
                       labelText: "Password",
                     ),
-                    
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SignUp()),
+                            );
+                          },
+                          child: Text(
+                            'Forgot password?', style: TextStyle(
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white70,
+                            )
+                          ),
+                          
+                        ),
+                      ],
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -94,7 +131,27 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            signInWithEmailAndPassword();
+                            // signInWithEmailAndPassword();
+                            // signUserIn();
+                            FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: _email.text,
+                              password: _password.text,
+                            )
+                                .then(
+                              (value) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MyHomePage(),
+                                  ),
+                                );
+                              },
+                            ).onError((error, stackTrace) {
+                              SnackBar(
+                                content: Text(" ${error.toString()} "),
+                              );
+                            });
                           }
                         },
                         child: const Text(

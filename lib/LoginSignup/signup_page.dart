@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
 import 'package:map1/LoginSignup/login_page.dart';
 
@@ -42,7 +43,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[400],
+      backgroundColor: Colors.grey[350],
       body: Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -110,7 +111,22 @@ class _SignUpState extends State<SignUp> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            signInWithEmailAndPassword();
+                            // signInWithEmailAndPassword();
+                            FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: _email.text,
+                                    password: _password.text)
+                                .then((value) {
+                              print("Created new account");
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyHomePage(),
+                                ),
+                              );
+                            }).onError((error, stackTrace) {
+                              print("Error ${error.toString()}");
+                            });
                           }
                         },
                         child: const Text(
