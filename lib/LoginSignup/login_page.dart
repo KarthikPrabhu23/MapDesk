@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
+import 'package:map1/LoginSignup/reset_password.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
 // import 'package:map1/LoginSignup/auth_page.dart';
 
@@ -104,21 +105,24 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SignUp()),
-                            );
-                          },
-                          child: Text(
-                            'Forgot password?', style: TextStyle(
-                              fontWeight: FontWeight.w800,
-                              color: Colors.white70,
-                            )
+                        Padding(
+                          padding: const EdgeInsets.only(right: 23),
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ResetPassword()),
+                              );
+                            },
+                            child: const Text(
+                              'Forgot password?', style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black45,
+                              )
+                            ),
+                            
                           ),
-                          
                         ),
                       ],
                     ),

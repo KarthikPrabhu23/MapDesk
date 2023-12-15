@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/add_room.dart';
 import 'package:map1/Home/home_page.dart';
-import 'package:map1/LoginSignup/auth_page.dart';
 import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
 import 'package:map1/LoginSignup/signup_widget.dart';
