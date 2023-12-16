@@ -4,6 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
+import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/LoginSignup/login_page.dart';
 
 class SignUp extends StatefulWidget {
@@ -22,6 +23,27 @@ class _SignUpState extends State<SignUp> {
   final _confirmPassword = TextEditingController();
 
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
+
+  signInWithEmailAndPassword() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _email.text, password: _password.text);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("No User found"),
+          ),
+        );
+      } else if (e.code == 'wrong-password') {
+        return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Wrong password provided"),
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,11 +116,11 @@ class _SignUpState extends State<SignUp> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // signInWithEmailAndPassword();
                             FirebaseAuth.instance
                                 .createUserWithEmailAndPassword(
-                                    email: _email.text,
-                                    password: _password.text)
+                              email: _email.text,
+                              password: _password.text,
+                            )
                                 .then((value) {
                               ref.child(value.user!.uid.toString()).set({
                                 'uid': value.user!.uid.toString(),
@@ -106,14 +128,37 @@ class _SignUpState extends State<SignUp> {
                                 'username': _username.text.toString(),
                                 'status': '',
                               });
+
+                              SessionController().userid =
+                                  value.user!.uid.toLowerCase();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => const MyHomePage(),
                                 ),
                               );
-                            }).onError((error, stackTrace) {
-                              print("Error ${error.toString()}");
+                            }).catchError((error) {
+                              if (error is FirebaseAuthException) {
+                                if (error.code == 'email-already-in-use') {
+                                  // Handle the case where the email is already in use.
+                                  print(
+                                      'The email address is already in use by another account.');
+                                  // You may want to show a message to the user.
+                                  // For example:
+                                  // ScaffoldMessenger.of(context).showSnackBar(
+                                  //   SnackBar(
+                                  //     content: Text('The email address is already in use.'),
+                                  //   ),
+                                  // );
+                                } else {
+                                  // Handle other FirebaseAuthException cases.
+                                  print(
+                                      'Error ${error.code}: ${error.message}');
+                                }
+                              } else {
+                                // Handle other types of errors.
+                                print('Unexpected error: $error');
+                              }
                             });
                           }
                         },

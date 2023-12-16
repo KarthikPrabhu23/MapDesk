@@ -1,9 +1,10 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, unused_import
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
+import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/LoginSignup/reset_password.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
 // import 'package:map1/LoginSignup/auth_page.dart';
@@ -49,14 +50,6 @@ class _LoginPageState extends State<LoginPage> {
       password: _password.text,
     );
   }
-
-  // Widget forgotPassword(BuildContext context){
-  //   return Container(
-  //     width: MediaQuery.of(context).size.width,
-  //     height: 35,
-  //     alignment: Alignment.bottomRight,
-  //   )
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +98,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(right: 23),
@@ -114,16 +106,15 @@ class _LoginPageState extends State<LoginPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const ResetPassword()),
+                                    builder: (context) =>
+                                        const ResetPassword()),
                               );
                             },
-                            child: const Text(
-                              'Forgot password?', style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black45,
-                              )
-                            ),
-                            
+                            child: const Text('Forgot password?',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.black45,
+                                )),
                           ),
                         ),
                       ],
@@ -137,27 +128,30 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // signInWithEmailAndPassword();
-                            // signUserIn();
                             FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                               email: _email.text,
                               password: _password.text,
                             )
-                                .then(
-                              (value) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MyHomePage(),
+                                .then((value) {
+                              SessionController().userid =
+                                  value.user!.uid.toLowerCase();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MyHomePage(),
+                                ),
+                              );
+                            }).catchError(
+                              (error) {
+                                print("Error ${error.toString()}");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(error.toString()),
                                   ),
                                 );
                               },
-                            ).onError((error, stackTrace) {
-                              SnackBar(
-                                content: Text(" ${error.toString()} "),
-                              );
-                            });
+                            );
                           }
                         },
                         child: const Text(

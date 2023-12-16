@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
       // home: AddRoom(),
       // home: MapLoc(),
       // home: const SignUpWidget(),
-      home: const SignUp(),
-      // home: LoginPage(),
+      // home: const SignUp(),
+      home: LoginPage(),
     );
   }
 }

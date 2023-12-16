@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names
+// ignore_for_file: file_names, camel_case_types, non_constant_identifier_names, prefer_typing_uninitialized_variables
 import "package:flutter/material.dart";
 
 class myTextFormField extends StatelessWidget {

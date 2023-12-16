@@ -1,10 +1,12 @@
 // ignore_for_file: unused_import
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Home/add_room.dart';
 import 'package:map1/Home/profile_page.dart';
+import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/Home/home_page.dart';
 
@@ -26,6 +28,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Query dbRef = FirebaseDatabase.instance.ref().child('Rooms');
+
+
 
   Widget roomElement({required Map room}) {
     return Center(
