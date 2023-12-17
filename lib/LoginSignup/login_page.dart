@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, unused_import
+// ignore_for_file: use_build_context_synchronously, unused_import, avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                             )
                                 .then((value) {
                               SessionController().userid =
-                                  value.user!.uid.toLowerCase();
+                                  value.user!.uid;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

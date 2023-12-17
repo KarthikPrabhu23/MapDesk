@@ -12,8 +12,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final ref = FirebaseDatabase.instance.ref('User');
-  // final Childref = FirebaseDatabase.instance.ref('User');
+  final ref = FirebaseDatabase.instance.ref().child('User');
 
   // FirebaseAuth auth = FirebaseAuth.instance;
   // final user = auth.currentUser;
@@ -55,11 +54,9 @@ class _ProfilePageState extends State<ProfilePage> {
               if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasData) {
-                // Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
-
-                // ListTile(
-                //   title: Text(map['username']),
-                // );
+                print(snapshot.data.snapshot.value);
+                Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
+                // Map<dynamic, dynamic> map1 = snapshot.data;
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -94,15 +91,20 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                     ),
+                    ListTile(
+                      title: Text(map['username']),
+                    ),
                   ],
                 );
               } else {
-                return Center(
+                return const Center(
                   child: Text('Something went wrong'),
                 );
               }
             },
           ),
+        
+        
         ),
       ),
     );

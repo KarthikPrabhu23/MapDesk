@@ -130,7 +130,7 @@ class _SignUpState extends State<SignUp> {
                               });
 
                               SessionController().userid =
-                                  value.user!.uid.toLowerCase();
+                                  value.user!.uid;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -145,11 +145,11 @@ class _SignUpState extends State<SignUp> {
                                       'The email address is already in use by another account.');
                                   // You may want to show a message to the user.
                                   // For example:
-                                  // ScaffoldMessenger.of(context).showSnackBar(
-                                  //   SnackBar(
-                                  //     content: Text('The email address is already in use.'),
-                                  //   ),
-                                  // );
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('The email address is already in use.'),
+                                    ),
+                                  );
                                 } else {
                                   // Handle other FirebaseAuthException cases.
                                   print(
