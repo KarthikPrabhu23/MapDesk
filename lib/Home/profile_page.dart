@@ -56,7 +56,6 @@ class _ProfilePageState extends State<ProfilePage> {
               } else if (snapshot.hasData) {
                 print(snapshot.data.snapshot.value);
                 Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
-                // Map<dynamic, dynamic> map1 = snapshot.data;
 
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -65,35 +64,68 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Center(
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: Colors.amber,
-                            width: 5,
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Center(
+                          child: Container(
+                            height: 150,
+                            width: 150,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: Colors.amber,
+                                width: 5,
+                              ),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(100),
+                              child: map['profilepic'].toString() == ""
+                                  ? const Icon(
+                                      Icons.person,
+                                      size: 85,
+                                    )
+                                  : Image(
+                                      fit: BoxFit.cover,
+                                      image: const NetworkImage(
+                                          'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600'),
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null)
+                                          return child;
+                                        return const Center(
+                                            child: CircularProgressIndicator());
+                                      },
+                                    ),
+                            ),
                           ),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image(
-                            fit: BoxFit.cover,
-                            image: const NetworkImage(
-                                'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            },
+                        InkWell(
+                          onTap: () {},
+                          child: const CircleAvatar(
+                            radius: 16,
+                            child: Icon(Icons.edit,
+                                size: 16, color: Colors.black54),
                           ),
-                        ),
-                      ),
+                        )
+                      ],
                     ),
-                    ListTile(
-                      title: Text(map['username']),
+                    const SizedBox(
+                      height: 25,
                     ),
+                    ReuseableRow(
+                        title: 'Username',
+                        icondata: Icons.person,
+                        value: map['username']),
+                    ReuseableRow(
+                        title: 'Email',
+                        icondata: Icons.mail,
+                        value: map['email']),
+                    // ReuseableRow(title: 'Phone Number', icondata: Icons.phone  , value: map['phone']),
+                    ReuseableRow(
+                        title: 'Status',
+                        icondata: Icons.mark_chat_unread,
+                        value: map['status']),
                   ],
                 );
               } else {
@@ -103,10 +135,40 @@ class _ProfilePageState extends State<ProfilePage> {
               }
             },
           ),
-        
-        
         ),
       ),
+    );
+  }
+}
+
+class ReuseableRow extends StatelessWidget {
+  final String title, value;
+  final IconData icondata;
+  const ReuseableRow(
+      {super.key,
+      required this.title,
+      required this.icondata,
+      required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ListTile(
+          title: Text(
+            title,
+            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+          ),
+          leading: Icon(icondata),
+          trailing: Text(
+            value,
+            style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+          ),
+        ),
+        const Divider(
+          color: Colors.black38,
+        ),
+      ],
     );
   }
 }

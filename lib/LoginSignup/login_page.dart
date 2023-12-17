@@ -136,6 +136,8 @@ class _LoginPageState extends State<LoginPage> {
                                 .then((value) {
                               SessionController().userid =
                                   value.user!.uid;
+                              // SessionController().username =
+                              //     value.user!.username;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

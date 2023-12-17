@@ -127,10 +127,14 @@ class _SignUpState extends State<SignUp> {
                                 'email': value.user!.email.toString(),
                                 'username': _username.text.toString(),
                                 'status': '',
+                                'profilepic':'',
                               });
 
                               SessionController().userid =
                                   value.user!.uid;
+                              SessionController().username =
+                                  _username.text.toString(); 
+                              
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

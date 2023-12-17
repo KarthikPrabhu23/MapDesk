@@ -39,29 +39,38 @@ class _MapLocState extends State<MapLoc> {
   }
 
   _fetchtargetLocation() {
-    databaseReference.child('Rooms').get().then((DataSnapshot snapshot) {
-      Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+    databaseReference.child('Rooms').get().then(
+      (DataSnapshot snapshot) {
+        Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
 
-      values.forEach((key, values) {
-        targetLocation.add(Marker(
-          markerId: MarkerId(key),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-          position: LatLng(
-            double.parse(values['latitude'].toString()),
-            double.parse(values['longitude'].toString()),
-          ),
-          infoWindow: InfoWindow(
-            title: values['roomName'].toString(),
-            snippet: values['roomLocation'].toString(),
-          ),
-        ));
-      });
+        values.forEach(
+          (key, values) {
+            targetLocation.add(
+              Marker(
+                markerId: MarkerId(key),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRed),
+                position: LatLng(
+                  double.parse(values['latitude'].toString()),
+                  double.parse(values['longitude'].toString()),
+                ),
+                infoWindow: InfoWindow(
+                  title: values['roomName'].toString(),
+                  snippet: values['roomLocation'].toString(),
+                ),
+              ),
+            );
+          },
+        );
 
-      setState(() {
-        // targetLocation = targetLocation;
-        clientsToggle = true;
-      });
-    });
+        setState(
+          () {
+            // targetLocation = targetLocation;
+            clientsToggle = true;
+          },
+        );
+      },
+    );
 
     return targetLocation;
   }
@@ -120,71 +129,79 @@ class _MapLocState extends State<MapLoc> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: GoogleMap(
-                  onMapCreated: (GoogleMapController controller) {
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 46,
+                  child: GoogleMap(
+                    onMapCreated: (GoogleMapController controller) {
                       mapController = controller;
                     },
-                  initialCameraPosition: _cecLocation,
-                  myLocationButtonEnabled: true,
-                  myLocationEnabled: true,
-                  trafficEnabled: true,
-                  mapToolbarEnabled: true,
-                  mapType: MapType.normal,
-
-                  markers: targetLocation,
+                    initialCameraPosition: _cecLocation,
+                    myLocationButtonEnabled: true,
+                    myLocationEnabled: true,
+                    trafficEnabled: true,
+                    mapToolbarEnabled: true,
+                    mapType: MapType.normal,
+                    markers: targetLocation,
+                  ),
                 ),
-              ),
-              Positioned(
-                  top: MediaQuery.of(context).size.height - 200,
-                  child: SizedBox(
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    child: clientsToggle
-                        ? ListView(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.all(9),
-                            children: targetLocation.map((element) {
-                              return targetCard(element);
-                            }).toList(),
-                          )
-                        : const SizedBox(
-                            height: 1,
-                            width: 1,
-                          ),
-                  ))
-            ],
-          )
-        ],
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 65, 0, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Column(
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyHomePage()),
-                    );
-                  },
-                  // icon: const Icon(Icons.home),
-                  child: const Icon(Icons.arrow_back_ios_new),
-                ),
+                Positioned(
+                    top: MediaQuery.of(context).size.height - 240,
+                    child: SizedBox(
+                      height: 100,
+                      width: MediaQuery.of(context).size.width,
+                      child: clientsToggle
+                          ? ListView(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.all(9),
+                              children: targetLocation.map((element) {
+                                if (element.icon ==
+                                    BitmapDescriptor.defaultMarkerWithHue(
+                                        BitmapDescriptor.hueRed)) {
+                                  return targetCard(element);
+                                } else {
+                                  
+                                  return targetCard(element);
+                                }
+                              }).toList(),
+                            )
+                          : const SizedBox(
+                              height: 1,
+                              width: 1,
+                            ),
+                    ))
               ],
-            ),
+            )
           ],
+        ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 65, 0, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MyHomePage()),
+                      );
+                    },
+                    // icon: const Icon(Icons.home),
+                    child: const Icon(Icons.arrow_back_ios_new),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
