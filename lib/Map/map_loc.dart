@@ -36,6 +36,7 @@ class _MapLocState extends State<MapLoc> {
     // });
 
     _fetchtargetLocation();
+    _fetchUserLocation();
   }
 
   _fetchtargetLocation() {
@@ -67,6 +68,43 @@ class _MapLocState extends State<MapLoc> {
           () {
             // targetLocation = targetLocation;
             clientsToggle = true;
+          },
+        );
+      },
+    );
+
+    return targetLocation;
+  }
+
+  _fetchUserLocation() {
+    databaseReference.child('User').get().then(
+      (DataSnapshot snapshot) {
+        Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+
+        values.forEach(
+          (key, values) {
+            targetLocation.add(
+              Marker(
+                markerId: MarkerId(key),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueYellow),
+                position: LatLng(
+                  values['latitude'],
+                  values['longitude'],
+                ),
+                infoWindow: InfoWindow(
+                  title: values['username'].toString(),
+                  snippet: values['username'].toString(),
+                ),
+              ),
+            );
+          },
+        );
+
+        setState(
+          () {
+            // targetLocation = targetLocation;
+            // clientsToggle = true;
           },
         );
       },
@@ -150,31 +188,33 @@ class _MapLocState extends State<MapLoc> {
                     markers: targetLocation,
                   ),
                 ),
-                Positioned(
-                    top: MediaQuery.of(context).size.height - 240,
-                    child: SizedBox(
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: clientsToggle
-                          ? ListView(
-                              scrollDirection: Axis.horizontal,
-                              padding: const EdgeInsets.all(9),
-                              children: targetLocation.map((element) {
-                                if (element.icon ==
-                                    BitmapDescriptor.defaultMarkerWithHue(
-                                        BitmapDescriptor.hueRed)) {
-                                  return targetCard(element);
-                                } else {
-                                  
-                                  return targetCard(element);
-                                }
-                              }).toList(),
-                            )
-                          : const SizedBox(
-                              height: 1,
-                              width: 1,
-                            ),
-                    ))
+                // Positioned(
+                //     top: MediaQuery.of(context).size.height - 240,
+                //     child: SizedBox(
+                //       height: 100,
+                //       width: MediaQuery.of(context).size.width,
+                //       child: clientsToggle
+                //           ? ListView(
+                //               scrollDirection: Axis.horizontal,
+                //               padding: const EdgeInsets.all(9),
+                //               children: targetLocation.map((element) {
+                //                 if (element.icon ==
+                //                     BitmapDescriptor.defaultMarkerWithHue(
+                //                         BitmapDescriptor.hueRed)) {
+                //                   return targetCard(element);
+                //                 } else {
+
+                //                   return targetCard(element);
+                //                 }
+                //               }).toList(),
+                //             )
+                //           : const SizedBox(
+                //               height: 1,
+                //               width: 1,
+                //             ),
+                //     ))
+              
+              
               ],
             )
           ],

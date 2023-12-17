@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+// ignore_for_file: unused_import, avoid_print
 
 // import 'dart:html';
 
@@ -32,24 +32,137 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Query dbRef = FirebaseDatabase.instance.ref().child('Rooms');
 
-  Location location = Location();
+  /* Location location = Location();
+  String? LatLoc;
+  String? LongLoc;
+  String? currUid;
+
+  var currentUser = FirebaseAuth.instance.currentUser;
+
+  void _getCurrentUser() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    // Check if the user is signed in
+    if (auth.currentUser != null) {
+      // The user is signed in, you can get the UID
+      String uid = auth.currentUser!.uid;
+      print('Current User UID: $uid');
+      setState(() {
+        currUid = uid;
+      });
+    } else {
+      // No user is signed in
+      print('No user signed in');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     _getLocation();
+    _getCurrentUser();
   }
+
+ 
 
   Future<void> _getLocation() async {
     try {
       var currentLocation = await location.getLocation();
+
+      setState(
+        () {
+          LatLoc = currentLocation.latitude.toString();
+          LongLoc = currentLocation.longitude.toString();
+
+          print(LatLoc);
+          print(LongLoc);
+        },
+      );
+
       print(
           "Current Location: ${currentLocation.latitude}, ${currentLocation.longitude}");
     } catch (e) {
       print("Error getting location: $e");
     }
   }
+  */
 
+  LocationData? currentLocation;
+  late DatabaseReference _userLocationRef;
+  late Location location;
+  String currUid = "";
+
+    var currentUser = FirebaseAuth.instance.currentUser;
+
+  void _getCurrentUser() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    // Check if the user is signed in
+    if (auth.currentUser != null) {
+      // The user is signed in, you can get the UID
+      String uid = auth.currentUser!.uid;
+      print('Current User UID: $uid');
+      // setState(() {
+        currUid = uid;
+      // });
+    } else {
+      // No user is signed in
+      print('No user signed in');
+    }
+  }
+
+   @override
+  void initState() {
+    super.initState();
+    location = Location();
+    _userLocationRef = FirebaseDatabase.instance.ref().child('User');
+    _getCurrentUser();
+    _getLocation();
+    _subscribeToLocationChanges();
+  }
+
+  Future<void> _getLocation() async {
+    try {
+      LocationData locationData = await location.getLocation();
+      setState(() {
+        currentLocation = locationData;
+      });
+      _updateLocationInDatabase(locationData);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  void _subscribeToLocationChanges() {
+    location.onLocationChanged.listen((LocationData locationData) {
+      setState(() {
+        currentLocation = locationData;
+      });
+      print(locationData);
+      print('Latitude is${locationData.latitude}');
+      print('Longitude is${locationData.longitude}');
+      _updateLocationInDatabase(locationData);
+    });
+  }
+
+  void _updateLocationInDatabase(LocationData locationData) {
+    if (currentLocation != null) {
+
+      print('currUid is');
+      print(currUid);
+
+      String userId = currUid.toString(); // Replace with your user ID
+      _userLocationRef.child(userId).update({
+        'latitude': locationData.latitude,
+        'longitude': locationData.longitude,
+      });
+    }
+  }
+  
+
+  // UNTOUCHED
+
+// UNTOUCHED
   Widget roomElement({required Map room}) {
     return Center(
       child: Column(
@@ -265,8 +378,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 4, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 4, 0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(30),
                                       child: Image.network(
@@ -278,8 +392,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 4, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 4, 0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(30),
                                       child: Image.network(
@@ -291,8 +406,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 4, 0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 4, 0),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(30),
                                       child: Image.network(
@@ -311,9 +427,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   0, 12, 0, 0),
                               child: TextButton(
                                 style: ButtonStyle(
-                                  foregroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          const Color.fromARGB(255, 0, 140, 255)),
+                                  foregroundColor: MaterialStateProperty.all<
+                                          Color>(
+                                      const Color.fromARGB(255, 0, 140, 255)),
                                 ),
                                 onPressed: () {
                                   // print('Button pressed ...');
@@ -358,7 +474,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           // CONTENT STARTS
-      
+
                           SizedBox(
                             // width: double.infinity,
                             width: 500,
@@ -371,14 +487,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Animation<double> animation,
                                   int index) {
                                 Map room = snapshot.value as Map;
-      
+
                                 room['key'] = snapshot.key;
-      
+
                                 return roomElement(room: room);
                               },
                             ),
                           ),
-      
+
                           // CONTENT ENDS
                         ],
                       ),

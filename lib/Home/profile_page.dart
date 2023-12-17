@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -91,8 +93,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                           'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600'),
                                       loadingBuilder:
                                           (context, child, loadingProgress) {
-                                        if (loadingProgress == null)
+                                        if (loadingProgress == null) {
                                           return child;
+                                        }
                                         return const Center(
                                             child: CircularProgressIndicator());
                                       },
@@ -123,9 +126,20 @@ class _ProfilePageState extends State<ProfilePage> {
                         value: map['email']),
                     // ReuseableRow(title: 'Phone Number', icondata: Icons.phone  , value: map['phone']),
                     ReuseableRow(
-                        title: 'Status',
-                        icondata: Icons.mark_chat_unread,
-                        value: map['status']),
+                      title: 'Status',
+                      icondata: Icons.mark_chat_unread,
+                      value: map['status'],
+                    ),
+                    ReuseableRow(
+                      title: 'Latitude',
+                      icondata: Icons.pin_drop_outlined,
+                      value: map['latitude'].toString(),
+                    ),
+                    ReuseableRow(
+                      title: 'Longitude',
+                      icondata: Icons.pin_drop,
+                      value: map['longitude'].toString(),
+                    ),
                   ],
                 );
               } else {
