@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-persmission android:name="android.permission.INTERNET"/>
+    <!-- <uses-persmission android:name="android.permission.INTERNET"/>
     <uses-persmission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-persmission android:name="android.permission.CAMERA"/>
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/> -->
 
     <application
         android:label="TrackNow"
