@@ -91,44 +91,61 @@ class _AddRoomState extends State<AddRoom> {
             padding: EdgeInsets.all(5),
             child: Column(
               children: [
-                const SizedBox(
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // const Text(
+                //   'Create a new room',
+                //   style: TextStyle(
+                //     fontSize: 20,
+                //   ),
+                // ),
+                SizedBox(
                   height: 10,
                 ),
-                const Text(
-                  'Create a new room',
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: TextField(
+                    controller: roomName,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Room name',
+                      hintText: 'Enter Room name',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: TextField(
+                    controller: roomLocation,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Room location',
+                      hintText: 'Enter Room location',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Tap on the map below to choose a target location',
                   style: TextStyle(
-                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey[600],
+                    fontSize: 14,
                   ),
                 ),
                 SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: roomName,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Room name',
-                    hintText: 'Enter Room name',
-                  ),
+                  height: 15,
                 ),
                 SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: roomLocation,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Room location',
-                    hintText: 'Enter Room location',
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  height: 400,
+                  height: 440,
                   // child: PlacePicker(),
                   child: GoogleMap(
                     initialCameraPosition: _cecLocation,
