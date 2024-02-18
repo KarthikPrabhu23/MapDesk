@@ -12,6 +12,7 @@ import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:location/location.dart';
+import 'package:map1/Map/map_screen.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -92,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late Location location;
   String currUid = "";
 
-    var currentUser = FirebaseAuth.instance.currentUser;
+  var currentUser = FirebaseAuth.instance.currentUser;
 
   void _getCurrentUser() {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -103,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
       String uid = auth.currentUser!.uid;
       print('Current User UID: $uid');
       // setState(() {
-        currUid = uid;
+      currUid = uid;
       // });
     } else {
       // No user is signed in
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-   @override
+  @override
   void initState() {
     super.initState();
     location = Location();
@@ -147,8 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _updateLocationInDatabase(LocationData locationData) {
     if (currentLocation != null) {
-
-      print('currUid is');
+      // print('currUid is');
       print(currUid);
 
       String userId = currUid.toString(); // Replace with your user ID
@@ -158,7 +158,6 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
   }
-  
 
   // UNTOUCHED
 
@@ -501,22 +500,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                        iconColor: Colors.blue,
-                        backgroundColor: const Color.fromARGB(115, 108, 172, 90)
-                        // icon: const Icon(Icons.map_rounded),
-                        ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MapLoc()),
-                      );
-                    },
-                    child: const Text('Open Map'),
-                  ),
+                Row(
+                  children: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          iconColor: Colors.blue,
+                          backgroundColor:
+                              const Color.fromARGB(115, 108, 172, 90)
+                          // icon: const Icon(Icons.map_rounded),
+                          ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MapLoc()),
+                        );
+                      },
+                      child: const Text('Open Map'),
+                    ),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                          iconColor: Colors.blue,
+                          backgroundColor:
+                              const Color.fromARGB(115, 108, 172, 90)
+                          // icon: const Icon(Icons.map_rounded),
+                          ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MapScreen()),
+                        );
+                      },
+                      child: const Text('Open Map 2'),
+                    ),
+                  ],
                 ),
                 // IconButton(
                 //   icon: const Icon(Icons.map),
