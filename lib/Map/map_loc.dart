@@ -188,31 +188,33 @@ class _MapLocState extends State<MapLoc> {
                     markers: targetLocation,
                   ),
                 ),
-                // Positioned(
-                //     top: MediaQuery.of(context).size.height - 240,
-                //     child: SizedBox(
-                //       height: 100,
-                //       width: MediaQuery.of(context).size.width,
-                //       child: clientsToggle
-                //           ? ListView(
-                //               scrollDirection: Axis.horizontal,
-                //               padding: const EdgeInsets.all(9),
-                //               children: targetLocation.map((element) {
-                //                 if (element.icon ==
-                //                     BitmapDescriptor.defaultMarkerWithHue(
-                //                         BitmapDescriptor.hueRed)) {
-                //                   return targetCard(element);
-                //                 } else {
 
-                //                   return targetCard(element);
-                //                 }
-                //               }).toList(),
-                //             )
-                //           : const SizedBox(
-                //               height: 1,
-                //               width: 1,
-                //             ),
-                //     ))
+                // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
+                Positioned(
+                    top: MediaQuery.of(context).size.height - 240,
+                    child: SizedBox(
+                      height: 100,
+                      width: MediaQuery.of(context).size.width,
+                      child: clientsToggle
+                          ? ListView(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.all(9),
+                              children: targetLocation.map((element) {
+                                if (element.icon ==
+                                    BitmapDescriptor.defaultMarkerWithHue(
+                                        BitmapDescriptor.hueRed)) {
+                                  return targetCard(element);
+                                } else {
+
+                                  return targetCard(element);
+                                }
+                              }).toList(),
+                            )
+                          : const SizedBox(
+                              height: 1,
+                              width: 1,
+                            ),
+                    ))
               
               
               ],
