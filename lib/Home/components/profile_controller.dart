@@ -6,7 +6,7 @@ class ProfileController with ChangeNotifier {
       context: context,
       builder: ((context) {
         return AlertDialog(
-          content: Container(
+          content: SizedBox(
             height: 120,
             child: Column(
               children: [
