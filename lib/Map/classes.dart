@@ -21,6 +21,17 @@ class User {
     required this.location,
   });
 
+// Convert a User object to a Map
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'location': {
+        'lat': location.lat,
+        'lng': location.lng,
+      },
+    };
+  }
+
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       name: map['name'],
@@ -68,5 +79,35 @@ class FirestoreService {
   static Stream<List<User>> userCollectionStream() {
     return _firestore.collection('users').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => User.fromMap(doc.data())).toList());
+  }
+
+  // Check if user exists in Firestore
+  static Future<bool> doesUserExist(String uid) async {
+    try {
+      // Get the document snapshot for the user with the provided UID
+      DocumentSnapshot<Map<String, dynamic>> snapshot =
+          await _firestore.collection('users').doc(uid).get();
+
+      // Check if the document exists
+      return snapshot.exists;
+    } catch (e) {
+      // Handle any errors
+      print('Error checking user existence: $e');
+      return false;
+    }
+  }
+
+  // Add new user to Firestore
+  static Future<void> addNewUser(String uid, User newUser) async {
+    try {
+      // Convert the user object to a map
+      Map<String, dynamic> userData = newUser.toMap();
+
+      // Add the user data to Firestore
+      await _firestore.collection('users').doc(uid).set(userData);
+    } catch (e) {
+      // Handle any errors
+      print('Error adding new user: $e');
+    }
   }
 }

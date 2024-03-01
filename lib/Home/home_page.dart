@@ -2,10 +2,12 @@
 
 // import 'dart:html';
 
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:map1/Home/add_room.dart';
 import 'package:map1/Home/profile_page.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
@@ -92,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
   late DatabaseReference _userLocationRef;
   late Location location;
   String currUid = "";
+  String ufullname = "Default";
 
   var currentUser = FirebaseAuth.instance.currentUser;
 
@@ -105,6 +108,14 @@ class _MyHomePageState extends State<MyHomePage> {
       print('Current User UID: $uid');
       // setState(() {
       currUid = uid;
+
+      // String ufullname = auth.currentUser!.displayName;
+
+      // If you want to provide a default value in case displayName is null
+      // String displayName = ufullname ?? 'Unknown';
+
+      // If you want to display the display name only when it's not null
+      // print('User Fullname: $ufullname');
       // });
     } else {
       // No user is signed in
@@ -119,7 +130,52 @@ class _MyHomePageState extends State<MyHomePage> {
     _userLocationRef = FirebaseDatabase.instance.ref().child('User');
     _getCurrentUser();
     _getLocation();
+    firestoreLogin();
     _subscribeToLocationChanges();
+  }
+
+  Future<void> firestoreLogin() async {
+    try {
+      // Once signed in, start tracking the user's location
+      startLocationTracking(currUid);
+    } catch (error) {
+      print('Error Storing to Firestore  ');
+    }
+  }
+
+  Future<void> startLocationTracking(String uid) async {
+    // Start listening for location updates
+    final locationStream = Geolocator.getPositionStream(
+        // desiredAccuracy: LocationAccuracy.high,
+        // distanceFilter:
+        //     10, // Minimum distance between location updates (in meters)
+        );
+
+    // Store location updates in Firestore
+    locationStream.listen((Position position) {
+      storeUserLocation(uid, position.latitude, position.longitude);
+    });
+  }
+
+  Future<void> storeUserLocation(
+      String uid, double latitude, double longitude) async {
+    try {
+      // Store the user's location in Firestore
+      await firestore.FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .set({
+        'location': {
+          'lat': latitude,
+          'lng': longitude,
+          'timestamp': firestore.FieldValue.serverTimestamp(),
+        },
+        'name': ufullname,
+        // 'fullname': ufullname,
+      });
+    } catch (error) {
+      print('Error storing user location: $error');
+    }
   }
 
   Future<void> _getLocation() async {

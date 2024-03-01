@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Map/classes.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -25,7 +26,7 @@ String getCurrentUserUid() {
   }
 
   print(uid);
-  
+
   return uid;
 }
 
@@ -34,12 +35,25 @@ class MapScreenState extends State<MapScreen> {
       Completer<GoogleMapController>();
 
   static const CameraPosition _initialPosition = CameraPosition(
-    target:
-        LatLng(12.898799, 74.984734), // Antananarivo, Madagascar LatLng 🇲🇬
+    target: LatLng(12.898799, 74.984734), // Antananarivo, Madagascar
     zoom: 14.4746,
   );
 
   late StreamSubscription<Position>? locationStreamSubscription;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   locationStreamSubscription =
+  //       StreamLocationService.onLocationChanged?.listen(
+  //     (position) async {
+  //       await FirestoreService.updateUserLocation(
+  //         getCurrentUserUid(), //Hardcoded uid but this is the uid of the connected user when using authentification service
+  //         LatLng(position.latitude, position.longitude),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   void initState() {
@@ -47,10 +61,28 @@ class MapScreenState extends State<MapScreen> {
     locationStreamSubscription =
         StreamLocationService.onLocationChanged?.listen(
       (position) async {
-        await FirestoreService.updateUserLocation(
-          getCurrentUserUid(), //Hardcoded uid but this is the uid of the connected user when using authentification service
-          LatLng(position.latitude, position.longitude),
-        );
+        String uid = getCurrentUserUid();
+
+        // Check if user exists in Firestore
+        bool userExists = await FirestoreService.doesUserExist(uid);
+
+        if (userExists) {
+          // Update user location
+          await FirestoreService.updateUserLocation(
+              uid, LatLng(position.latitude, position.longitude));
+        } else {
+          // Add new user to Firestore
+          await FirestoreService.addNewUser(
+            uid,
+            User(
+              name: 'New User', // Provide a default name for new users
+              location: Location(
+                lat: position.latitude,
+                lng: position.longitude,
+              ),
+            ),
+          );
+        }
       },
     );
   }
@@ -61,10 +93,15 @@ class MapScreenState extends State<MapScreen> {
       body: StreamBuilder<List<User>>(
         stream: FirestoreService.userCollectionStream(),
         builder: (context, snapshot) {
-
-          if (!snapshot.hasData) {
-            return const Center(
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
               child: CircularProgressIndicator(),
+            );
+          }
+
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(
+              child: Text('No data available'),
             );
           }
 

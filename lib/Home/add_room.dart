@@ -10,6 +10,10 @@ import 'package:map1/Map/place_picker.dart' as place;
 import 'package:map1/Map/place_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+//  File to choose target location on map and add it to the realtime database
+
+
 class AddRoom extends StatefulWidget {
   const AddRoom({super.key});
 
