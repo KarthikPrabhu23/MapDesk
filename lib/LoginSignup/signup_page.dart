@@ -6,7 +6,6 @@ import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/LoginSignup/login_page.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
