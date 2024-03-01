@@ -1,3 +1,5 @@
+// This is the new Map with Firestore connection
+
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class MapScreen extends StatefulWidget {
   @override
   State<MapScreen> createState() => MapScreenState();
 }
+
 
 String getCurrentUserUid() {
   var user = auth.FirebaseAuth.instance.currentUser;
@@ -31,15 +34,28 @@ String getCurrentUserUid() {
 }
 
 class MapScreenState extends State<MapScreen> {
+  late CameraPosition _initialPosition;
+
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  static const CameraPosition _initialPosition = CameraPosition(
-    target: LatLng(12.898799, 74.984734), // Antananarivo, Madagascar
-    zoom: 14.4746,
-  );
+  // static const CameraPosition _initialPosition = CameraPosition(
+  //   target: LatLng(12.898799, 74.984734), // Antananarivo, Madagascar
+  //   zoom: 14.4746,
+  // );
 
   late StreamSubscription<Position>? locationStreamSubscription;
+
+  Future<void> _getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _initialPosition = CameraPosition(
+        target: LatLng(position.latitude, position.longitude),
+        zoom: 14.0,
+      );
+    });
+  }
 
   // @override
   // void initState() {
@@ -58,6 +74,7 @@ class MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
+    _getCurrentLocation();
     locationStreamSubscription =
         StreamLocationService.onLocationChanged?.listen(
       (position) async {
