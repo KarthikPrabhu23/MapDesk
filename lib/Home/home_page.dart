@@ -105,11 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
     if (auth.currentUser != null) {
       // The user is signed in, you can get the UID
       String uid = auth.currentUser!.uid;
-      print('Current User UID: $uid');
+      print('Current User UID: $uid \n _getCurrentUser');
       // setState(() {
       currUid = uid;
 
-      // String ufullname = auth.currentUser!.displayName;
+      // String ufullname = auth.currentUser!.display Name;
 
       // If you want to provide a default value in case displayName is null
       // String displayName = ufullname ?? 'Unknown';
@@ -135,6 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> firestoreLogin() async {
+    print('Inside firestoreLogin');
     try {
       // Once signed in, start tracking the user's location
       startLocationTracking(currUid);
@@ -144,6 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> startLocationTracking(String uid) async {
+    print('Inside startLocationTracking');
+
     // Start listening for location updates
     final locationStream = Geolocator.getPositionStream(
         // desiredAccuracy: LocationAccuracy.high,
@@ -159,6 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> storeUserLocation(
       String uid, double latitude, double longitude) async {
+    print('Inside storeUserLocation');
     try {
       // Store the user's location in Firestore
       await firestore.FirebaseFirestore.instance
@@ -173,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
         'name': ufullname,
         // 'fullname': ufullname,
       });
+      print('User location stored ');
     } catch (error) {
       print('Error storing user location: $error');
     }

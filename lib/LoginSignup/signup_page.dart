@@ -6,6 +6,7 @@ import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/LoginSignup/login_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -122,14 +123,17 @@ class _SignUpState extends State<SignUp> {
                               password: _password.text,
                             )
                                 .then((value) {
-                              ref.child(value.user!.uid.toString()).set({
-                                'uid': value.user!.uid.toString(),
-                                'email': value.user!.email.toString(),
-                                'username': _username.text.toString(),
-                                'status': '',
-                                'profilepic':'',
-                              });
+                              // ref.child(value.user!.uid.toString()).set({
+                              //   'uid': value.user!.uid.toString(),
+                              //   'email': value.user!.email.toString(),
+                              //   'username': _username.text.toString(),
+                              //   'status': '',
+                              //   'profilepic':'',
+                              // });
 
+                        
+                                 
+  
                               SessionController().userid =
                                   value.user!.uid;
                               SessionController().username =
