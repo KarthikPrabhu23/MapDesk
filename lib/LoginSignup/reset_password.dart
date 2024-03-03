@@ -12,9 +12,8 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
-  final _formKey = GlobalKey<FormState>();
-
   final _email = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +101,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
+                                builder: (context) => const LoginPage(),
+                              ),
                             );
                           },
                           child: Text(

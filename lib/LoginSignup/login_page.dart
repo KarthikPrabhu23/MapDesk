@@ -17,10 +17,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
-
   // final _username = TextEditingController();
   final _email = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
   final _password = TextEditingController();
 
   signInWithEmailAndPassword() async {
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                                 style: TextStyle(
                                   fontWeight: FontWeight.w800,
                                   color: Colors.black45,
-                                )),
+                                ),),
                           ),
                         ),
                       ],

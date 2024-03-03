@@ -2,9 +2,6 @@
 import "package:flutter/material.dart";
 
 class myTextFormField extends StatelessWidget {
-  final MyController;
-  final String hintText;
-  final labelText;
   // final ObscureText;
 
   const myTextFormField({
@@ -13,6 +10,10 @@ class myTextFormField extends StatelessWidget {
     required this.hintText,
     this.labelText,
   });
+
+  final MyController;
+  final String hintText;
+  final labelText;
 
   @override
   Widget build(BuildContext context) {

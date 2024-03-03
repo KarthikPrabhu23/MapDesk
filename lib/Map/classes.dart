@@ -6,22 +6,33 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Location {
-  final double lat;
-  final double lng;
-
   Location({
     required this.lat,
     required this.lng,
   });
+
+  final double lat;
+  final double lng;
 }
 
 class User {
-  final String name;
-  final Location location;
   User({
     required this.name,
     required this.location,
   });
+
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      name: map['name'],
+      location: Location(
+        lat: map['location']['lat'],
+        lng: map['location']['lng'],
+      ),
+    );
+  }
+
+  final Location location;
+  final String name;
 
 // Convert a User object to a Map
   Map<String, dynamic> toMap() {
@@ -33,22 +44,12 @@ class User {
       },
     };
   }
-
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
-      name: map['name'],
-      location: Location(
-        lat: map['location']['lat'],
-        lng: map['location']['lng'],
-      ),
-    );
-  }
 }
 
 class StreamLocationService {
+  static bool _isLocationGranted = false;
   static const LocationSettings _locationSettings =
       LocationSettings(distanceFilter: 1);
-  static bool _isLocationGranted = false;
 
   static Stream<Position>? get onLocationChanged {
     if (_isLocationGranted) {

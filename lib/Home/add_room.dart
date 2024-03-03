@@ -5,8 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:map1/Map/place_picker.dart' as place;
-import 'package:map1/Map/place_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 

@@ -17,16 +17,13 @@ class MapLoc extends StatefulWidget {
 }
 
 class _MapLocState extends State<MapLoc> {
+  bool clientsToggle = true;
+  DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
+  late GoogleMapController mapController;
+  Set<Marker> targetLocation = {};
+
   static const CameraPosition _cecLocation =
       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
-
-  late GoogleMapController mapController;
-
-  bool clientsToggle = true;
-
-  DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
-
-  Set<Marker> targetLocation = {};
 
   @override
   void initState() {
@@ -39,6 +36,64 @@ class _MapLocState extends State<MapLoc> {
 
     _fetchtargetLocation();
     _fetchUserLocation();
+  }
+
+  Widget targetCard(element) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12, top: 10),
+      child: InkWell(
+        onTap: () {
+          zoomInMarker(element);
+        },
+        child: Container(
+          height: 100,
+          width: 120,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: const Color.fromARGB(197, 57, 151, 227)),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                element.infoWindow.title.toString(),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  zoomInMarker(element) {
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(element.position.latitude, element.position.longitude),
+          zoom: 18,
+          bearing: 90,
+          tilt: 50,
+        ),
+      ),
+    );
+  }
+
+  zoomOutMarker() {
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        const CameraPosition(
+          target: LatLng(12.898799, 74.984734),
+          zoom: 16,
+        ),
+      ),
+    );
+  }
+
+  void onMapCreated(controller) {
+    setState(() {
+      mapController = controller;
+    });
   }
 
   _fetchtargetLocation() {
@@ -115,58 +170,6 @@ class _MapLocState extends State<MapLoc> {
     return targetLocation;
   }
 
-  Widget targetCard(element) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12, top: 10),
-      child: InkWell(
-        onTap: () {
-          zoomInMarker(element);
-        },
-        child: Container(
-          height: 100,
-          width: 120,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: const Color.fromARGB(197, 57, 151, 227)),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                element.infoWindow.title.toString(),
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  zoomInMarker(element) {
-    mapController.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(element.position.latitude, element.position.longitude),
-          zoom: 18,
-          bearing: 90,
-          tilt: 50,
-        ),
-      ),
-    );
-  }
-
-  zoomOutMarker() {
-    mapController.animateCamera(
-      CameraUpdate.newCameraPosition(
-        const CameraPosition(
-          target: LatLng(12.898799, 74.984734),
-          zoom: 16,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -218,7 +221,7 @@ class _MapLocState extends State<MapLoc> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
         floatingActionButton: Padding(
@@ -247,12 +250,6 @@ class _MapLocState extends State<MapLoc> {
         ),
       ),
     );
-  }
-
-  void onMapCreated(controller) {
-    setState(() {
-      mapController = controller;
-    });
   }
 }
 

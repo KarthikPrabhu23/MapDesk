@@ -97,7 +97,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                           return child;
                                         }
                                         return const Center(
-                                            child: CircularProgressIndicator());
+                                          child: CircularProgressIndicator(),
+                                        );
                                       },
                                     ),
                             ),
@@ -156,13 +157,14 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class ReuseableRow extends StatelessWidget {
-  final String title, value;
-  final IconData icondata;
   const ReuseableRow(
       {super.key,
       required this.title,
       required this.icondata,
       required this.value});
+
+  final IconData icondata;
+  final String title, value;
 
   @override
   Widget build(BuildContext context) {

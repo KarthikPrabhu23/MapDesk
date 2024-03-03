@@ -1,7 +1,6 @@
 // ignore_for_file: unused_import, avoid_print
 
 // import 'dart:html';
-
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';

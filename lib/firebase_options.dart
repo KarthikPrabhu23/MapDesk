@@ -6,9 +6,43 @@ import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
 
-
-
 class DefaultFirebaseOptions {
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyCoChepvXl5YGJz28vR18WHa5r-fN6S7cc',
+    appId: '1:213956498409:android:9cca672f8bca498f7d7178',
+    messagingSenderId: '213956498409',
+    projectId: 'map1-6175b',
+    storageBucket: 'map1-6175b.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAPzOlSNrcHmbyMrqAaEcGUmqI6KxyQoY4',
+    appId: '1:213956498409:ios:4868f25985ad46c97d7178',
+    messagingSenderId: '213956498409',
+    projectId: 'map1-6175b',
+    storageBucket: 'map1-6175b.appspot.com',
+    iosBundleId: 'com.example.map1',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAPzOlSNrcHmbyMrqAaEcGUmqI6KxyQoY4',
+    appId: '1:213956498409:ios:3afe8e405feba4627d7178',
+    messagingSenderId: '213956498409',
+    projectId: 'map1-6175b',
+    storageBucket: 'map1-6175b.appspot.com',
+    iosBundleId: 'com.example.map1.RunnerTests',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyD7pUdRvzzopgBckv6tqiej670StuJrvho',
+    appId: '1:213956498409:web:e3a458ee9868dbc27d7178',
+    messagingSenderId: '213956498409',
+    projectId: 'map1-6175b',
+    authDomain: 'map1-6175b.firebaseapp.com',
+    storageBucket: 'map1-6175b.appspot.com',
+    measurementId: 'G-83MB3EG7EN',
+  );
+
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
@@ -36,43 +70,5 @@ class DefaultFirebaseOptions {
         );
     }
   }
-
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD7pUdRvzzopgBckv6tqiej670StuJrvho',
-    appId: '1:213956498409:web:e3a458ee9868dbc27d7178',
-    messagingSenderId: '213956498409',
-    projectId: 'map1-6175b',
-    authDomain: 'map1-6175b.firebaseapp.com',
-    storageBucket: 'map1-6175b.appspot.com',
-    measurementId: 'G-83MB3EG7EN',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCoChepvXl5YGJz28vR18WHa5r-fN6S7cc',
-    appId: '1:213956498409:android:9cca672f8bca498f7d7178',
-    messagingSenderId: '213956498409',
-    projectId: 'map1-6175b',
-    storageBucket: 'map1-6175b.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAPzOlSNrcHmbyMrqAaEcGUmqI6KxyQoY4',
-    appId: '1:213956498409:ios:4868f25985ad46c97d7178',
-    messagingSenderId: '213956498409',
-    projectId: 'map1-6175b',
-    storageBucket: 'map1-6175b.appspot.com',
-    iosBundleId: 'com.example.map1',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAPzOlSNrcHmbyMrqAaEcGUmqI6KxyQoY4',
-    appId: '1:213956498409:ios:3afe8e405feba4627d7178',
-    messagingSenderId: '213956498409',
-    projectId: 'map1-6175b',
-    storageBucket: 'map1-6175b.appspot.com',
-    iosBundleId: 'com.example.map1.RunnerTests',
-  );
-
-  
 }
 

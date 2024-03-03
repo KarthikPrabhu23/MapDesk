@@ -11,8 +11,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:map1/Map/target_card.dart';
-import 'package:map1/Map/target_slider.dart';
+import 'package:map1/Map/components/target_card.dart';
+import 'package:map1/Map/components/target_slider.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MapScreen extends StatefulWidget {
