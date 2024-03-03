@@ -11,6 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:map1/Map/targetCard.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MapScreen extends StatefulWidget {
@@ -175,63 +176,6 @@ class MapScreenState extends State<MapScreen> {
     return setOfMarkers;
   }
 
-  Widget targetCard(element) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12, top: 10),
-      child: InkWell(
-        onTap: () {
-          zoomInMarker(element);
-        },
-        child: Container(
-          height: 100,
-          width: 120,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: const Color.fromARGB(197, 57, 151, 227)),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                element.infoWindow.title.toString(),
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  zoomInMarker(element) {
-    _controller.future.then((controller) {
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target:
-                LatLng(element.position.latitude, element.position.longitude),
-            zoom: 18,
-            bearing: 90,
-            tilt: 50,
-          ),
-        ),
-      );
-    });
-  }
-
-  void zoomOutMarker() {
-    _controller.future.then((controller) {
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          const CameraPosition(
-            target: LatLng(12.898799, 74.984734),
-            zoom: 16,
-          ),
-        ),
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -301,15 +245,17 @@ class MapScreenState extends State<MapScreen> {
                       ? ListView(
                           scrollDirection: Axis.horizontal,
                           padding: const EdgeInsets.all(9),
-                          children: setOfMarkers.map((element) {
-                            if (element.icon ==
-                                BitmapDescriptor.defaultMarkerWithHue(
-                                    BitmapDescriptor.hueRed)) {
-                              return targetCard(element);
-                            } else {
-                              return targetCard(element);
-                            }
-                          }).toList(),
+                          children: setOfMarkers.map(
+                            (element) {
+                              if (element.icon ==
+                                  BitmapDescriptor.defaultMarkerWithHue(
+                                      BitmapDescriptor.hueRed)) {
+                                return targetCard(element, _controller);
+                              } else {
+                                return targetCard(element, _controller);
+                              }
+                            },
+                          ).toList(),
                         )
                       : const SizedBox(
                           height: 1,

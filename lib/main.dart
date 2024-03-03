@@ -6,7 +6,6 @@ import 'package:map1/Home/add_room.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
-import 'package:map1/LoginSignup/signup_widget.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'firebase_options.dart';
 
