@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:map1/Map/targetCard.dart';
+import 'package:map1/Map/target_card.dart';
 
 class TargetSlider extends StatelessWidget {
   const TargetSlider({

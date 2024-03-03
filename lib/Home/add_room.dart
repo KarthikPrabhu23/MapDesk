@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
-// import 'package:flutterflow_ui/flutterflow_ui.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
@@ -13,7 +12,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 //  File to choose target location on map and add it to the realtime database
 
-
 class AddRoom extends StatefulWidget {
   const AddRoom({super.key});
 
@@ -22,29 +20,29 @@ class AddRoom extends StatefulWidget {
 }
 
 class _AddRoomState extends State<AddRoom> {
-  final roomName = TextEditingController();
-  final roomLocation = TextEditingController();
-
+  List<Marker> allMarkers = [];
   late DatabaseReference dbRef;
-
-  // ignore: unused_field
-  late GoogleMapController _mapController;
-
   String lat = "";
   String long = "";
-
   List<Marker> myMarker = [];
-
-  List<Marker> allMarkers = [];
+  final roomLocation = TextEditingController();
+  final roomName = TextEditingController();
 
   static const CameraPosition _cecLocation =
       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
 
+  // ignore: unused_field
+  late GoogleMapController _mapController;
+
+  @override
+  void initState() {
+    super.initState();
+    dbRef = FirebaseDatabase.instance.ref().child('Rooms');
+    // Firestore.instance.collection('Target');
+  }
+
   _handleTap(LatLng tappedPoint) {
     (tappedPoint);
-
-    // print(lat);
-    // print(long);
 
     lat = tappedPoint.latitude.toString();
     long = tappedPoint.longitude.toString();
@@ -61,25 +59,10 @@ class _AddRoomState extends State<AddRoom> {
             draggable: true,
             icon: BitmapDescriptor.defaultMarkerWithHue(
                 BitmapDescriptor.hueAzure),
-            // onDragEnd: (dragEndPosition) {
-            //   print(dragEndPosition);
-            // },
           ),
         );
       },
     );
-
-    // lat = tappedPoint.latitude.toString();
-    // long = tappedPoint.longitude.toString();
-
-    // return tappedPoint;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    dbRef = FirebaseDatabase.instance.ref().child('Rooms');
-    // Firestore.instance.collection('Target');
   }
 
   @override

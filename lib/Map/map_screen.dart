@@ -11,7 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:map1/Map/targetCard.dart';
+import 'package:map1/Map/target_card.dart';
 import 'package:map1/Map/target_slider.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -50,36 +50,37 @@ class MapScreenState extends State<MapScreen> {
     _getCurrentLocation();
     _fetchtargetLocation();
 
-    // _databaseRef = FirebaseDatabase.instance.ref();
-    // _fetchProfilePic();
+    locationStream();
+  }
 
-    locationStreamSubscription =
-        StreamLocationService.onLocationChanged?.listen(
-      (position) async {
-        String uid = getCurrentUserUid();
+  StreamSubscription<Position>? locationStream() {
+    return locationStreamSubscription =
+      StreamLocationService.onLocationChanged?.listen(
+    (position) async {
+      String uid = getCurrentUserUid();
 
-        // Check if user exists in Firestore
-        bool userExists = await FirestoreService.doesUserExist(uid);
+      // Check if user exists in Firestore
+      bool userExists = await FirestoreService.doesUserExist(uid);
 
-        if (userExists) {
-          // Update user location
-          await FirestoreService.updateUserLocation(
-              uid, LatLng(position.latitude, position.longitude));
-        } else {
-          // Add new user to Firestore
-          await FirestoreService.addNewUser(
-            uid,
-            User(
-              name: 'New User', // Provide a default name for new users
-              location: Location(
-                lat: position.latitude,
-                lng: position.longitude,
-              ),
+      if (userExists) {
+        // Update user location
+        await FirestoreService.updateUserLocation(
+            uid, LatLng(position.latitude, position.longitude));
+      } else {
+        // Add new user to Firestore
+        await FirestoreService.addNewUser(
+          uid,
+          User(
+            name: 'New User', // Provide a default name for new users
+            location: Location(
+              lat: position.latitude,
+              lng: position.longitude,
             ),
-          );
-        }
-      },
-    );
+          ),
+        );
+      }
+    },
+  );
   }
 
   String getCurrentUserUid() {

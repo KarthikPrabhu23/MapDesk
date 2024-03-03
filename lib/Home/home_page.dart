@@ -34,33 +34,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Query dbRef = FirebaseDatabase.instance.ref().child('Rooms');
-
-  LocationData? currentLocation;
-  late DatabaseReference _userLocationRef;
-  late Location location;
-  String currUid = "";
   String currEmail = "";
+  String currUid = "";
+  LocationData? currentLocation;
+  var currentUser = FirebaseAuth.instance.currentUser;
+  Query dbRef = FirebaseDatabase.instance.ref().child('Rooms');
+  late Location location;
   String ufullname = "Default";
 
-  var currentUser = FirebaseAuth.instance.currentUser;
-
-
-  void _getCurrentUser() {
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    // Check if the user is signed in
-    if (auth.currentUser != null) {
-      // The user is signed in, you can get the UID
-      String uid = auth.currentUser!.uid;
-      print('Current User UID: $uid \n _getCurrentUser');
-
-      currUid = uid;
-    } else {
-      // No user is signed in
-      print('No user signed in');
-    }
-  }
+  late DatabaseReference _userLocationRef;
 
   @override
   void initState() {
@@ -94,9 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
         );
 
     // Store location updates in Firestore
-    locationStream.listen((Position position) {
-      storeUserLocation(uid, position.latitude, position.longitude, currEmail);
-    });
+    locationStream.listen(
+      (Position position) {
+        storeUserLocation(
+            uid, position.latitude, position.longitude, currEmail);
+      },
+    );
   }
 
   Future<void> storeUserLocation(
@@ -107,56 +92,21 @@ class _MyHomePageState extends State<MyHomePage> {
       await firestore.FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
-          .set({
-        'location': {
-          'lat': latitude,
-          'lng': longitude,
-          'timestamp': firestore.FieldValue.serverTimestamp(),
+          .set(
+        {
+          'location': {
+            'lat': latitude,
+            'lng': longitude,
+            'timestamp': firestore.FieldValue.serverTimestamp(),
+          },
+          'emailid': currEmail.toString(),
+          'name': ufullname,
+          // 'fullname': ufullname,
         },
-        'emailid': currEmail.toString(),
-        'name': ufullname,
-        // 'fullname': ufullname,
-      });
+      );
       print('User location stored ');
     } catch (error) {
       print('Error storing user location: $error');
-    }
-  }
-
-  Future<void> _getLocation() async {
-    try {
-      LocationData locationData = await location.getLocation();
-      setState(() {
-        currentLocation = locationData;
-      });
-      _updateLocationInDatabase(locationData);
-    } catch (e) {
-      print('Error: $e');
-    }
-  }
-
-  void _subscribeToLocationChanges() {
-    location.onLocationChanged.listen((LocationData locationData) {
-      setState(() {
-        currentLocation = locationData;
-      });
-      print(locationData);
-      print('Latitude is${locationData.latitude}');
-      print('Longitude is${locationData.longitude}');
-      _updateLocationInDatabase(locationData);
-    });
-  }
-
-  void _updateLocationInDatabase(LocationData locationData) {
-    if (currentLocation != null) {
-      // print('currUid is');
-      print(currUid);
-
-      String userId = currUid.toString(); // Replace with your user ID
-      _userLocationRef.child(userId).update({
-        'latitude': locationData.latitude,
-        'longitude': locationData.longitude,
-      });
     }
   }
 
@@ -186,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       blurRadius: 4,
                       color: Color(0x430F1113),
                       offset: Offset(0, 1),
-                    )
+                    ),
                   ],
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -266,6 +216,66 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _getCurrentUser() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    // Check if the user is signed in
+    if (auth.currentUser != null) {
+      // The user is signed in, you can get the UID
+      String uid = auth.currentUser!.uid;
+      print('Current User UID: $uid \n _getCurrentUser');
+
+      currUid = uid;
+    } else {
+      print('No user signed in');
+    }
+  }
+
+  Future<void> _getLocation() async {
+    try {
+      LocationData locationData = await location.getLocation();
+      setState(
+        () {
+          currentLocation = locationData;
+        },
+      );
+      _updateLocationInDatabase(locationData);
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  void _subscribeToLocationChanges() {
+    location.onLocationChanged.listen(
+      (LocationData locationData) {
+        setState(
+          () {
+            currentLocation = locationData;
+          },
+        );
+        print(locationData);
+        print('Latitude is ${locationData.latitude}');
+        print('Longitude is ${locationData.longitude}');
+        _updateLocationInDatabase(locationData);
+      },
+    );
+  }
+
+  void _updateLocationInDatabase(LocationData locationData) {
+    if (currentLocation != null) {
+      // print('currUid is');
+      print(currUid);
+
+      String userId = currUid.toString(); // Replace with your user ID
+      _userLocationRef.child(userId).update(
+        {
+          'latitude': locationData.latitude,
+          'longitude': locationData.longitude,
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -330,7 +340,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           blurRadius: 4,
                           color: Color(0x250F1113),
                           offset: Offset(0, 1),
-                        )
+                        ),
                       ],
                       borderRadius: BorderRadius.circular(12),
                     ),

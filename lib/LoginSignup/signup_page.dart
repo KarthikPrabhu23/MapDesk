@@ -15,14 +15,13 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final _formKey = GlobalKey<FormState>();
-
-  final _username = TextEditingController();
-  final _email = TextEditingController();
-  final _password = TextEditingController();
-  final _confirmPassword = TextEditingController();
-
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
+
+  final _confirmPassword = TextEditingController();
+  final _email = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _password = TextEditingController();
+  final _username = TextEditingController();
 
   signInWithEmailAndPassword() async {
     try {
@@ -122,13 +121,16 @@ class _SignUpState extends State<SignUp> {
                               password: _password.text,
                             )
                                 .then((value) {
-                              ref.child(value.user!.uid.toString()).set({
-                                'uid': value.user!.uid.toString(),
-                                'email': value.user!.email.toString(),
-                                'username': _username.text.toString(),
-                                'status': '',
-                                'profilepic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBQGiBzk0bcsHU0V-xMAqi6MWyfc-G_2OrA&usqp=CAU',
-                              });
+                              ref.child(value.user!.uid.toString()).set(
+                                {
+                                  'uid': value.user!.uid.toString(),
+                                  'email': value.user!.email.toString(),
+                                  'username': _username.text.toString(),
+                                  'status': '',
+                                  'profilepic':
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBQGiBzk0bcsHU0V-xMAqi6MWyfc-G_2OrA&usqp=CAU',
+                                },
+                              );
 
                               SessionController().userid = value.user!.uid;
                               SessionController().username =
@@ -140,30 +142,32 @@ class _SignUpState extends State<SignUp> {
                                   builder: (context) => const MyHomePage(),
                                 ),
                               );
-                            }).catchError((error) {
-                              if (error is FirebaseAuthException) {
-                                if (error.code == 'email-already-in-use') {
-                                  // Handle the case where the email is already in use.
-                                  print(
-                                      'The email address is already in use by another account.');
-                                  // You may want to show a message to the user.
-                                  // For example:
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          'The email address is already in use.'),
-                                    ),
-                                  );
+                            }).catchError(
+                              (error) {
+                                if (error is FirebaseAuthException) {
+                                  if (error.code == 'email-already-in-use') {
+                                    // Handle the case where the email is already in use.
+                                    print(
+                                        'The email address is already in use by another account.');
+                                    // You may want to show a message to the user.
+                                    // For example:
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'The email address is already in use.'),
+                                      ),
+                                    );
+                                  } else {
+                                    // Handle other FirebaseAuthException cases.
+                                    print(
+                                        'Error ${error.code}: ${error.message}');
+                                  }
                                 } else {
-                                  // Handle other FirebaseAuthException cases.
-                                  print(
-                                      'Error ${error.code}: ${error.message}');
+                                  // Handle other types of errors.
+                                  print('Unexpected error: $error');
                                 }
-                              } else {
-                                // Handle other types of errors.
-                                print('Unexpected error: $error');
-                              }
-                            });
+                              },
+                            );
                           }
                         },
                         child: const Text(
