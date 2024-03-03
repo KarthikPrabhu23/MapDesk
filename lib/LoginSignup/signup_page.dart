@@ -122,13 +122,13 @@ class _SignUpState extends State<SignUp> {
                               password: _password.text,
                             )
                                 .then((value) {
-                              // ref.child(value.user!.uid.toString()).set({
-                              //   'uid': value.user!.uid.toString(),
-                              //   'email': value.user!.email.toString(),
-                              //   'username': _username.text.toString(),
-                              //   'status': '',
-                              //   'profilepic':'',
-                              // });
+                              ref.child(value.user!.uid.toString()).set({
+                                'uid': value.user!.uid.toString(),
+                                'email': value.user!.email.toString(),
+                                'username': _username.text.toString(),
+                                'status': '',
+                                'profilepic':'',
+                              });
 
                         
                                  
@@ -208,7 +208,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
