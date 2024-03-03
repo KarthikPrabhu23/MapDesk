@@ -12,6 +12,7 @@ import 'package:map1/Home/home_page.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Map/targetCard.dart';
+import 'package:map1/Map/target_slider.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MapScreen extends StatefulWidget {
@@ -22,51 +23,25 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
+  bool clientsToggle = true;
+  DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
+  late StreamSubscription<Position>? locationStreamSubscription;
+  late GoogleMapController mapController;
+  Set<Marker> setOfMarkers = {};
+
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
+
   late CameraPosition _initialPosition = const CameraPosition(
     target: LatLng(
         12.898799, 74.984734), // Default position (e.g., center of the world)
     zoom: 10, // Default zoom level
   );
 
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
-
-  late GoogleMapController mapController;
-
-  bool clientsToggle = true;
-
-  DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
-
-  Set<Marker> setOfMarkers = {};
-
-  late StreamSubscription<Position>? locationStreamSubscription;
-
-  Future<void> _getCurrentLocation() async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    setState(() {
-      _initialPosition = CameraPosition(
-        target: LatLng(position.latitude, position.longitude),
-        zoom: 14.0,
-      );
-    });
-  }
-
-  String getCurrentUserUid() {
-    var user = auth.FirebaseAuth.instance.currentUser;
-    String uid;
-
-    if (user != null) {
-      uid = user.uid;
-      print('Current user UID: $uid');
-    } else {
-      uid = "no uid found";
-      print('No user is currently signed in.');
-    }
-
-    print(uid);
-
-    return uid;
+  @override
+  void dispose() {
+    super.dispose();
+    locationStreamSubscription?.cancel();
   }
 
   @override
@@ -107,38 +82,33 @@ class MapScreenState extends State<MapScreen> {
     );
   }
 
-  // Future<void> _fetchProfilePic() async {
-  //   DataSnapshot dataSnapshot = await _databaseRef.child('users').once();
-  //   String profilePicUrl = dataSnapshot.value['profilepic'];
-  //   BitmapDescriptor markerIcon = await _getMarkerIcon(profilePicUrl);
-  //   setState(() {
-  //     _marker = Marker(
-  //       markerId: const MarkerId('profilePicMarker'),
-  //       position: const LatLng(0, 0), // Set the initial position to (0, 0)
-  //       icon: markerIcon,
-  //     );
-  //   });
-  // }
+  String getCurrentUserUid() {
+    var user = auth.FirebaseAuth.instance.currentUser;
+    String uid;
 
-  // Future<BitmapDescriptor> _getMarkerIcon(String profilePicUrl) async {
-  //   // Load the image from the URL
-  //   // You can use any image loading library (e.g., flutter_image or cached_network_image)
-  //   // Here, we'll use Image.network to load the image
-  //   Image image = Image.network(profilePicUrl);
-  //   Completer<Uint8List> completer = Completer();
-  //   image.image.resolve(const ImageConfiguration()).addListener(
-  //     ImageStreamListener((ImageInfo info, bool _) async {
-  //       // Convert the loaded image to a byte array
-  //       ByteData byteData =
-  //           await info.image.toByteData(format: ImageByteFormat.png);
-  //       Uint8List byteList = byteData.buffer.asUint8List();
-  //       completer.complete(byteList);
-  //     }),
-  //   );
-  //   Uint8List byteList = await completer.future;
-  //   // Create a BitmapDescriptor from the byte array
-  //   return BitmapDescriptor.fromBytes(byteList);
-  // }
+    if (user != null) {
+      uid = user.uid;
+      print('Current user UID: $uid');
+    } else {
+      uid = "no uid found";
+      print('No user is currently signed in.');
+    }
+
+    print(uid);
+
+    return uid;
+  }
+
+  Future<void> _getCurrentLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _initialPosition = CameraPosition(
+        target: LatLng(position.latitude, position.longitude),
+        zoom: 14.0,
+      );
+    });
+  }
 
   _fetchtargetLocation() {
     databaseReference.child('Rooms').get().then(
@@ -236,33 +206,7 @@ class MapScreenState extends State<MapScreen> {
               ),
 
               // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-              Positioned(
-                top: MediaQuery.of(context).size.height - 240,
-                child: SizedBox(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-                  child: clientsToggle
-                      ? ListView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.all(9),
-                          children: setOfMarkers.map(
-                            (element) {
-                              if (element.icon ==
-                                  BitmapDescriptor.defaultMarkerWithHue(
-                                      BitmapDescriptor.hueRed)) {
-                                return targetCard(element, _controller);
-                              } else {
-                                return targetCard(element, _controller);
-                              }
-                            },
-                          ).toList(),
-                        )
-                      : const SizedBox(
-                          height: 1,
-                          width: 1,
-                        ),
-                ),
-              ),
+              TargetSlider(clientsToggle: clientsToggle, setOfMarkers: setOfMarkers, controller: _controller),
             ],
           ),
         ],
@@ -292,11 +236,5 @@ class MapScreenState extends State<MapScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    locationStreamSubscription?.cancel();
   }
 }
