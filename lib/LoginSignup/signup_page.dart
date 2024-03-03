@@ -127,17 +127,13 @@ class _SignUpState extends State<SignUp> {
                                 'email': value.user!.email.toString(),
                                 'username': _username.text.toString(),
                                 'status': '',
-                                'profilepic':'',
+                                'profilepic': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBQGiBzk0bcsHU0V-xMAqi6MWyfc-G_2OrA&usqp=CAU',
                               });
 
-                        
-                                 
-  
-                              SessionController().userid =
-                                  value.user!.uid;
+                              SessionController().userid = value.user!.uid;
                               SessionController().username =
-                                  _username.text.toString(); 
-                              
+                                  _username.text.toString();
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -154,7 +150,8 @@ class _SignUpState extends State<SignUp> {
                                   // For example:
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
-                                      content: Text('The email address is already in use.'),
+                                      content: Text(
+                                          'The email address is already in use.'),
                                     ),
                                   );
                                 } else {

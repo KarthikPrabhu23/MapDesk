@@ -1,8 +1,9 @@
 // This is the new Map with Firestore connection
 
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import
 
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -21,7 +22,8 @@ class MapScreen extends StatefulWidget {
 
 class MapScreenState extends State<MapScreen> {
   late CameraPosition _initialPosition = const CameraPosition(
-    target: LatLng(12.898799, 74.984734), // Default position (e.g., center of the world)
+    target: LatLng(
+        12.898799, 74.984734), // Default position (e.g., center of the world)
     zoom: 10, // Default zoom level
   );
 
@@ -35,11 +37,6 @@ class MapScreenState extends State<MapScreen> {
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
 
   Set<Marker> setOfMarkers = {};
-
-  // static const CameraPosition _initialPosition = CameraPosition(
-  //   target: LatLng(12.898799, 74.984734), // Antananarivo, Madagascar
-  //   zoom: 14.4746,
-  // );
 
   late StreamSubscription<Position>? locationStreamSubscription;
 
@@ -71,25 +68,15 @@ class MapScreenState extends State<MapScreen> {
     return uid;
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   locationStreamSubscription =
-  //       StreamLocationService.onLocationChanged?.listen(
-  //     (position) async {
-  //       await FirestoreService.updateUserLocation(
-  //         getCurrentUserUid(), //Hardcoded uid but this is the uid of the connected user when using authentification service
-  //         LatLng(position.latitude, position.longitude),
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
   void initState() {
     super.initState();
     _getCurrentLocation();
     _fetchtargetLocation();
+
+    // _databaseRef = FirebaseDatabase.instance.ref();
+    // _fetchProfilePic();
+
     locationStreamSubscription =
         StreamLocationService.onLocationChanged?.listen(
       (position) async {
@@ -118,6 +105,39 @@ class MapScreenState extends State<MapScreen> {
       },
     );
   }
+
+  // Future<void> _fetchProfilePic() async {
+  //   DataSnapshot dataSnapshot = await _databaseRef.child('users').once();
+  //   String profilePicUrl = dataSnapshot.value['profilepic'];
+  //   BitmapDescriptor markerIcon = await _getMarkerIcon(profilePicUrl);
+  //   setState(() {
+  //     _marker = Marker(
+  //       markerId: const MarkerId('profilePicMarker'),
+  //       position: const LatLng(0, 0), // Set the initial position to (0, 0)
+  //       icon: markerIcon,
+  //     );
+  //   });
+  // }
+
+  // Future<BitmapDescriptor> _getMarkerIcon(String profilePicUrl) async {
+  //   // Load the image from the URL
+  //   // You can use any image loading library (e.g., flutter_image or cached_network_image)
+  //   // Here, we'll use Image.network to load the image
+  //   Image image = Image.network(profilePicUrl);
+  //   Completer<Uint8List> completer = Completer();
+  //   image.image.resolve(const ImageConfiguration()).addListener(
+  //     ImageStreamListener((ImageInfo info, bool _) async {
+  //       // Convert the loaded image to a byte array
+  //       ByteData byteData =
+  //           await info.image.toByteData(format: ImageByteFormat.png);
+  //       Uint8List byteList = byteData.buffer.asUint8List();
+  //       completer.complete(byteList);
+  //     }),
+  //   );
+  //   Uint8List byteList = await completer.future;
+  //   // Create a BitmapDescriptor from the byte array
+  //   return BitmapDescriptor.fromBytes(byteList);
+  // }
 
   _fetchtargetLocation() {
     databaseReference.child('Rooms').get().then(
@@ -249,6 +269,11 @@ class MapScreenState extends State<MapScreen> {
                               : BitmapDescriptor.defaultMarkerWithHue(
                                   BitmapDescriptor.hueYellow,
                                 ),
+                          // icon: markerIcon,
+                          infoWindow: InfoWindow(
+                            title: user.name.toString(),
+                            snippet: user.name.toString(),
+                          ),
                           position:
                               LatLng(user.location.lat, user.location.lng),
                           onTap: () => {},

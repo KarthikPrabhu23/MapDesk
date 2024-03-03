@@ -11,6 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:map1/Home/add_room.dart';
 import 'package:map1/Home/profile_page.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
+// import 'package:map1/Map/classes.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:location/location.dart';
@@ -35,68 +36,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   Query dbRef = FirebaseDatabase.instance.ref().child('Rooms');
 
-  /* Location location = Location();
-  String? LatLoc;
-  String? LongLoc;
-  String? currUid;
-
-  var currentUser = FirebaseAuth.instance.currentUser;
-
-  void _getCurrentUser() {
-    FirebaseAuth auth = FirebaseAuth.instance;
-
-    // Check if the user is signed in
-    if (auth.currentUser != null) {
-      // The user is signed in, you can get the UID
-      String uid = auth.currentUser!.uid;
-      print('Current User UID: $uid');
-      setState(() {
-        currUid = uid;
-      });
-    } else {
-      // No user is signed in
-      print('No user signed in');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getLocation();
-    _getCurrentUser();
-  }
-
- 
-
-  Future<void> _getLocation() async {
-    try {
-      var currentLocation = await location.getLocation();
-
-      setState(
-        () {
-          LatLoc = currentLocation.latitude.toString();
-          LongLoc = currentLocation.longitude.toString();
-
-          print(LatLoc);
-          print(LongLoc);
-        },
-      );
-
-      print(
-          "Current Location: ${currentLocation.latitude}, ${currentLocation.longitude}");
-    } catch (e) {
-      print("Error getting location: $e");
-    }
-  }
-  */
-
   LocationData? currentLocation;
   late DatabaseReference _userLocationRef;
   late Location location;
   String currUid = "";
+  String currEmail = "";
   String ufullname = "Default";
 
   var currentUser = FirebaseAuth.instance.currentUser;
+
 
   void _getCurrentUser() {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -106,17 +54,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // The user is signed in, you can get the UID
       String uid = auth.currentUser!.uid;
       print('Current User UID: $uid \n _getCurrentUser');
-      // setState(() {
+
       currUid = uid;
-
-      // String ufullname = auth.currentUser!.display Name;
-
-      // If you want to provide a default value in case displayName is null
-      // String displayName = ufullname ?? 'Unknown';
-
-      // If you want to display the display name only when it's not null
-      // print('User Fullname: $ufullname');
-      // });
     } else {
       // No user is signed in
       print('No user signed in');
@@ -156,12 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Store location updates in Firestore
     locationStream.listen((Position position) {
-      storeUserLocation(uid, position.latitude, position.longitude);
+      storeUserLocation(uid, position.latitude, position.longitude, currEmail);
     });
   }
 
   Future<void> storeUserLocation(
-      String uid, double latitude, double longitude) async {
+      String uid, double latitude, double longitude, String currEmail) async {
     print('Inside storeUserLocation');
     try {
       // Store the user's location in Firestore
@@ -174,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
           'lng': longitude,
           'timestamp': firestore.FieldValue.serverTimestamp(),
         },
+        'emailid': currEmail.toString(),
         'name': ufullname,
         // 'fullname': ufullname,
       });
