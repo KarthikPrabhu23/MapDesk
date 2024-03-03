@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Allows the application to access approximate location using network-based methods -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
 
     <!-- Allows the application to access location in the background -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />

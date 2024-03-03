@@ -32,6 +32,7 @@ class MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
+
   late CameraPosition _initialPosition = const CameraPosition(
     target: LatLng(
         12.898799, 74.984734), // Default position (e.g., center of the world)
@@ -55,32 +56,32 @@ class MapScreenState extends State<MapScreen> {
 
   StreamSubscription<Position>? locationStream() {
     return locationStreamSubscription =
-      StreamLocationService.onLocationChanged?.listen(
-    (position) async {
-      String uid = getCurrentUserUid();
+        StreamLocationService.onLocationChanged?.listen(
+      (position) async {
+        String uid = getCurrentUserUid();
 
-      // Check if user exists in Firestore
-      bool userExists = await FirestoreService.doesUserExist(uid);
+        // Check if user exists in Firestore
+        bool userExists = await FirestoreService.doesUserExist(uid);
 
-      if (userExists) {
-        // Update user location
-        await FirestoreService.updateUserLocation(
-            uid, LatLng(position.latitude, position.longitude));
-      } else {
-        // Add new user to Firestore
-        await FirestoreService.addNewUser(
-          uid,
-          User(
-            name: 'New User', // Provide a default name for new users
-            location: Location(
-              lat: position.latitude,
-              lng: position.longitude,
+        if (userExists) {
+          // Update user location
+          await FirestoreService.updateUserLocation(
+              uid, LatLng(position.latitude, position.longitude));
+        } else {
+          // Add new user to Firestore
+          await FirestoreService.addNewUser(
+            uid,
+            User(
+              name: 'New User', // Provide a default name for new users
+              location: Location(
+                lat: position.latitude,
+                lng: position.longitude,
+              ),
             ),
-          ),
-        );
-      }
-    },
-  );
+          );
+        }
+      },
+    );
   }
 
   String getCurrentUserUid() {
@@ -207,7 +208,10 @@ class MapScreenState extends State<MapScreen> {
               ),
 
               // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-              TargetSlider(clientsToggle: clientsToggle, setOfMarkers: setOfMarkers, controller: _controller),
+              TargetSlider(
+                  clientsToggle: clientsToggle,
+                  setOfMarkers: setOfMarkers,
+                  controller: _controller),
             ],
           ),
         ],
@@ -222,11 +226,7 @@ class MapScreenState extends State<MapScreen> {
               children: [
                 FloatingActionButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyHomePage()),
-                    );
+                    Navigator.pop(context);
                   },
                   // icon: const Icon(Icons.home),
                   child: const Icon(Icons.arrow_back_ios_new),

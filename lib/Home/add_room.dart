@@ -154,11 +154,7 @@ class _AddRoomState extends State<AddRoom> {
                     };
 
                     dbRef.push().set(roomsMap);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MyHomePage()),
-                    );
+                    Navigator.pop(context);
                   },
                   color: Colors.blueAccent,
                   textColor: Colors.white,

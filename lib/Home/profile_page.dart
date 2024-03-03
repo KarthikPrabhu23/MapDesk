@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
-import 'package:map1/LoginSignup/signup_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -34,12 +33,13 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {
               FirebaseAuth.instance.signOut().then(
                 (value) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: ((context) => const SignUp()),
-                    ),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: ((context) => const SignUp()),
+                  //   ),
+                  // );
+                  Navigator.pop(context);
                 },
               );
             },

@@ -1,11 +1,15 @@
 // This is the old Map with realtime-database connection
 
 // ignore_for_file: unused_import
+import 'dart:async';
+
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Home/add_room.dart';
+import 'package:map1/Map/components/target_card.dart';
+import 'package:map1/Map/components/target_slider.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/Home/home_page.dart';
 
@@ -20,6 +24,10 @@ class _MapLocState extends State<MapLoc> {
   bool clientsToggle = true;
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
   late GoogleMapController mapController;
+
+  // final Completer<GoogleMapController> _controllerCompleter =
+  //     Completer<GoogleMapController>();
+
   Set<Marker> targetLocation = {};
 
   static const CameraPosition _cecLocation =
@@ -38,57 +46,57 @@ class _MapLocState extends State<MapLoc> {
     _fetchUserLocation();
   }
 
-  Widget targetCard(element) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 12, top: 10),
-      child: InkWell(
-        onTap: () {
-          zoomInMarker(element);
-        },
-        child: Container(
-          height: 100,
-          width: 120,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: const Color.fromARGB(197, 57, 151, 227)),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                element.infoWindow.title.toString(),
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w600),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget targetCard(element) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(left: 12, top: 10),
+  //     child: InkWell(
+  //       onTap: () {
+  //         zoomInMarker(element, controllerCompleter);
+  //       },
+  //       child: Container(
+  //         height: 100,
+  //         width: 120,
+  //         decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(8.0),
+  //             color: const Color.fromARGB(197, 57, 151, 227)),
+  //         child: Center(
+  //           child: Padding(
+  //             padding: const EdgeInsets.all(2.0),
+  //             child: Text(
+  //               element.infoWindow.title.toString(),
+  //               style: const TextStyle(
+  //                   color: Colors.white, fontWeight: FontWeight.w600),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  zoomInMarker(element) {
-    mapController.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(element.position.latitude, element.position.longitude),
-          zoom: 18,
-          bearing: 90,
-          tilt: 50,
-        ),
-      ),
-    );
-  }
+  // zoomInMarker(element) {
+  //   mapController.animateCamera(
+  //     CameraUpdate.newCameraPosition(
+  //       CameraPosition(
+  //         target: LatLng(element.position.latitude, element.position.longitude),
+  //         zoom: 18,
+  //         bearing: 90,
+  //         tilt: 50,
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  zoomOutMarker() {
-    mapController.animateCamera(
-      CameraUpdate.newCameraPosition(
-        const CameraPosition(
-          target: LatLng(12.898799, 74.984734),
-          zoom: 16,
-        ),
-      ),
-    );
-  }
+  // zoomOutMarker() {
+  //   mapController.animateCamera(
+  //     CameraUpdate.newCameraPosition(
+  //       const CameraPosition(
+  //         target: LatLng(12.898799, 74.984734),
+  //         zoom: 16,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void onMapCreated(controller) {
     setState(() {
@@ -195,31 +203,11 @@ class _MapLocState extends State<MapLoc> {
                 ),
 
                 // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-                Positioned(
-                  top: MediaQuery.of(context).size.height - 240,
-                  child: SizedBox(
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    child: clientsToggle
-                        ? ListView(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.all(9),
-                            children: targetLocation.map((element) {
-                              if (element.icon ==
-                                  BitmapDescriptor.defaultMarkerWithHue(
-                                      BitmapDescriptor.hueRed)) {
-                                return targetCard(element);
-                              } else {
-                                return targetCard(element);
-                              }
-                            }).toList(),
-                          )
-                        : const SizedBox(
-                            height: 1,
-                            width: 1,
-                          ),
-                  ),
-                ),
+
+                // TargetSlider(
+                //     clientsToggle: clientsToggle,
+                //     setOfMarkers: targetLocation,
+                //     controller: controller),
               ],
             ),
           ],
@@ -234,11 +222,7 @@ class _MapLocState extends State<MapLoc> {
                 children: [
                   FloatingActionButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MyHomePage()),
-                      );
+                      Navigator.pop(context);
                     },
                     // icon: const Icon(Icons.home),
                     child: const Icon(Icons.arrow_back_ios_new),
@@ -252,25 +236,3 @@ class _MapLocState extends State<MapLoc> {
     );
   }
 }
-
-
-// SizedBox(
-                      //   height: 150,
-                      //   child: Column(
-                          
-                      //       children: [
-                      //         IconButton(
-                      //           onPressed: zoomOutMarker,
-                      //           icon: const Icon(Icons.adjust_rounded),
-                      //         ),
-                      //         ListView(
-                      //           scrollDirection: Axis.horizontal,
-                      //           padding: const EdgeInsets.all(9),
-                      //           children: targetLocation.map((element) {
-                      //             return targetCard(element);
-                      //           }).toList(),
-                      //         ),
-                      //       ],
-                      //     ),
-                      // )
-            
