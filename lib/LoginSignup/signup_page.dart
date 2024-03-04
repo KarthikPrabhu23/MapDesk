@@ -1,4 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
+  String userUID="";
 
   final _confirmPassword = TextEditingController();
   final _email = TextEditingController();
@@ -121,6 +123,7 @@ class _SignUpState extends State<SignUp> {
                               password: _password.text,
                             )
                                 .then((value) {
+
                               ref.child(value.user!.uid.toString()).set(
                                 {
                                   'uid': value.user!.uid.toString(),
@@ -132,6 +135,27 @@ class _SignUpState extends State<SignUp> {
                                 },
                               );
 
+                              FirebaseFirestore.instance
+                                  .collection('users')
+                                  .doc(value.user!.uid.toString())
+                                  .set(
+                                {
+                                  // 'location': {
+                                  //   'lat': latitude,
+                                  //   'lng': longitude,
+                                  //   'timestamp':
+                                  //       firestore.FieldValue.serverTimestamp(),
+                                  // },
+                                  // 'emailid': emailId,
+                                  // 'name': ufullname,
+                                  'email': _email.text.toString(),
+                                  'username': _username.text.toString(),
+                                  'status': '',
+                                  'profilepic':
+                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBQGiBzk0bcsHU0V-xMAqi6MWyfc-G_2OrA&usqp=CAU',
+                                  // 'fullname': ufullname,
+                                },
+                              );
                               SessionController().userid = value.user!.uid;
                               SessionController().username =
                                   _username.text.toString();

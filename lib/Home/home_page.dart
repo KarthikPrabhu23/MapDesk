@@ -90,23 +90,41 @@ class _MyHomePageState extends State<MyHomePage> {
       String uid, double latitude, double longitude, String currEmail) async {
     print('Inside storeUserLocation');
     try {
+      String? emailId = FirebaseAuth.instance.currentUser?.email;
+
+      // Get the current user's display name
+      // String? displayName = FirebaseAuth.instance.currentUser?.displayName;
+
       // Store the user's location in Firestore
+      // await firestore.FirebaseFirestore.instance
+      //     .collection('users')
+      //     .doc(uid)
+      //     .set(
+      //   {
+      //     'location': {
+      //       'lat': latitude,
+      //       'lng': longitude,
+      //       'timestamp': firestore.FieldValue.serverTimestamp(),
+      //     },
+      //     'emailid': emailId,
+      //     'name': ufullname,
+      //     // 'fullname': ufullname,
+      //   },
+      // );
+      // print('User location stored ');
+
       await firestore.FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
-          .set(
-        {
-          'location': {
-            'lat': latitude,
-            'lng': longitude,
-            'timestamp': firestore.FieldValue.serverTimestamp(),
-          },
-          'emailid': currEmail.toString(),
-          'name': ufullname,
-          // 'fullname': ufullname,
+          .update({
+        'location': {
+          'lat': latitude,
+          'lng': longitude,
+          'timestamp': firestore.FieldValue.serverTimestamp(),
         },
-      );
-      print('User location stored ');
+        'name': ufullname,
+      });
+      print('User location updated ');
     } catch (error) {
       print('Error storing user location: $error');
     }
