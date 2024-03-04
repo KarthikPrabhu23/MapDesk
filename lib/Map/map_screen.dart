@@ -32,7 +32,7 @@ class MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-
+  final Completer<GoogleMapController> _controllerCompleter = Completer<GoogleMapController>();
   late CameraPosition _initialPosition = const CameraPosition(
     target: LatLng(
         12.898799, 74.984734), // Default position (e.g., center of the world)
@@ -111,6 +111,22 @@ class MapScreenState extends State<MapScreen> {
       );
     });
   }
+
+//  zoomInMarker(element) {
+//     _controller.future.then((controller) {
+//       controller.animateCamera(
+//         CameraUpdate.newCameraPosition(
+//           CameraPosition(
+//             target:
+//                 LatLng(element.position.latitude, element.position.longitude),
+//             zoom: 18,
+//             bearing: 90,
+//             tilt: 50,
+//           ),
+//         ),
+//       );
+//     });
+//   }
 
   _fetchtargetLocation() {
     databaseReference.child('Rooms').get().then(
@@ -200,7 +216,9 @@ class MapScreenState extends State<MapScreen> {
                       initialCameraPosition: _initialPosition,
                       markers: setOfMarkers,
                       onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
+                        // if (!_controllerCompleter.isCompleted) {
+                          _controllerCompleter.complete(controller);
+                        // }
                       },
                     );
                   },

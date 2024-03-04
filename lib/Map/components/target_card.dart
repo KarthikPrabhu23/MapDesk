@@ -14,30 +14,35 @@ void zoomOutMarker(GoogleMapController gMapController) {
   );
 }
 
-void zoomInMarker(element, Completer<GoogleMapController> controllerCompleter) {
-  controllerCompleter.future.then(
-    (controller) {
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target:
-                LatLng(element.position.latitude, element.position.longitude),
-            zoom: 18,
-            bearing: 90,
-            tilt: 50,
-          ),
-        ),
-      );
-    },
-  );
-}
+// void zoomInMarker(element, Completer<GoogleMapController> controllerCompleter) {
+//   controllerCompleter.future.then(
+//     (controller) {
+//       controller.animateCamera(
+//         CameraUpdate.newCameraPosition(
+//           CameraPosition(
+//             target: LatLng(
+//               element.position.latitude,
+//               element.position.longitude,
+//             ),
+//             zoom: 18,
+//             bearing: 90,
+//             tilt: 50,
+//           ),
+//         ),
+//       );
+//     },
+//   ).catchError((error) {
+//     print('Error accessing GoogleMapController: $error');
+//   });
+// }
 
 Widget targetCard(element, Completer<GoogleMapController> controllerCompleter) {
   return Padding(
     padding: const EdgeInsets.only(left: 12, top: 10),
     child: InkWell(
       onTap: () {
-        zoomInMarker(element, controllerCompleter);
+        // zoomInMarker(element, controllerCompleter);
+        zoomInMarker(element, controllerCompleter );
       },
       child: Container(
         height: 100,
@@ -61,4 +66,21 @@ Widget targetCard(element, Completer<GoogleMapController> controllerCompleter) {
       ),
     ),
   );
+}
+
+void zoomInMarker(element, Completer<GoogleMapController> controllerCompleter) {
+  controllerCompleter.future.then((controller) {
+    controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(element.position.latitude, element.position.longitude),
+          zoom: 18,
+          bearing: 90,
+          tilt: 50,
+        ),
+      ),
+    );
+  }).catchError((error) {
+    print('Error accessing GoogleMapController: $error');
+  });
 }
