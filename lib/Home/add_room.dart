@@ -139,8 +139,8 @@ class _AddRoomState extends State<AddRoom> {
                     markers: Set.from(myMarker),
                     onTap: _handleTap,
                     mapType: MapType.normal,
-                    onMapCreated: (GoogleMapController controller) {
-                      _mapController = controller;
+                    onMapCreated: (GoogleMapController Addcontroller) {
+                      _mapController = Addcontroller;
                     },
                   ),
                 ),
