@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
       String uid, double latitude, double longitude, String currEmail) async {
     print('Inside storeUserLocation');
     try {
-      String? emailId = FirebaseAuth.instance.currentUser?.email;
+      // String? emailId = FirebaseAuth.instance.currentUser?.email;
 
       // Get the current user's display name
       // String? displayName = FirebaseAuth.instance.currentUser?.displayName;

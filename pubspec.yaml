@@ -50,9 +50,10 @@ dependencies:
   geolocator: ^10.1.0
   cloud_firestore: ^4.13.5
   firebase_auth: ^4.15.3
-  image_picker: ^1.0.5
+  image_picker: ^1.0.7
   location: ^5.0.3
   permission_handler: ^11.3.0
+  firebase_storage: ^11.6.8
 
 
 dev_dependencies:
