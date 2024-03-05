@@ -52,14 +52,6 @@ dependencies:
   image_picker: ^1.0.5
   location: ^5.0.3
   permission_handler: ^11.3.0
-<<<<<<< Updated upstream
-=======
-  firebase_storage: ^11.6.8
-  crypto: ^3.0.3
-  http: ^0.13.6
-  cached_network_image: ^3.2.0
-  flutter_blurhash: ^0.7.0
->>>>>>> Stashed changes
 
 
 dev_dependencies:
