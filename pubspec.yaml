@@ -50,8 +50,13 @@ dependencies:
   cloud_firestore: ^4.13.5
   firebase_auth: ^4.15.3
   image_picker: ^1.0.5
+  image_picker: ^1.0.5
   location: ^5.0.3
   permission_handler: ^11.3.0
+  crypto: ^3.0.3
+  http: ^0.13.6
+  cached_network_image: ^3.2.0
+  flutter_blurhash: ^0.7.0
 
 
 dev_dependencies:

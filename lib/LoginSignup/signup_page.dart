@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
@@ -130,8 +131,9 @@ class _SignUpState extends State<SignUp> {
                                   'email': value.user!.email.toString(),
                                   'username': _username.text.toString(),
                                   'status': '',
-                                  'profilepic':
-                                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBQGiBzk0bcsHU0V-xMAqi6MWyfc-G_2OrA&usqp=CAU',
+                                  //  'profilepic': downloadUrl,
+                                  // 'profilepic':
+                                  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBQGiBzk0bcsHU0V-xMAqi6MWyfc-G_2OrA&usqp=CAU',
                                 },
                               );
 
