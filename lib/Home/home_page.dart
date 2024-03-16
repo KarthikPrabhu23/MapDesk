@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import, avoid_print
 
-// import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -13,7 +12,6 @@ import 'package:map1/Home/components/room_element_widget.dart';
 import 'package:map1/Home/components/room_scrollview_widget.dart';
 import 'package:map1/Home/profile_page.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
-// import 'package:map1/Map/classes.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:location/location.dart';
@@ -26,10 +24,6 @@ class MyHomePage extends StatefulWidget {
   });
 
   final String title = "Home";
-
-  // final String? roomName;
-  // final String? roomLocation;
-  // const roomElement(Map room, {super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -50,10 +44,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     location = Location();
+   
     _userLocationRef = FirebaseDatabase.instance.ref().child('User');
     _getCurrentUser();
     _getLocation();
-    firestoreLogin();
+     firestoreLogin();
     _subscribeToLocationChanges();
   }
 
@@ -90,41 +85,27 @@ class _MyHomePageState extends State<MyHomePage> {
       String uid, double latitude, double longitude, String currEmail) async {
     print('Inside storeUserLocation');
     try {
-      // String? emailId = FirebaseAuth.instance.currentUser?.email;
+// <<<<<<< Updated upstream
+//       // Store the user's location in Firestore
+// =======
 
-      // Get the current user's display name
-      // String? displayName = FirebaseAuth.instance.currentUser?.displayName;
-
-      // Store the user's location in Firestore
-      // await firestore.FirebaseFirestore.instance
-      //     .collection('users')
-      //     .doc(uid)
-      //     .set(
-      //   {
-      //     'location': {
-      //       'lat': latitude,
-      //       'lng': longitude,
-      //       'timestamp': firestore.FieldValue.serverTimestamp(),
-      //     },
-      //     'emailid': emailId,
-      //     'name': ufullname,
-      //     // 'fullname': ufullname,
-      //   },
-      // );
-      // print('User location stored ');
-
+//  Stashed changes
       await firestore.FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
-          .update({
-        'location': {
-          'lat': latitude,
-          'lng': longitude,
-          'timestamp': firestore.FieldValue.serverTimestamp(),
+          .set(
+        {
+          'location': {
+            'lat': latitude,
+            'lng': longitude,
+            'timestamp': firestore.FieldValue.serverTimestamp(),
+          },
+          'emailid': currEmail.toString(),
+          'name': ufullname,
+          // 'fullname': ufullname,
         },
-        'name': ufullname,
-      });
-      print('User location updated ');
+      );
+      print('User location stored ');
     } catch (error) {
       print('Error storing user location: $error');
     }

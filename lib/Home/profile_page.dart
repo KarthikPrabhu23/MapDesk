@@ -15,9 +15,6 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final ref = FirebaseDatabase.instance.ref().child('User');
 
-  // FirebaseAuth auth = FirebaseAuth.instance;
-  // final user = auth.currentUser;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,12 +30,6 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {
               FirebaseAuth.instance.signOut().then(
                 (value) {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: ((context) => const SignUp()),
-                  //   ),
-                  // );
                   Navigator.pop(context);
                 },
               );

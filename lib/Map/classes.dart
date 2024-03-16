@@ -16,23 +16,27 @@ class Location {
 }
 
 class User {
+  // String profilepic;
+
   User({
     required this.name,
     required this.location,
+    required this.profilepic,
   });
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      name: map['name'],
+      name: map['username'],
       location: Location(
         lat: map['location']['lat'],
         lng: map['location']['lng'],
       ),
+      profilepic: map['profilepic'],
     );
   }
-
   final Location location;
   final String name;
+  final String profilepic;
 
 // Convert a User object to a Map
   Map<String, dynamic> toMap() {
