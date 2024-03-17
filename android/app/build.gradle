@@ -23,6 +23,13 @@ if (flutterVersionName == null) {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+
+// plugins {
+//     id 'com.android.application'
+//     id 'kotlin-android'
+// }
+
+
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {

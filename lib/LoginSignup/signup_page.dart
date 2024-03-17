@@ -61,7 +61,7 @@ class _SignUpState extends State<SignUp> {
         .child("profilepic")
         .child('${DateTime.now()}.jpg'); // Add file extension if needed
     UploadTask uploadTask = ref.putFile(File(_image.path));
-    TaskSnapshot snapshot = await uploadTask;
+    // TaskSnapshot snapshot = await uploadTask;
     // downloadUrl = await snapshot.ref.getDownloadURL();
 
     // Store the download URL in Firestore or wherever needed

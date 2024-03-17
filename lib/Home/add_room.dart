@@ -22,9 +22,11 @@ class _AddRoomState extends State<AddRoom> {
   late DatabaseReference dbRef;
   String lat = "";
   String long = "";
+  bool completed = false;
   List<Marker> myMarker = [];
   final roomLocation = TextEditingController();
   final roomName = TextEditingController();
+  final tInfo = TextEditingController();
 
   static const CameraPosition _cecLocation =
       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
@@ -116,7 +118,22 @@ class _AddRoomState extends State<AddRoom> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                  child: TextField(
+                    controller: tInfo,
+                    keyboardType: TextInputType.text,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Information',
+                      hintText: 'Enter target information',
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
                 ),
                 Text(
                   'Tap on the map below to choose a target location',
@@ -146,11 +163,13 @@ class _AddRoomState extends State<AddRoom> {
                 ),
                 MaterialButton(
                   onPressed: () {
-                    Map<String, String> roomsMap = {
+                    Map<dynamic, dynamic> roomsMap = {
                       'roomName': roomName.text,
                       'roomLocation': roomLocation.text,
                       'latitude': lat,
                       'longitude': long,
+                      'completed' : false,
+                      'targetInfo' : tInfo.text,
                     };
 
                     dbRef.push().set(roomsMap);

@@ -18,12 +18,14 @@ class Location {
 class User {
   User({
     required this.name,
+    required this.username,
     required this.location,
   });
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
       name: map['name'],
+      username: map['username'],
       location: Location(
         lat: map['location']['lat'],
         lng: map['location']['lng'],
@@ -33,11 +35,13 @@ class User {
 
   final Location location;
   final String name;
+  final String username;
 
 // Convert a User object to a Map
   Map<String, dynamic> toMap() {
     return {
       'name': name,
+      'username': username,
       'location': {
         'lat': location.lat,
         'lng': location.lng,

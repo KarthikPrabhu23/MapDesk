@@ -29,10 +29,13 @@ class MapScreenState extends State<MapScreen> {
   late GoogleMapController mapController;
   Set<Marker> setOfMarkers = {};
 
+  late BitmapDescriptor pinLocationIcon;
+
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  final Completer<GoogleMapController> _controllerCompleter = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controllerCompleter =
+      Completer<GoogleMapController>();
   late CameraPosition _initialPosition = const CameraPosition(
     target: LatLng(
         12.898799, 74.984734), // Default position (e.g., center of the world)
@@ -48,11 +51,20 @@ class MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
+
     _getCurrentLocation();
     _fetchtargetLocation();
 
+    setCustomMapPin();
+
     locationStream();
   }
+
+  void setCustomMapPin() async {
+      pinLocationIcon = await BitmapDescriptor.fromAssetImage( const 
+      ImageConfiguration(devicePixelRatio: 2.5),
+      'lib/user.png');
+   }
 
   StreamSubscription<Position>? locationStream() {
     return locationStreamSubscription =
@@ -76,7 +88,7 @@ class MapScreenState extends State<MapScreen> {
               location: Location(
                 lat: position.latitude,
                 lng: position.longitude,
-              ),
+              ), username: '',
             ),
           );
         }
@@ -112,21 +124,21 @@ class MapScreenState extends State<MapScreen> {
     });
   }
 
-//  zoomInMarker(element) {
-//     _controller.future.then((controller) {
-//       controller.animateCamera(
-//         CameraUpdate.newCameraPosition(
-//           CameraPosition(
-//             target:
-//                 LatLng(element.position.latitude, element.position.longitude),
-//             zoom: 18,
-//             bearing: 90,
-//             tilt: 50,
-//           ),
-//         ),
-//       );
-//     });
-//   }
+ zoomInMarker(element) {
+    _controller.future.then((controller) {
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target:
+                LatLng(element.position.latitude, element.position.longitude),
+            zoom: 18,
+            bearing: 90,
+            tilt: 50,
+          ),
+        ),
+      );
+    });
+  }
 
   _fetchtargetLocation() {
     databaseReference.child('Rooms').get().then(
@@ -138,8 +150,11 @@ class MapScreenState extends State<MapScreen> {
             setOfMarkers.add(
               Marker(
                 markerId: MarkerId(key),
-                icon: BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueRed),
+                icon: values['completed'] == true
+                    ? BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueBlue)
+                    : BitmapDescriptor.defaultMarkerWithHue(
+                        BitmapDescriptor.hueRed),
                 position: LatLng(
                   double.parse(values['latitude'].toString()),
                   double.parse(values['longitude'].toString()),
@@ -194,16 +209,15 @@ class MapScreenState extends State<MapScreen> {
                       setOfMarkers.add(
                         Marker(
                           markerId: MarkerId('${user.name} position $i'),
-                          icon: user.name == 'stephano'
-                              ? BitmapDescriptor.defaultMarkerWithHue(
-                                  BitmapDescriptor.hueRed,
-                                )
-                              : BitmapDescriptor.defaultMarkerWithHue(
-                                  BitmapDescriptor.hueYellow,
-                                ),
+                          // icon: BitmapDescriptor.defaultMarkerWithHue(
+                          //   BitmapDescriptor.hueYellow,
+                          // ),
                           // icon: markerIcon,
+
+                          icon: pinLocationIcon,
+                          
                           infoWindow: InfoWindow(
-                            title: user.name.toString(),
+                            title: user.username.toString(),
                             snippet: user.name.toString(),
                           ),
                           position:
@@ -216,9 +230,9 @@ class MapScreenState extends State<MapScreen> {
                       initialCameraPosition: _initialPosition,
                       markers: setOfMarkers,
                       onMapCreated: (GoogleMapController controller) {
-                        // if (!_controllerCompleter.isCompleted) {
-                          _controllerCompleter.complete(controller);
-                        // }
+                        if (!_controllerCompleter.isCompleted) {
+                        _controllerCompleter.complete(controller);
+                        }
                       },
                     );
                   },
