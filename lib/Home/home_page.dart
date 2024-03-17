@@ -1,6 +1,4 @@
 // ignore_for_file: unused_import, avoid_print
-
-// import 'dart:html';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -18,6 +16,7 @@ import 'package:map1/Map/map_loc.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:location/location.dart';
 import 'package:map1/Map/map_screen.dart';
+import 'package:map1/Record/record.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -245,46 +244,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'Target visits',
                     style: TextStyle(
-                      fontWeight: FontWeight.w500 ,
-                      fontSize: 27,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 25,
                     ),
                   ),
                 ),
                 RoomScrollView(dbRef: dbRef),
                 Row(
                   children: [
-                    // TextButton(
-                    //   style: TextButton.styleFrom(
-                    //     backgroundColor:
-                    //         const Color.fromARGB(115, 108, 172, 90),
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 16.0, vertical: 8.0),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(10.0),
-                    //     ),
-                    //     textStyle: const TextStyle(
-                    //         fontSize: 16.0), // Adjust font size as needed
-                    //   ),
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => const MapLoc()),
-                    //     );
-                    //   },
-                    //   child: const Row(
-                    //     mainAxisSize:
-                    //         MainAxisSize.min, // Restrict size based on content
-                    //     children: [
-                    //       Icon(Icons.map_rounded),
-                    //       SizedBox(
-                    //           width:
-                    //               5.0), // Add some spacing between icon and text
-                    //       Text('Open Map'),
-                    //     ],
-                    //   ),
-                    // ),
-
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                       child: DecoratedBox(
@@ -321,11 +288,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               Icon(
                                 Icons.map_rounded,
-                                color: Colors.white, // Set icon color to white
+                                color: Colors.white,
                               ),
-                              SizedBox(
-                                  width:
-                                      5.0), // Add some spacing between icon and text
+                              SizedBox(width: 5.0),
                               Text(
                                 "Open Map",
                                 style: TextStyle(
@@ -336,50 +301,64 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                       ),
                     ),
-                    // TextButton(
-                    //   style: TextButton.styleFrom(
-                    //     backgroundColor:
-                    //         const Color.fromARGB(115, 108, 172, 90),
-                    //     padding: const EdgeInsets.symmetric(
-                    //         horizontal: 16.0, vertical: 8.0),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(10.0),
-                    //     ),
-                    //     textStyle: const TextStyle(
-                    //         fontSize: 16.0), // Adjust font size as needed
-                    //   ),
-                    //   onPressed: () {
-                    //     Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => const MapScreen()),
-                    //     );
-                    //   },
-                    //   child: const Row(
-                    //     mainAxisSize:
-                    //         MainAxisSize.min, // Restrict size based on content
-                    //     children: [
-                    //       Icon(Icons.map_rounded),
-                    //       SizedBox(
-                    //           width:
-                    //               5.0), // Add some spacing between icon and text
-                    //       Text('Open Map 2'),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
-                // IconButton(
-                //   icon: const Icon(Icons.map),
-                //   iconSize: 40,
-                //   tooltip: 'Go to Map',
-                //   onPressed: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(builder: (context) => const MapLoc()),
-                //       );
-                //   },
-                // ),
+              
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: const LinearGradient(colors: [
+                              Color(0xff4338CA),
+                              Color(0xff6D28D9)
+                            ])),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            elevation: MaterialStateProperty.all(0),
+                            alignment: Alignment.center,
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.only(
+                                    right: 45, left: 45, top: 15, bottom: 15)),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const RecordLog()),
+                            );
+                          },
+                          child: const Row(
+                            mainAxisSize: MainAxisSize
+                                .min, // Restrict size based on content
+                            children: [
+                              Icon(
+                                Icons.book_rounded,
+                                color: Colors.white,
+                              ),
+                              SizedBox(width: 5.0),
+                              Text(
+                                "Record Log",
+                                style: TextStyle(
+                                    color: Color(0xffffffff), fontSize: 16),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              
+              
               ],
             ),
           ),
@@ -403,16 +382,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   label: const Text('Add room'),
                 ),
               ),
-              // FloatingActionButton.extended(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => const MapLoc()),
-              //     );
-              //   },
-              //   icon: const Icon(Icons.map_rounded),
-              //   label: const Text('Open Map'),
-              // ),
             ],
           ),
         ),

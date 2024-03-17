@@ -16,7 +16,7 @@ class BannerHomeWidget extends StatelessWidget {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: Image.asset(
-            'lib/bg.png',
+            'lib/images/bg1.png',
           ).image,
         ),
         boxShadow: const [
