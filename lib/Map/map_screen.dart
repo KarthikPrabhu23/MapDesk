@@ -11,6 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:map1/Map/components/custom_info_window.dart';
 import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
@@ -61,10 +62,9 @@ class MapScreenState extends State<MapScreen> {
   }
 
   void setCustomMapPin() async {
-      pinLocationIcon = await BitmapDescriptor.fromAssetImage( const 
-      ImageConfiguration(devicePixelRatio: 2.5),
-      'lib/user.png');
-   }
+    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(devicePixelRatio: 2.5), 'lib/user.png');
+  }
 
   StreamSubscription<Position>? locationStream() {
     return locationStreamSubscription =
@@ -88,7 +88,8 @@ class MapScreenState extends State<MapScreen> {
               location: Location(
                 lat: position.latitude,
                 lng: position.longitude,
-              ), username: '',
+              ),
+              username: '',
             ),
           );
         }
@@ -124,7 +125,7 @@ class MapScreenState extends State<MapScreen> {
     });
   }
 
- zoomInMarker(element) {
+  zoomInMarker(element) {
     _controller.future.then((controller) {
       controller.animateCamera(
         CameraUpdate.newCameraPosition(
@@ -215,10 +216,19 @@ class MapScreenState extends State<MapScreen> {
                           // icon: markerIcon,
 
                           icon: pinLocationIcon,
-                          
+
+                          // infoWindow: InfoWindow(
+                          //   title: user.username.toString(),
+                          //   snippet: user.name.toString(),
+                          // ),
+
                           infoWindow: InfoWindow(
-                            title: user.username.toString(),
-                            snippet: user.name.toString(),
+                            title: user.username,
+                            snippet: user.name,
+                            onTap: () {
+                              // Handle info window tap
+                              print('Info window tapped!');
+                            },
                           ),
                           position:
                               LatLng(user.location.lat, user.location.lng),
@@ -231,7 +241,7 @@ class MapScreenState extends State<MapScreen> {
                       markers: setOfMarkers,
                       onMapCreated: (GoogleMapController controller) {
                         if (!_controllerCompleter.isCompleted) {
-                        _controllerCompleter.complete(controller);
+                          _controllerCompleter.complete(controller);
                         }
                       },
                     );

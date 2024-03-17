@@ -75,7 +75,7 @@ class _AddRoomState extends State<AddRoom> {
         scrollDirection: Axis.vertical,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(3),
             child: Column(
               children: [
                 // const SizedBox(
@@ -88,7 +88,7 @@ class _AddRoomState extends State<AddRoom> {
                 //   ),
                 // ),
                 SizedBox(
-                  height: 10,
+                  height: 7,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -103,7 +103,7 @@ class _AddRoomState extends State<AddRoom> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 6,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -118,7 +118,7 @@ class _AddRoomState extends State<AddRoom> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 6,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 18.0),
@@ -133,7 +133,7 @@ class _AddRoomState extends State<AddRoom> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 5,
                 ),
                 Text(
                   'Tap on the map below to choose a target location',
