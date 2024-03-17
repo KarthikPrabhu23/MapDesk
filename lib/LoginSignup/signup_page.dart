@@ -179,23 +179,29 @@ class _SignUpState extends State<SignUp> {
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: dpUrl == " "
-                            ? const Center(
-                                child: Icon(
-                                  Icons.person,
-                                  size: 70,
-                                  color: Colors.white,
+                            ? Container(
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Color.fromARGB(255, 41, 36, 36),
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 70,
+                                    color: Color.fromARGB(255, 228, 225, 225),
+                                  ),
                                 ),
                               )
                             : Image.network(dpUrl),
                       ),
                     ),
-                    EmailInputFieldIcon(
-                      _email,
-                      inputController: _email,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    // EmailInputFieldIcon(
+                    //   _email,
+                    //   inputController: _email,
+                    // ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
                     myTextFormField(
                       MyController: _username,
                       hintText: "Enter username",
