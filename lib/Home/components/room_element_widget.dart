@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:map1/Map/map_loc.dart';
 
@@ -28,9 +27,9 @@ class RoomElementWidget extends StatelessWidget {
               },
               child: Container(
                 width: 180,
-                height: 334,
+                height: 314,
                 decoration: BoxDecoration(
-                  color: Colors.amberAccent,
+                  color: Color.fromARGB(222, 21, 30, 132),
                   boxShadow: const [
                     BoxShadow(
                       blurRadius: 4,
@@ -54,7 +53,7 @@ class RoomElementWidget extends StatelessWidget {
                           child: Image.network(
                             'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
                             width: double.infinity,
-                            height: 220,
+                            height: 200,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -66,6 +65,7 @@ class RoomElementWidget extends StatelessWidget {
                           // 'Room Name',
                           room['roomName'],
                           style: const TextStyle(
+                            color: Colors.white,
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
                           ),
@@ -77,13 +77,12 @@ class RoomElementWidget extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            // ignore: prefer_const_constructors
                             Text(
-                              '1.',
-                            ),
-                            Text(
-                              // 'roomLocation',
-                              room['roomLocation'],
+                              '1. ${room['roomLocation']}',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                              ),
                             ),
                           ],
                         ),
@@ -96,11 +95,15 @@ class RoomElementWidget extends StatelessWidget {
                             padding: EdgeInsetsDirectional.fromSTEB(4, 4, 0, 0),
                             child: Text(
                               'More info',
+                               style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                              ),
                             ),
                           ),
                           Icon(
                             Icons.navigate_next,
-                            color: Colors.black,
+                            color: Colors.white,
                             size: 24,
                           ),
                         ],
@@ -116,4 +119,3 @@ class RoomElementWidget extends StatelessWidget {
     );
   }
 }
-

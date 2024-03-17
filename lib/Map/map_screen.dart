@@ -14,6 +14,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Map/components/custom_info_window.dart';
 import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
+import 'package:custom_info_window/custom_info_window.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MapScreen extends StatefulWidget {
@@ -21,6 +22,8 @@ class MapScreen extends StatefulWidget {
 
   @override
   State<MapScreen> createState() => MapScreenState();
+  // _CustomInfoWindowExampleState createState() =>
+  //     _CustomInfoWindowExampleState();
 }
 
 class MapScreenState extends State<MapScreen> {
@@ -37,6 +40,10 @@ class MapScreenState extends State<MapScreen> {
 
   final Completer<GoogleMapController> _controllerCompleter =
       Completer<GoogleMapController>();
+
+  final CustomInfoWindowController _customInfoWindowController =
+      CustomInfoWindowController();
+
   late CameraPosition _initialPosition = const CameraPosition(
     target: LatLng(
         12.898799, 74.984734), // Default position (e.g., center of the world)
@@ -232,7 +239,54 @@ class MapScreenState extends State<MapScreen> {
                           ),
                           position:
                               LatLng(user.location.lat, user.location.lng),
-                          onTap: () => {},
+                          // ------------------
+                          // onTap: () {
+                          //   _customInfoWindowController.addInfoWindow!(
+                          //     Column(
+                          //       children: [
+                          //         Expanded(
+                          //           child: Container(
+                          //             decoration: BoxDecoration(
+                          //               color: Colors.blue,
+                          //               borderRadius: BorderRadius.circular(4),
+                          //             ),
+                          //             child: Padding(
+                          //               padding: const EdgeInsets.all(8.0),
+                          //               child: Row(
+                          //                 mainAxisAlignment:
+                          //                     MainAxisAlignment.center,
+                          //                 children: [
+                          //                   Icon(
+                          //                     Icons.account_circle,
+                          //                     color: Colors.white,
+                          //                     size: 30,
+                          //                   ),
+                          //                   SizedBox(
+                          //                     width: 8.0,
+                          //                   ),
+                          //                   Text(
+                          //                     "I am here",
+                          //                     style: Theme.of(context)
+                          //                         .textTheme
+                          //                         .headline6
+                          //                         ?.copyWith(
+                          //                           color: Colors.white,
+                          //                         ),
+                          //                   )
+                          //                 ],
+                          //               ),
+                          //             ),
+                          //             width: double.infinity,
+                          //             height: double.infinity,
+                          //           ),
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     LatLng(user.location.lat, user.location.lng),
+                          //   );
+                          // },
+
+                          // -----------
                         ),
                       );
                     }
@@ -244,6 +298,11 @@ class MapScreenState extends State<MapScreen> {
                           _controllerCompleter.complete(controller);
                         }
                       },
+
+                      // ----
+
+
+                      // ---
                     );
                   },
                 ),

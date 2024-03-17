@@ -10,23 +10,23 @@ class BannerHomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 230,
+      height: 200,
       decoration: BoxDecoration(
         color: Colors.black12,
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: Image.network(
-            'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+          image: Image.asset(
+            'lib/bg.png',
           ).image,
         ),
         boxShadow: const [
           BoxShadow(
-            blurRadius: 4,
+            blurRadius: 6,
             color: Color(0x250F1113),
             offset: Offset(0, 1),
           ),
         ],
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Container(
         width: 100,
@@ -114,26 +114,6 @@ class BannerHomeWidget extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    0, 12, 0, 0),
-                child: TextButton(
-                  style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<
-                            Color>(
-                        const Color.fromARGB(255, 0, 140, 255)),
-                  ),
-                  onPressed: () {
-                    // print('Button pressed ...');
-                  },
-                  child: const Text(
-                    'Button 1',
-                    style: TextStyle(
-                      color: Colors.white70,
-                    ),
-                  ),
                 ),
               ),
             ],

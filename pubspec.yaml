@@ -54,6 +54,7 @@ dependencies:
   location: ^5.0.3
   permission_handler: ^11.3.0
   firebase_storage: ^11.6.8
+  custom_info_window: ^1.0.1
 
 
 dev_dependencies:
@@ -81,6 +82,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/user.png
+    - lib/bg.png
     # - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

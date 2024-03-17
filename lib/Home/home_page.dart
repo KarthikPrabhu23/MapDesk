@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text(
             'TrackNow',
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 31,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -229,11 +229,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        body: Center(
+        body: Container(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
@@ -243,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 const Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
                   child: Text(
-                    'Rooms ',
+                    'Target visits',
                     style: TextStyle(
                       fontSize: 27,
                     ),
@@ -252,38 +252,120 @@ class _MyHomePageState extends State<MyHomePage> {
                 RoomScrollView(dbRef: dbRef),
                 Row(
                   children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          iconColor: Colors.blue,
-                          backgroundColor:
-                              const Color.fromARGB(115, 108, 172, 90)
-                          // icon: const Icon(Icons.map_rounded),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(
+                    //     backgroundColor:
+                    //         const Color.fromARGB(115, 108, 172, 90),
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 16.0, vertical: 8.0),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(10.0),
+                    //     ),
+                    //     textStyle: const TextStyle(
+                    //         fontSize: 16.0), // Adjust font size as needed
+                    //   ),
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => const MapLoc()),
+                    //     );
+                    //   },
+                    //   child: const Row(
+                    //     mainAxisSize:
+                    //         MainAxisSize.min, // Restrict size based on content
+                    //     children: [
+                    //       Icon(Icons.map_rounded),
+                    //       SizedBox(
+                    //           width:
+                    //               5.0), // Add some spacing between icon and text
+                    //       Text('Open Map'),
+                    //     ],
+                    //   ),
+                    // ),
+
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            gradient: const LinearGradient(colors: [
+                              Color(0xff4338CA),
+                              Color(0xff6D28D9)
+                            ])),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            elevation: MaterialStateProperty.all(0),
+                            alignment: Alignment.center,
+                            padding: MaterialStateProperty.all(
+                                const EdgeInsets.only(
+                                    right: 45, left: 45, top: 15, bottom: 15)),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                            ),
                           ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MapLoc()),
-                        );
-                      },
-                      child: const Text('Open Map'),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                          iconColor: Colors.blue,
-                          backgroundColor:
-                              const Color.fromARGB(115, 108, 172, 90)
-                          // icon: const Icon(Icons.map_rounded),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MapScreen()),
+                            );
+                          },
+                          child: const Row(
+                            mainAxisSize: MainAxisSize
+                                .min, // Restrict size based on content
+                            children: [
+                              Icon(
+                                Icons.map_rounded,
+                                color: Colors.white, // Set icon color to white
+                              ),
+                              SizedBox(
+                                  width:
+                                      5.0), // Add some spacing between icon and text
+                              Text(
+                                "Open Map",
+                                style: TextStyle(
+                                    color: Color(0xffffffff), fontSize: 16),
+                              )
+                            ],
                           ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MapScreen()),
-                        );
-                      },
-                      child: const Text('Open Map 2'),
+                        ),
+                      ),
                     ),
+                    // TextButton(
+                    //   style: TextButton.styleFrom(
+                    //     backgroundColor:
+                    //         const Color.fromARGB(115, 108, 172, 90),
+                    //     padding: const EdgeInsets.symmetric(
+                    //         horizontal: 16.0, vertical: 8.0),
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(10.0),
+                    //     ),
+                    //     textStyle: const TextStyle(
+                    //         fontSize: 16.0), // Adjust font size as needed
+                    //   ),
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //           builder: (context) => const MapScreen()),
+                    //     );
+                    //   },
+                    //   child: const Row(
+                    //     mainAxisSize:
+                    //         MainAxisSize.min, // Restrict size based on content
+                    //     children: [
+                    //       Icon(Icons.map_rounded),
+                    //       SizedBox(
+                    //           width:
+                    //               5.0), // Add some spacing between icon and text
+                    //       Text('Open Map 2'),
+                    //     ],
+                    //   ),
+                    // ),
                   ],
                 ),
                 // IconButton(
