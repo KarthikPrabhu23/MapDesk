@@ -245,6 +245,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text(
                     'Target visits',
                     style: TextStyle(
+                      fontWeight: FontWeight.w500 ,
                       fontSize: 27,
                     ),
                   ),

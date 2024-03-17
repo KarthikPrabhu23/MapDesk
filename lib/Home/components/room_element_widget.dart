@@ -26,8 +26,8 @@ class RoomElementWidget extends StatelessWidget {
                 );
               },
               child: Container(
-                width: 180,
-                height: 314,
+                width: 170,
+                height: 265,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(222, 21, 30, 132),
                   boxShadow: const [
@@ -53,7 +53,7 @@ class RoomElementWidget extends StatelessWidget {
                           child: Image.network(
                             'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
                             width: double.infinity,
-                            height: 200,
+                            height: 150,
                             fit: BoxFit.cover,
                           ),
                         ),
