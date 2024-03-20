@@ -12,6 +12,7 @@ import 'package:map1/Map/components/custom_info_window.dart';
 import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
 import 'package:custom_info_window/custom_info_window.dart';
+
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
 
@@ -36,7 +37,7 @@ class MapScreenState extends State<MapScreen> {
 
   // late CameraPosition _initialPosition;
   late CameraPosition _initialPosition = const CameraPosition(
-    target: LatLng( 12.898799, 74.984734), // Default position
+    target: LatLng(12.898799, 74.984734), // Default position
     zoom: 10,
   );
 
@@ -177,14 +178,67 @@ class MapScreenState extends State<MapScreen> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               color: const Color.fromARGB(197, 57, 151, 227)),
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(2.0),
-              child: Text(
-                element.infoWindow.title.toString(),
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.w600),
-              ),
+          child: Card(
+            elevation: 5.0, // Add some shadow effect
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0), // Set rounded corners
+            ),
+            child: Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween, // Space elements evenly
+              children: [
+                // Image container
+                SizedBox(
+                  width: 100, // Set image container width
+                  height:
+                      100, // Set image container height (same as card height)
+                  child: ClipRRect(
+                    // Clip rounded corners for image
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.network(
+                      'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+                      fit: BoxFit.cover, // Adjust fit if needed
+                    ),
+                  ),
+                ),
+                // Content container
+                Expanded(
+                  // Expand to fill remaining space
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0), // Add some padding
+                    child: Column(
+                      mainAxisAlignment:
+                          MainAxisAlignment.center, // Align content vertically
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start, // Align text to left
+                      children: [
+                        Text(
+                          element.infoWindow.title.toString(),
+                          style: const TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          element.infoWindow.snippet.toString(),
+                          style: const TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                // Button container
+                IconButton(
+                  icon: const Icon(
+                      Icons.car_crash_rounded), // Replace with your desired icon
+                  onPressed: () {
+                    // Handle button press event
+                  },
+                ),
+              ],
             ),
           ),
         ),
@@ -236,13 +290,13 @@ class MapScreenState extends State<MapScreen> {
                           child: CircularProgressIndicator(),
                         );
                       }
-      
+
                       if (!snapshot.hasData || snapshot.data!.isEmpty) {
                         return const Center(
                           child: Text('No data available'),
                         );
                       }
-      
+
                       // final Set<Marker> markers = {};
                       for (var i = 0; i < snapshot.data!.length; i++) {
                         final user = snapshot.data![i];
@@ -253,14 +307,14 @@ class MapScreenState extends State<MapScreen> {
                             //   BitmapDescriptor.hueYellow,
                             // ),
                             // icon: markerIcon,
-      
+
                             icon: pinLocationIcon,
-      
+
                             // infoWindow: InfoWindow(
                             //   title: user.username.toString(),
                             //   snippet: user.name.toString(),
                             // ),
-      
+
                             infoWindow: InfoWindow(
                               title: user.username,
                               snippet: user.name,
@@ -283,22 +337,22 @@ class MapScreenState extends State<MapScreen> {
                             _controllerCompleter.complete(controller);
                           }
                         },
-      
+
                         // ----
-      
+
                         // ---
                       );
                     },
                   ),
                 ),
-      
+
                 // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
                 // TargetSlider(
                 //   clientsToggle: clientsToggle,
                 //   setOfMarkers: setOfMarkers,
                 //   mapController: mapController,
                 // ),
-      
+
                 // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
                 Positioned(
                   top: MediaQuery.of(context).size.height - 240,
@@ -337,7 +391,8 @@ class MapScreenState extends State<MapScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    backgroundColor: const Color(0xff4338CA), // Set the background color
+                    backgroundColor:
+                        const Color(0xff4338CA), // Set the background color
                     foregroundColor: Colors.white,
                     child: const Icon(Icons.arrow_back_ios_new),
                   ),
