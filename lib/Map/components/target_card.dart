@@ -16,27 +16,18 @@ void zoomOutMarker(GoogleMapController gMapController) {
   );
 }
 
-// void zoomInMarker(element, Completer<GoogleMapController> controllerCompleter) {
-//   controllerCompleter.future.then(
-//     (controller) {
-//       controller.animateCamera(
-//         CameraUpdate.newCameraPosition(
-//           CameraPosition(
-//             target: LatLng(
-//               element.position.latitude,
-//               element.position.longitude,
-//             ),
-//             zoom: 18,
-//             bearing: 90,
-//             tilt: 50,
-//           ),
-//         ),
-//       );
-//     },
-//   ).catchError((error) {
-//     print('Error accessing GoogleMapController: $error');
-//   });
-// }
+zoomInMarker(element, mapController) {
+  mapController.animateCamera(
+    CameraUpdate.newCameraPosition(
+      CameraPosition(
+        target: LatLng(element.position.latitude, element.position.longitude),
+        zoom: 18,
+        bearing: 90,
+        tilt: 50,
+      ),
+    ),
+  );
+}
 
 Widget targetCard(element, GoogleMapController controller) {
   return Padding(
@@ -45,7 +36,7 @@ Widget targetCard(element, GoogleMapController controller) {
       onTap: () {
         print("targetCard clicked");
         // zoomInMarker(element, controllerCompleter);
-        zoomInMarker(element, controller );
+        zoomInMarker(element, controller);
       },
       child: Container(
         height: 100,
@@ -69,23 +60,4 @@ Widget targetCard(element, GoogleMapController controller) {
       ),
     ),
   );
-}
-
-void zoomInMarker(element, GoogleMapController controller) {
-  print("Inside zoomInMarker");
-  // controllerCompleter.future.then((controller) {
-    controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: LatLng(element.position.latitude, element.position.longitude),
-          zoom: 18,
-          bearing: 90,
-          tilt: 50,
-        ),
-      ),
-    );
-  // })
-  // .catchError((error) {
-  //   print('Error accessing GoogleMapController: $error');
-  // });
 }

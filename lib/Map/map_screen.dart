@@ -65,7 +65,7 @@ class MapScreenState extends State<MapScreen> {
     locationStream();
   }
 
-void onMapCreated(controller) {
+  void onMapCreated(controller) {
     setState(() {
       mapController = controller;
     });
@@ -135,22 +135,6 @@ void onMapCreated(controller) {
     });
   }
 
-  // zoomInMarker(element) {
-  //   _controller.future.then((controller) {
-  //     controller.animateCamera(
-  //       CameraUpdate.newCameraPosition(
-  //         CameraPosition(
-  //           target:
-  //               LatLng(element.position.latitude, element.position.longitude),
-  //           zoom: 18,
-  //           bearing: 90,
-  //           tilt: 50,
-  //         ),
-  //       ),
-  //     );
-  //   });
-  // }
-
   _fetchtargetLocation() {
     databaseReference.child('Rooms').get().then(
       (DataSnapshot snapshot) {
@@ -218,23 +202,7 @@ void onMapCreated(controller) {
     );
   }
 
-  // zoomInMarker(element) {
-  //   _controller.future.then((controller) {
-  //     controller.animateCamera(
-  //       CameraUpdate.newCameraPosition(
-  //         CameraPosition(
-  //           target:
-  //               LatLng(element.position.latitude, element.position.longitude),
-  //           zoom: 18,
-  //           bearing: 90,
-  //           tilt: 50,
-  //         ),
-  //       ),
-  //     );
-  //   });
-  // }
-
-    zoomInMarker(element) {
+  zoomInMarker(element) {
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -335,10 +303,12 @@ void onMapCreated(controller) {
 
               // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
               // TargetSlider(
-              //     clientsToggle: clientsToggle,
-              //     setOfMarkers: setOfMarkers,
-              //     controller: _controller),
+              //   clientsToggle: clientsToggle,
+              //   setOfMarkers: setOfMarkers,
+              //   mapController: mapController,
+              // ),
 
+              // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
               Positioned(
                 top: MediaQuery.of(context).size.height - 240,
                 child: SizedBox(
