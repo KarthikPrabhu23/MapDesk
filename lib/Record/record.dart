@@ -48,25 +48,23 @@ class _RecordLogState extends State<RecordLog> {
             ),
           ],
         ),
-        body: Container(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                  child: Text(
-                    'Record logs',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25,
-                    ),
+        body: const SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
+                child: Text(
+                  'Record logs',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

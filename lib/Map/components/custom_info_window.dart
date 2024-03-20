@@ -6,7 +6,7 @@ class CustomInfoWindow extends StatelessWidget {
   final List<String> infoLines;
   final VoidCallback onTap;
 
-  const CustomInfoWindow({
+  const CustomInfoWindow({super.key, 
     required this.title,
     required this.username,
     required this.infoLines,
@@ -35,28 +35,28 @@ class CustomInfoWindow extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               'Username: $username',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: infoLines.map((line) => Text(line)).toList(),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: onTap,
-              child: Text('Tap me!'),
+              child: const Text('Tap me!'),
             ),
           ],
         ),

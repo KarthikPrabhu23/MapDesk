@@ -41,9 +41,6 @@ class MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controllerCompleter =
       Completer<GoogleMapController>();
 
-  final CustomInfoWindowController _customInfoWindowController =
-      CustomInfoWindowController();
-
   late CameraPosition _initialPosition = const CameraPosition(
     target: LatLng(
         12.898799, 74.984734), // Default position (e.g., center of the world)

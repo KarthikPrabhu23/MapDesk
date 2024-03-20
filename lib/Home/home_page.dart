@@ -228,139 +228,137 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        body: Container(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
-                  child: BannerHomeWidget(),
-                ),
-                const Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                  child: Text(
-                    'Target visits',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25,
-                    ),
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+                child: BannerHomeWidget(),
+              ),
+              const Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
+                child: Text(
+                  'Target visits',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
                   ),
                 ),
-                RoomScrollView(dbRef: dbRef),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            gradient: const LinearGradient(colors: [
-                              Color(0xff4338CA),
-                              Color(0xff6D28D9)
-                            ])),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            elevation: MaterialStateProperty.all(0),
-                            alignment: Alignment.center,
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.only(
-                                    right: 45, left: 45, top: 15, bottom: 15)),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.transparent),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
+              ),
+              RoomScrollView(dbRef: dbRef),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          gradient: const LinearGradient(colors: [
+                            Color(0xff4338CA),
+                            Color(0xff6D28D9)
+                          ])),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          alignment: Alignment.center,
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.only(
+                                  right: 45, left: 45, top: 15, bottom: 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MapScreen()),
+                          );
+                        },
+                        child: const Row(
+                          mainAxisSize: MainAxisSize
+                              .min, // Restrict size based on content
+                          children: [
+                            Icon(
+                              Icons.map_rounded,
+                              color: Colors.white,
                             ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const MapScreen()),
-                            );
-                          },
-                          child: const Row(
-                            mainAxisSize: MainAxisSize
-                                .min, // Restrict size based on content
-                            children: [
-                              Icon(
-                                Icons.map_rounded,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 5.0),
-                              Text(
-                                "Open Map",
-                                style: TextStyle(
-                                    color: Color(0xffffffff), fontSize: 16),
-                              )
-                            ],
-                          ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              "Open Map",
+                              style: TextStyle(
+                                  color: Color(0xffffffff), fontSize: 16),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-              
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            gradient: const LinearGradient(colors: [
-                              Color(0xff4338CA),
-                              Color(0xff6D28D9)
-                            ])),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            elevation: MaterialStateProperty.all(0),
-                            alignment: Alignment.center,
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.only(
-                                    right: 45, left: 45, top: 15, bottom: 15)),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.transparent),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
+                  ),
+                ],
+              ),
+            
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          gradient: const LinearGradient(colors: [
+                            Color(0xff4338CA),
+                            Color(0xff6D28D9)
+                          ])),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          alignment: Alignment.center,
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.only(
+                                  right: 45, left: 45, top: 15, bottom: 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RecordLog()),
+                          );
+                        },
+                        child: const Row(
+                          mainAxisSize: MainAxisSize
+                              .min, // Restrict size based on content
+                          children: [
+                            Icon(
+                              Icons.book_rounded,
+                              color: Colors.white,
                             ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const RecordLog()),
-                            );
-                          },
-                          child: const Row(
-                            mainAxisSize: MainAxisSize
-                                .min, // Restrict size based on content
-                            children: [
-                              Icon(
-                                Icons.book_rounded,
-                                color: Colors.white,
-                              ),
-                              SizedBox(width: 5.0),
-                              Text(
-                                "Record Log",
-                                style: TextStyle(
-                                    color: Color(0xffffffff), fontSize: 16),
-                              )
-                            ],
-                          ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              "Record Log",
+                              style: TextStyle(
+                                  color: Color(0xffffffff), fontSize: 16),
+                            )
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-              
-              
-              ],
-            ),
+                  ),
+                ],
+              ),
+            
+            
+            ],
           ),
         ),
         floatingActionButton: Padding(

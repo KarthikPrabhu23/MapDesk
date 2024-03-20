@@ -29,7 +29,7 @@ class RoomElementWidget extends StatelessWidget {
                 width: 170,
                 height: 265,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(222, 21, 30, 132),
+                  color: const Color.fromARGB(222, 21, 30, 132),
                   boxShadow: const [
                     BoxShadow(
                       blurRadius: 4,
