@@ -22,8 +22,6 @@ class MapScreen extends StatefulWidget {
 
   @override
   State<MapScreen> createState() => MapScreenState();
-  // _CustomInfoWindowExampleState createState() =>
-  //     _CustomInfoWindowExampleState();
 }
 
 class MapScreenState extends State<MapScreen> {
@@ -41,10 +39,10 @@ class MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controllerCompleter =
       Completer<GoogleMapController>();
 
+  // late CameraPosition _initialPosition;
   late CameraPosition _initialPosition = const CameraPosition(
-    target: LatLng(
-        12.898799, 74.984734), // Default position (e.g., center of the world)
-    zoom: 10, // Default zoom level
+    target: LatLng( 12.898799, 74.984734), // Default position
+    zoom: 10,
   );
 
   @override
@@ -56,12 +54,9 @@ class MapScreenState extends State<MapScreen> {
   @override
   void initState() {
     super.initState();
-
     _getCurrentLocation();
     _fetchtargetLocation();
-
     setCustomMapPin();
-
     locationStream();
   }
 
@@ -346,7 +341,8 @@ class MapScreenState extends State<MapScreen> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  // icon: const Icon(Icons.home),
+                  backgroundColor: const Color(0xff4338CA), // Set the background color
+                  foregroundColor: Colors.white,
                   child: const Icon(Icons.arrow_back_ios_new),
                 ),
               ],

@@ -256,10 +256,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xff4338CA),
-                            Color(0xff6D28D9)
-                          ])),
+                          gradient: const LinearGradient(
+                              colors: [Color(0xff4338CA), Color(0xff6D28D9)])),
                       child: ElevatedButton(
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
@@ -302,18 +300,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-            
               Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xff4338CA),
-                            Color(0xff6D28D9)
-                          ])),
+                        borderRadius: BorderRadius.circular(15),
+                        gradient: const LinearGradient(
+                          colors: [Color(0xff4338CA), Color(0xff6D28D9)],
+                        ),
+                      ),
                       child: ElevatedButton(
                         style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
@@ -356,8 +353,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-            
-            
             ],
           ),
         ),
