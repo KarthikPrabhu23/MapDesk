@@ -78,15 +78,6 @@ class _AddRoomState extends State<AddRoom> {
             padding: EdgeInsets.all(3),
             child: Column(
               children: [
-                // const SizedBox(
-                //   height: 10,
-                // ),
-                // const Text(
-                //   'Create a new room',
-                //   style: TextStyle(
-                //     fontSize: 20,
-                //   ),
-                // ),
                 SizedBox(
                   height: 7,
                 ),

@@ -65,9 +65,15 @@ class MapScreenState extends State<MapScreen> {
     locationStream();
   }
 
+void onMapCreated(controller) {
+    setState(() {
+      mapController = controller;
+    });
+  }
+
   void setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5), 'lib/user.png');
+        const ImageConfiguration(devicePixelRatio: 2.5), 'lib/images/user.png');
   }
 
   StreamSubscription<Position>? locationStream() {
@@ -129,21 +135,21 @@ class MapScreenState extends State<MapScreen> {
     });
   }
 
-  zoomInMarker(element) {
-    _controller.future.then((controller) {
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          CameraPosition(
-            target:
-                LatLng(element.position.latitude, element.position.longitude),
-            zoom: 18,
-            bearing: 90,
-            tilt: 50,
-          ),
-        ),
-      );
-    });
-  }
+  // zoomInMarker(element) {
+  //   _controller.future.then((controller) {
+  //     controller.animateCamera(
+  //       CameraUpdate.newCameraPosition(
+  //         CameraPosition(
+  //           target:
+  //               LatLng(element.position.latitude, element.position.longitude),
+  //           zoom: 18,
+  //           bearing: 90,
+  //           tilt: 50,
+  //         ),
+  //       ),
+  //     );
+  //   });
+  // }
 
   _fetchtargetLocation() {
     databaseReference.child('Rooms').get().then(
@@ -182,6 +188,76 @@ class MapScreenState extends State<MapScreen> {
     );
 
     return setOfMarkers;
+  }
+
+  Widget targetCard(element) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12, top: 10),
+      child: InkWell(
+        onTap: () {
+          zoomInMarker(element);
+        },
+        child: Container(
+          height: 100,
+          width: 120,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: const Color.fromARGB(197, 57, 151, 227)),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                element.infoWindow.title.toString(),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // zoomInMarker(element) {
+  //   _controller.future.then((controller) {
+  //     controller.animateCamera(
+  //       CameraUpdate.newCameraPosition(
+  //         CameraPosition(
+  //           target:
+  //               LatLng(element.position.latitude, element.position.longitude),
+  //           zoom: 18,
+  //           bearing: 90,
+  //           tilt: 50,
+  //         ),
+  //       ),
+  //     );
+  //   });
+  // }
+
+    zoomInMarker(element) {
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(element.position.latitude, element.position.longitude),
+          zoom: 18,
+          bearing: 90,
+          tilt: 50,
+        ),
+      ),
+    );
+  }
+
+  void zoomOutMarker() {
+    _controller.future.then((controller) {
+      controller.animateCamera(
+        CameraUpdate.newCameraPosition(
+          const CameraPosition(
+            target: LatLng(12.898799, 74.984734),
+            zoom: 16,
+          ),
+        ),
+      );
+    });
   }
 
   @override
@@ -236,54 +312,6 @@ class MapScreenState extends State<MapScreen> {
                           ),
                           position:
                               LatLng(user.location.lat, user.location.lng),
-                          // ------------------
-                          // onTap: () {
-                          //   _customInfoWindowController.addInfoWindow!(
-                          //     Column(
-                          //       children: [
-                          //         Expanded(
-                          //           child: Container(
-                          //             decoration: BoxDecoration(
-                          //               color: Colors.blue,
-                          //               borderRadius: BorderRadius.circular(4),
-                          //             ),
-                          //             child: Padding(
-                          //               padding: const EdgeInsets.all(8.0),
-                          //               child: Row(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.center,
-                          //                 children: [
-                          //                   Icon(
-                          //                     Icons.account_circle,
-                          //                     color: Colors.white,
-                          //                     size: 30,
-                          //                   ),
-                          //                   SizedBox(
-                          //                     width: 8.0,
-                          //                   ),
-                          //                   Text(
-                          //                     "I am here",
-                          //                     style: Theme.of(context)
-                          //                         .textTheme
-                          //                         .headline6
-                          //                         ?.copyWith(
-                          //                           color: Colors.white,
-                          //                         ),
-                          //                   )
-                          //                 ],
-                          //               ),
-                          //             ),
-                          //             width: double.infinity,
-                          //             height: double.infinity,
-                          //           ),
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     LatLng(user.location.lat, user.location.lng),
-                          //   );
-                          // },
-
-                          // -----------
                         ),
                       );
                     }
@@ -291,13 +319,13 @@ class MapScreenState extends State<MapScreen> {
                       initialCameraPosition: _initialPosition,
                       markers: setOfMarkers,
                       onMapCreated: (GoogleMapController controller) {
+                        mapController = controller;
                         if (!_controllerCompleter.isCompleted) {
                           _controllerCompleter.complete(controller);
                         }
                       },
 
                       // ----
-
 
                       // ---
                     );
@@ -306,10 +334,32 @@ class MapScreenState extends State<MapScreen> {
               ),
 
               // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-              TargetSlider(
-                  clientsToggle: clientsToggle,
-                  setOfMarkers: setOfMarkers,
-                  controller: _controller),
+              // TargetSlider(
+              //     clientsToggle: clientsToggle,
+              //     setOfMarkers: setOfMarkers,
+              //     controller: _controller),
+
+              Positioned(
+                top: MediaQuery.of(context).size.height - 240,
+                child: SizedBox(
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  child: clientsToggle
+                      ? ListView(
+                          scrollDirection: Axis.horizontal,
+                          padding: const EdgeInsets.all(9),
+                          children: setOfMarkers.map(
+                            (element) {
+                              return targetCard(element);
+                            },
+                          ).toList(),
+                        )
+                      : const SizedBox(
+                          height: 1,
+                          width: 1,
+                        ),
+                ),
+              ),
             ],
           ),
         ],

@@ -178,6 +178,58 @@ class _MapLocState extends State<MapLoc> {
     return targetLocation;
   }
 
+  Widget targetCard(element) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12, top: 10),
+      child: InkWell(
+        onTap: () {
+          zoomInMarker(element);
+        },
+        child: Container(
+          height: 100,
+          width: 120,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.0),
+              color: const Color.fromARGB(197, 57, 151, 227)),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Text(
+                element.infoWindow.title.toString(),
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  zoomInMarker(element) {
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: LatLng(element.position.latitude, element.position.longitude),
+          zoom: 18,
+          bearing: 90,
+          tilt: 50,
+        ),
+      ),
+    );
+  }
+
+  zoomOutMarker() {
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        const CameraPosition(
+          target: LatLng(12.898799, 74.984734),
+          zoom: 16,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -199,6 +251,31 @@ class _MapLocState extends State<MapLoc> {
                     mapToolbarEnabled: true,
                     mapType: MapType.normal,
                     markers: targetLocation,
+                  ),
+                ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height - 240,
+                  child: SizedBox(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: clientsToggle
+                        ? ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.all(9),
+                            children: targetLocation.map((element) {
+                              if (element.icon ==
+                                  BitmapDescriptor.defaultMarkerWithHue(
+                                      BitmapDescriptor.hueRed)) {
+                                return targetCard(element);
+                              } else {
+                                return targetCard(element);
+                              }
+                            }).toList(),
+                          )
+                        : const SizedBox(
+                            height: 1,
+                            width: 1,
+                          ),
                   ),
                 ),
 

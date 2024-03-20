@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class BannerHomeWidget extends StatelessWidget {
   const BannerHomeWidget({
     super.key,
@@ -13,11 +12,11 @@ class BannerHomeWidget extends StatelessWidget {
       height: 200,
       decoration: BoxDecoration(
         color: Colors.black12,
-        image: DecorationImage(
+        image: const DecorationImage(
           fit: BoxFit.cover,
-          image: Image.asset(
-            'lib/images/bg1.png',
-          ).image,
+          image: NetworkImage('https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'), 
+          // image: Image.asset('images/bg1.png',).image,
+          // image: AssetImage('bg2.png'),
         ),
         boxShadow: const [
           BoxShadow(
@@ -36,16 +35,14 @@ class BannerHomeWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
-          padding:
-              const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                padding:
-                    EdgeInsetsDirectional.fromSTEB(0, 0, 70, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 70, 0),
                 child: Text(
                   'Some text to write here',
                   style: TextStyle(
@@ -54,8 +51,7 @@ class BannerHomeWidget extends StatelessWidget {
                 ),
               ),
               const Padding(
-                padding:
-                    EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Text(
                   'Active users',
                   style: TextStyle(
@@ -66,15 +62,12 @@ class BannerHomeWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    0, 8, 0, 0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(
-                              0, 0, 4, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.network(
@@ -86,9 +79,7 @@ class BannerHomeWidget extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(
-                              0, 0, 4, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.network(
@@ -100,9 +91,7 @@ class BannerHomeWidget extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(
-                              0, 0, 4, 0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(30),
                         child: Image.network(
@@ -123,4 +112,3 @@ class BannerHomeWidget extends StatelessWidget {
     );
   }
 }
-

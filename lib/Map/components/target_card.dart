@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -38,13 +38,14 @@ void zoomOutMarker(GoogleMapController gMapController) {
 //   });
 // }
 
-Widget targetCard(element, Completer<GoogleMapController> controllerCompleter) {
+Widget targetCard(element, GoogleMapController controller) {
   return Padding(
     padding: const EdgeInsets.only(left: 12, top: 10),
     child: InkWell(
       onTap: () {
+        print("targetCard clicked");
         // zoomInMarker(element, controllerCompleter);
-        zoomInMarker(element, controllerCompleter );
+        zoomInMarker(element, controller );
       },
       child: Container(
         height: 100,
@@ -70,8 +71,9 @@ Widget targetCard(element, Completer<GoogleMapController> controllerCompleter) {
   );
 }
 
-void zoomInMarker(element, Completer<GoogleMapController> controllerCompleter) {
-  controllerCompleter.future.then((controller) {
+void zoomInMarker(element, GoogleMapController controller) {
+  print("Inside zoomInMarker");
+  // controllerCompleter.future.then((controller) {
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -82,7 +84,8 @@ void zoomInMarker(element, Completer<GoogleMapController> controllerCompleter) {
         ),
       ),
     );
-  }).catchError((error) {
-    print('Error accessing GoogleMapController: $error');
-  });
+  // })
+  // .catchError((error) {
+  //   print('Error accessing GoogleMapController: $error');
+  // });
 }
