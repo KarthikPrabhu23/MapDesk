@@ -176,9 +176,12 @@ class MapScreenState extends State<MapScreen> {
           height: 160,
           width: 325,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8.0),
-              color: const Color.fromARGB(197, 57, 151, 227)),
+            borderRadius: BorderRadius.circular(8.0),
+            // color: const Color.fromARGB(197, 57, 151, 227),
+            color: const Color.fromARGB(255, 142, 134, 227),
+          ),
           child: Card(
+            color: const Color(0xff4338CA),
             elevation: 5.0, // Add some shadow effect
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0), // Set rounded corners
@@ -188,16 +191,19 @@ class MapScreenState extends State<MapScreen> {
                   MainAxisAlignment.spaceBetween, // Space elements evenly
               children: [
                 // Image container
-                SizedBox(
-                  width: 100, // Set image container width
-                  height:
-                      100, // Set image container height (same as card height)
-                  child: ClipRRect(
-                    // Clip rounded corners for image
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image.network(
-                      'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
-                      fit: BoxFit.cover, // Adjust fit if needed
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: SizedBox(
+                    width: 100, // Set image container width
+                    height:
+                        100, // Set image container height (same as card height)
+                    child: ClipRRect(
+                      // Clip rounded corners for image
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Image.network(
+                        'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+                        fit: BoxFit.cover, // Adjust fit if needed
+                      ),
                     ),
                   ),
                 ),
@@ -215,15 +221,15 @@ class MapScreenState extends State<MapScreen> {
                         Text(
                           element.infoWindow.title.toString(),
                           style: const TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
                         ),
                         Text(
                           element.infoWindow.snippet.toString(),
                           style: const TextStyle(
                             fontSize: 12.0,
-                            color: Colors.grey,
+                            color: Colors.white70,
                           ),
                         ),
                       ],
@@ -233,7 +239,9 @@ class MapScreenState extends State<MapScreen> {
                 // Button container
                 IconButton(
                   icon: const Icon(
-                      Icons.car_crash_rounded), // Replace with your desired icon
+                    Icons.car_crash_rounded,
+                    color: Colors.white,
+                  ), // Replace with your desired icon
                   onPressed: () {
                     // Handle button press event
                   },
@@ -331,6 +339,11 @@ class MapScreenState extends State<MapScreen> {
                       return GoogleMap(
                         initialCameraPosition: _initialPosition,
                         markers: setOfMarkers,
+
+                        // trafficEnabled: true,
+                        // mapType: MapType.hybrid,
+                        // fortyFiveDegreeImageryEnabled : true,
+
                         onMapCreated: (GoogleMapController controller) {
                           mapController = controller;
                           if (!_controllerCompleter.isCompleted) {
