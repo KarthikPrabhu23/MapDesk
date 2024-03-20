@@ -1,22 +1,17 @@
 // This is the new Map with Firestore connection
-
-// ignore_for_file: avoid_print, unused_import
+// ignore_for_file: unused_import, avoid_print
 
 import 'dart:async';
-import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:map1/Home/home_page.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Map/components/custom_info_window.dart';
 import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
 import 'package:custom_info_window/custom_info_window.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
 
@@ -177,8 +172,8 @@ class MapScreenState extends State<MapScreen> {
           zoomInMarker(element);
         },
         child: Container(
-          height: 100,
-          width: 120,
+          height: 160,
+          width: 325,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.0),
               color: const Color.fromARGB(197, 57, 151, 227)),
@@ -225,129 +220,131 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.height - 44,
-                child: StreamBuilder<List<User>>(
-                  stream: FirestoreService.userCollectionStream(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(
-                        child: Text('No data available'),
-                      );
-                    }
-
-                    // final Set<Marker> markers = {};
-                    for (var i = 0; i < snapshot.data!.length; i++) {
-                      final user = snapshot.data![i];
-                      setOfMarkers.add(
-                        Marker(
-                          markerId: MarkerId('${user.name} position $i'),
-                          // icon: BitmapDescriptor.defaultMarkerWithHue(
-                          //   BitmapDescriptor.hueYellow,
-                          // ),
-                          // icon: markerIcon,
-
-                          icon: pinLocationIcon,
-
-                          // infoWindow: InfoWindow(
-                          //   title: user.username.toString(),
-                          //   snippet: user.name.toString(),
-                          // ),
-
-                          infoWindow: InfoWindow(
-                            title: user.username,
-                            snippet: user.name,
-                            onTap: () {
-                              // Handle info window tap
-                              print('Info window tapped!');
-                            },
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).size.height - 44,
+                  child: StreamBuilder<List<User>>(
+                    stream: FirestoreService.userCollectionStream(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+      
+                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Center(
+                          child: Text('No data available'),
+                        );
+                      }
+      
+                      // final Set<Marker> markers = {};
+                      for (var i = 0; i < snapshot.data!.length; i++) {
+                        final user = snapshot.data![i];
+                        setOfMarkers.add(
+                          Marker(
+                            markerId: MarkerId('${user.name} position $i'),
+                            // icon: BitmapDescriptor.defaultMarkerWithHue(
+                            //   BitmapDescriptor.hueYellow,
+                            // ),
+                            // icon: markerIcon,
+      
+                            icon: pinLocationIcon,
+      
+                            // infoWindow: InfoWindow(
+                            //   title: user.username.toString(),
+                            //   snippet: user.name.toString(),
+                            // ),
+      
+                            infoWindow: InfoWindow(
+                              title: user.username,
+                              snippet: user.name,
+                              onTap: () {
+                                // Handle info window tap
+                                print('Info window tapped!');
+                              },
+                            ),
+                            position:
+                                LatLng(user.location.lat, user.location.lng),
                           ),
-                          position:
-                              LatLng(user.location.lat, user.location.lng),
-                        ),
+                        );
+                      }
+                      return GoogleMap(
+                        initialCameraPosition: _initialPosition,
+                        markers: setOfMarkers,
+                        onMapCreated: (GoogleMapController controller) {
+                          mapController = controller;
+                          if (!_controllerCompleter.isCompleted) {
+                            _controllerCompleter.complete(controller);
+                          }
+                        },
+      
+                        // ----
+      
+                        // ---
                       );
-                    }
-                    return GoogleMap(
-                      initialCameraPosition: _initialPosition,
-                      markers: setOfMarkers,
-                      onMapCreated: (GoogleMapController controller) {
-                        mapController = controller;
-                        if (!_controllerCompleter.isCompleted) {
-                          _controllerCompleter.complete(controller);
-                        }
-                      },
-
-                      // ----
-
-                      // ---
-                    );
-                  },
+                    },
+                  ),
                 ),
-              ),
-
-              // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-              // TargetSlider(
-              //   clientsToggle: clientsToggle,
-              //   setOfMarkers: setOfMarkers,
-              //   mapController: mapController,
-              // ),
-
-              // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-              Positioned(
-                top: MediaQuery.of(context).size.height - 240,
-                child: SizedBox(
-                  height: 100,
-                  width: MediaQuery.of(context).size.width,
-                  child: clientsToggle
-                      ? ListView(
-                          scrollDirection: Axis.horizontal,
-                          padding: const EdgeInsets.all(9),
-                          children: setOfMarkers.map(
-                            (element) {
-                              return targetCard(element);
-                            },
-                          ).toList(),
-                        )
-                      : const SizedBox(
-                          height: 1,
-                          width: 1,
-                        ),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(30, 65, 0, 0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Column(
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  backgroundColor: const Color(0xff4338CA), // Set the background color
-                  foregroundColor: Colors.white,
-                  child: const Icon(Icons.arrow_back_ios_new),
+      
+                // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
+                // TargetSlider(
+                //   clientsToggle: clientsToggle,
+                //   setOfMarkers: setOfMarkers,
+                //   mapController: mapController,
+                // ),
+      
+                // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
+                Positioned(
+                  top: MediaQuery.of(context).size.height - 240,
+                  child: SizedBox(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width,
+                    child: clientsToggle
+                        ? ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.all(9),
+                            children: setOfMarkers.map(
+                              (element) {
+                                return targetCard(element);
+                              },
+                            ).toList(),
+                          )
+                        : const SizedBox(
+                            height: 1,
+                            width: 1,
+                          ),
+                  ),
                 ),
               ],
             ),
           ],
+        ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.fromLTRB(30, 65, 0, 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Column(
+                children: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    backgroundColor: const Color(0xff4338CA), // Set the background color
+                    foregroundColor: Colors.white,
+                    child: const Icon(Icons.arrow_back_ios_new),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
