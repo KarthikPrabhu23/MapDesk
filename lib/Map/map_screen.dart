@@ -311,23 +311,12 @@ class MapScreenState extends State<MapScreen> {
                         setOfMarkers.add(
                           Marker(
                             markerId: MarkerId('${user.name} position $i'),
-                            // icon: BitmapDescriptor.defaultMarkerWithHue(
-                            //   BitmapDescriptor.hueYellow,
-                            // ),
-                            // icon: markerIcon,
-
                             icon: pinLocationIcon,
-
-                            // infoWindow: InfoWindow(
-                            //   title: user.username.toString(),
-                            //   snippet: user.name.toString(),
-                            // ),
 
                             infoWindow: InfoWindow(
                               title: user.username,
                               snippet: user.name,
                               onTap: () {
-                                // Handle info window tap
                                 print('Info window tapped!');
                               },
                             ),
@@ -399,6 +388,7 @@ class MapScreenState extends State<MapScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Column(
+                // crossAxisAlignment: CrossAxisAlignment.,
                 children: [
                   FloatingActionButton(
                     onPressed: () {
@@ -407,7 +397,23 @@ class MapScreenState extends State<MapScreen> {
                     backgroundColor:
                         const Color(0xff4338CA), // Set the background color
                     foregroundColor: Colors.white,
+                    tooltip: 'First',
+                    heroTag: 'First',
                     child: const Icon(Icons.arrow_back_ios_new),
+                  ),
+                  const SizedBox(
+                    height: 460,
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      print("MAP button clicked");
+                    },
+                    backgroundColor:
+                        Color.fromARGB(255, 42, 40, 65), // Set the background color
+                    foregroundColor: Colors.white,
+                    tooltip: 'Second',
+                    heroTag: 'Second',
+                    child: const Icon(Icons.control_point_rounded),
                   ),
                 ],
               ),

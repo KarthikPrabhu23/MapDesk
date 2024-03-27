@@ -1,0 +1,51 @@
+// import 'package:geolocator/geolocator.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+// class LocationUtils {
+//   static Future<CameraPosition> getCurrentLocation() async {
+//     Position position = await Geolocator.getCurrentPosition(
+//         desiredAccuracy: LocationAccuracy.high);
+
+//     print("Inside LocationUtils");
+
+//     setState(() {
+//   //     _initialPosition = CameraPosition(
+//   //       target: LatLng(position.latitude, position.longitude),
+//   //       zoom: 14.0,
+//   //     );
+//   //   });
+//   }
+// }
+
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+
+class LocationState with ChangeNotifier {
+  late CameraPosition _currentPosition;
+
+  CameraPosition get currentPosition => _currentPosition;
+
+  Future<void> updateCurrentPosition() async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    _currentPosition = CameraPosition(
+      target: LatLng(position.latitude, position.longitude),
+      zoom: 14.0,
+    );
+    notifyListeners();
+  }
+}
+
+class LocationUtils {
+  static Future<void> getCurrentLocation(BuildContext context) async {
+    await Provider.of<LocationState>(context, listen: false)
+        .updateCurrentPosition();
+  }
+
+  static CameraPosition getCurrentPosition(BuildContext context) {
+    return Provider.of<LocationState>(context, listen: false).currentPosition;
+  }
+}
+
