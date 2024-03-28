@@ -7,7 +7,6 @@ import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 //  File to choose target location on map and add it to the realtime database
 
 class AddRoom extends StatefulWidget {
@@ -20,8 +19,8 @@ class AddRoom extends StatefulWidget {
 class _AddRoomState extends State<AddRoom> {
   List<Marker> allMarkers = [];
   late DatabaseReference dbRef;
-  String lat = "";
-  String long = "";
+  late double lat;
+  late double long;
   bool completed = false;
   List<Marker> myMarker = [];
   final roomLocation = TextEditingController();
@@ -44,8 +43,8 @@ class _AddRoomState extends State<AddRoom> {
   _handleTap(LatLng tappedPoint) {
     (tappedPoint);
 
-    lat = tappedPoint.latitude.toString();
-    long = tappedPoint.longitude.toString();
+    lat = tappedPoint.latitude;
+    long = tappedPoint.longitude;
 
     setState(
       () {
@@ -159,11 +158,30 @@ class _AddRoomState extends State<AddRoom> {
                       'roomLocation': roomLocation.text,
                       'latitude': lat,
                       'longitude': long,
-                      'completed' : false,
-                      'targetInfo' : tInfo.text,
+                      'completed': false,
+                      'targetInfo': tInfo.text,
                     };
 
                     dbRef.push().set(roomsMap);
+
+                    print("FIRESTORE to store TARGETLOC");
+                    FirebaseFirestore.instance
+                        .collection('TargetLoc')
+                        .doc()
+                        .set(
+                      {
+                        'roomName': roomName.text,
+                        'roomLocation': roomLocation.text,
+                        'completed': false,
+                        'targetInfo': tInfo.text,
+                        'location': {
+                          'lat': lat,
+                          'lng': long,
+                        },
+                        // 'latitude': lat,
+                        // 'longitude': long,
+                      },
+                    );
                     Navigator.pop(context);
                   },
                   color: Colors.blueAccent,

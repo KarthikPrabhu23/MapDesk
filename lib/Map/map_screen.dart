@@ -2,6 +2,7 @@
 // ignore_for_file: unused_import, avoid_print
 
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -52,6 +53,7 @@ class MapScreenState extends State<MapScreen> {
     super.initState();
     _getCurrentLocation();
     _fetchtargetLocation();
+    fetchTargetLocDataFromFirestore();
     setCustomMapPin();
     locationStream();
   }
@@ -163,6 +165,43 @@ class MapScreenState extends State<MapScreen> {
     );
 
     return setOfMarkers;
+  }
+
+  Future fetchTargetLocDataFromFirestore() async {
+    // List<Marker> setOfMarkers = [];
+
+    try {
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('TargetLoc').get();
+
+      querySnapshot.docs.forEach((doc) {
+        setOfMarkers.add(
+          Marker(
+            markerId: MarkerId(doc.id),
+            icon: doc['completed'] == true
+                ? BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueBlue)
+                : BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueRed),
+            position: LatLng(
+              double.parse(doc['location']['lat'].toString()),
+              double.parse(doc['location']['lng'].toString()),
+            ),
+            infoWindow: InfoWindow(
+              title: doc['roomName'].toString(),
+              snippet: doc['roomLocation'].toString(),
+            ),
+          ),
+        );
+      });
+
+      print("Data fetched from TargetLoc");
+
+      return setOfMarkers;
+    } catch (error) {
+      print('Error fetching data from Firestore: $error');
+      return []; // Return an empty list if an error occurs
+    }
   }
 
   Widget targetCard(element) {
@@ -312,7 +351,6 @@ class MapScreenState extends State<MapScreen> {
                           Marker(
                             markerId: MarkerId('${user.name} position $i'),
                             icon: pinLocationIcon,
-
                             infoWindow: InfoWindow(
                               title: user.username,
                               snippet: user.name,
@@ -356,27 +394,27 @@ class MapScreenState extends State<MapScreen> {
                 // ),
 
                 // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-                Positioned(
-                  top: MediaQuery.of(context).size.height - 240,
-                  child: SizedBox(
-                    height: 160,
-                    width: MediaQuery.of(context).size.width,
-                    child: clientsToggle
-                        ? ListView(
-                            scrollDirection: Axis.horizontal,
-                            padding: const EdgeInsets.all(9),
-                            children: setOfMarkers.map(
-                              (element) {
-                                return targetCard(element);
-                              },
-                            ).toList(),
-                          )
-                        : const SizedBox(
-                            height: 1,
-                            width: 1,
-                          ),
-                  ),
-                ),
+                // Positioned(
+                //   top: MediaQuery.of(context).size.height - 240,
+                //   child: SizedBox(
+                //     height: 160,
+                //     width: MediaQuery.of(context).size.width,
+                //     child: clientsToggle
+                //         ? ListView(
+                //             scrollDirection: Axis.horizontal,
+                //             padding: const EdgeInsets.all(9),
+                //             children: setOfMarkers.map(
+                //               (element) {
+                //                 return targetCard(element);
+                //               },
+                //             ).toList(),
+                //           )
+                //         : const SizedBox(
+                //             height: 1,
+                //             width: 1,
+                //           ),
+                //   ),
+                // ),
               ],
             ),
           ],
@@ -408,8 +446,8 @@ class MapScreenState extends State<MapScreen> {
                     onPressed: () {
                       print("MAP button clicked");
                     },
-                    backgroundColor:
-                        Color.fromARGB(255, 42, 40, 65), // Set the background color
+                    backgroundColor: const Color.fromARGB(
+                        255, 42, 40, 65), // Set the background color
                     foregroundColor: Colors.white,
                     tooltip: 'Second',
                     heroTag: 'Second',
