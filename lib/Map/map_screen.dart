@@ -13,6 +13,7 @@ import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:map1/Map/methods/location_util.dart';
+import 'package:map1/Map/methods/map_screen_functions.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -260,8 +261,17 @@ class MapScreenState extends State<MapScreen> {
                           children: [
                             IconButton(
                               color: const Color.fromARGB(255, 0, 0, 0),
-                              onPressed: () {
+                              onPressed: () async {
                                 zoomInMarker(element);
+
+                                Position position =
+                                    await Geolocator.getCurrentPosition(
+                                        desiredAccuracy: LocationAccuracy.high);
+
+                                areCoordinatesClose(
+                                    element.position,
+                                    LatLng(
+                                        position.latitude, position.longitude));
                               },
                               icon: const Row(
                                 children: [
