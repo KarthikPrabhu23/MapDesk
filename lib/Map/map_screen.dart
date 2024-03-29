@@ -199,14 +199,14 @@ class MapScreenState extends State<MapScreen> {
                               onPressed: () async {
                                 zoomInMarker(element);
 
-                                Position position =
+                                Position currPosition =
                                     await Geolocator.getCurrentPosition(
                                         desiredAccuracy: LocationAccuracy.high);
 
                                 areCoordinatesClose(
                                     element.position,
                                     LatLng(
-                                        position.latitude, position.longitude));
+                                        currPosition.latitude, currPosition.longitude));
                               },
                               icon: const Row(
                                 children: [
