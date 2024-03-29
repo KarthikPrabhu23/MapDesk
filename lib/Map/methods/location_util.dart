@@ -1,26 +1,8 @@
-// import 'package:geolocator/geolocator.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-// class LocationUtils {
-//   static Future<CameraPosition> getCurrentLocation() async {
-//     Position position = await Geolocator.getCurrentPosition(
-//         desiredAccuracy: LocationAccuracy.high);
-
-//     print("Inside LocationUtils");
-
-//     setState(() {
-//   //     _initialPosition = CameraPosition(
-//   //       target: LatLng(position.latitude, position.longitude),
-//   //       zoom: 14.0,
-//   //     );
-//   //   });
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class LocationState with ChangeNotifier {
   late CameraPosition _currentPosition;
@@ -47,5 +29,21 @@ class LocationUtils {
   static CameraPosition getCurrentPosition(BuildContext context) {
     return Provider.of<LocationState>(context, listen: false).currentPosition;
   }
-}
 
+  static String getCurrentUserUid() {
+    var user = auth.FirebaseAuth.instance.currentUser;
+    String uid;
+
+    if (user != null) {
+      uid = user.uid;
+      print('Current user UID: $uid');
+    } else {
+      uid = "no uid found";
+      print('No user is currently signed in.');
+    }
+
+    print(uid);
+
+    return uid;
+  }
+}

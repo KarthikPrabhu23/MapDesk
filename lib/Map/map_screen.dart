@@ -1,6 +1,5 @@
 // This is the new Map with Firestore connection
 // ignore_for_file: unused_import, avoid_print
-
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
@@ -13,6 +12,7 @@ import 'package:map1/Map/components/custom_info_window.dart';
 import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
 import 'package:custom_info_window/custom_info_window.dart';
+import 'package:map1/Map/methods/location_util.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -73,7 +73,7 @@ class MapScreenState extends State<MapScreen> {
     return locationStreamSubscription =
         StreamLocationService.onLocationChanged?.listen(
       (position) async {
-        String uid = getCurrentUserUid();
+        String uid = LocationUtils.getCurrentUserUid();
 
         // Check if user exists in Firestore
         bool userExists = await FirestoreService.doesUserExist(uid);
@@ -98,23 +98,6 @@ class MapScreenState extends State<MapScreen> {
         }
       },
     );
-  }
-
-  String getCurrentUserUid() {
-    var user = auth.FirebaseAuth.instance.currentUser;
-    String uid;
-
-    if (user != null) {
-      uid = user.uid;
-      print('Current user UID: $uid');
-    } else {
-      uid = "no uid found";
-      print('No user is currently signed in.');
-    }
-
-    print(uid);
-
-    return uid;
   }
 
   Future<void> _getCurrentLocation() async {
@@ -415,7 +398,6 @@ class MapScreenState extends State<MapScreen> {
                           ),
                   ),
                 ),
-            
               ],
             ),
           ],
