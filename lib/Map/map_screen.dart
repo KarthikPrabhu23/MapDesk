@@ -32,6 +32,7 @@ class MapScreenState extends State<MapScreen> {
 
   late BitmapDescriptor pinLocationIcon;
   late BitmapDescriptor targetLocationIcon;
+  late BitmapDescriptor completeLocationIcon;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -56,7 +57,7 @@ class MapScreenState extends State<MapScreen> {
     super.initState();
     _getCurrentLocation();
     // _fetchtargetLocation();
-    fetchTargetLocDataFromFirestore();
+    // fetchTargetLocDataFromFirestore();
     setCustomMapPin();
     locationStream();
   }
@@ -79,9 +80,7 @@ class MapScreenState extends State<MapScreen> {
     Uint8List imageData2 = (await rootBundle.load('lib/images/completePin.png'))
         .buffer
         .asUint8List();
-    targetLocationIcon = BitmapDescriptor.fromBytes(imageData2);
-
-
+    completeLocationIcon = BitmapDescriptor.fromBytes(imageData2);
   }
 
   StreamSubscription<Position>? locationStream() {
@@ -173,12 +172,9 @@ class MapScreenState extends State<MapScreen> {
         setOfMarkers.add(
           Marker(
             markerId: MarkerId(doc.id),
-            icon:
-                // doc['completed'] == true
-                //     ? BitmapDescriptor.defaultMarkerWithHue(
-                //         BitmapDescriptor.hueBlue)
-                // :
-                targetLocationIcon,
+            icon: doc['completed'] == true
+                ? completeLocationIcon
+                : targetLocationIcon,
             position: LatLng(
               double.parse(doc['location']['lat'].toString()),
               double.parse(doc['location']['lng'].toString()),
@@ -387,7 +383,9 @@ class MapScreenState extends State<MapScreen> {
                           Marker(
                             markerId:
                                 MarkerId('${targetLoc.roomName} position $i'),
-                            icon: targetLocationIcon,
+                            icon: targetLoc.completed == true
+                                ? completeLocationIcon
+                                : targetLocationIcon,
                             infoWindow: InfoWindow(
                               title: targetLoc.roomName,
                               snippet: targetLoc.roomName,
