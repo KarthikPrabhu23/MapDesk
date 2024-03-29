@@ -56,8 +56,6 @@ class MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     _getCurrentLocation();
-    // _fetchtargetLocation();
-    // fetchTargetLocDataFromFirestore();
     setCustomMapPin();
     locationStream();
   }
@@ -123,77 +121,6 @@ class MapScreenState extends State<MapScreen> {
         zoom: 14.0,
       );
     });
-  }
-
-// FETCH FROM Realtime database
-  _fetchtargetLocation() {
-    databaseReference.child('Rooms').get().then(
-      (DataSnapshot snapshot) {
-        Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
-
-        values.forEach(
-          (key, values) {
-            setOfMarkers.add(
-              Marker(
-                markerId: MarkerId(key),
-                icon: targetLocationIcon,
-                position: LatLng(
-                  double.parse(values['latitude'].toString()),
-                  double.parse(values['longitude'].toString()),
-                ),
-                infoWindow: InfoWindow(
-                  title: values['roomName'].toString(),
-                  snippet: values['roomLocation'].toString(),
-                ),
-              ),
-            );
-          },
-        );
-
-        setState(
-          () {
-            // targetSliderToggle = true;
-          },
-        );
-      },
-    );
-
-    return setOfMarkers;
-  }
-
-  Future fetchTargetLocDataFromFirestore() async {
-    // List<Marker> setOfMarkers = [];
-
-    try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('TargetLoc').get();
-
-      querySnapshot.docs.forEach((doc) {
-        setOfMarkers.add(
-          Marker(
-            markerId: MarkerId(doc.id),
-            icon: doc['completed'] == true
-                ? completeLocationIcon
-                : targetLocationIcon,
-            position: LatLng(
-              double.parse(doc['location']['lat'].toString()),
-              double.parse(doc['location']['lng'].toString()),
-            ),
-            infoWindow: InfoWindow(
-              title: doc['roomName'].toString(),
-              snippet: doc['roomLocation'].toString(),
-            ),
-          ),
-        );
-      });
-
-      print("Data fetched from TargetLoc");
-
-      return setOfMarkers;
-    } catch (error) {
-      print('Error fetching data from Firestore: $error');
-      return []; // Return an empty list if an error occurs
-    }
   }
 
   Widget targetCard(element) {
