@@ -57,7 +57,7 @@ class Target {
     required this.location,
   });
 
-  factory Target.fromMap(Map<String, dynamic> map) {
+  factory Target.fromMap(Map<dynamic, dynamic> map) {
     return Target(
       completed: map['completed'],
       roomName: map['roomName'],
@@ -69,13 +69,13 @@ class Target {
   }
 
   final Location location;
-  final String completed;
+  final bool completed;
   final String roomName;
 
 // Convert a User object to a Map
-  Map<String, dynamic> toMap() {
+  Map<dynamic, dynamic> toMap() {
     return {
-      'completed': completed,
+      // 'completed': completed,
       'roomName': roomName,
       'location': {
         'lat': location.lat,

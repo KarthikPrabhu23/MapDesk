@@ -52,7 +52,7 @@ class MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
     _getCurrentLocation();
-    _fetchtargetLocation();
+    // _fetchtargetLocation();
     fetchTargetLocDataFromFirestore();
     setCustomMapPin();
     locationStream();
@@ -141,7 +141,7 @@ class MapScreenState extends State<MapScreen> {
 
         setState(
           () {
-            clientsToggle = true;
+            // clientsToggle = true;
           },
         );
       },
@@ -341,58 +341,101 @@ class MapScreenState extends State<MapScreen> {
               children: <Widget>[
                 SizedBox(
                   height: MediaQuery.of(context).size.height - 44,
-                  child: StreamBuilder<List<User>>(
-                    stream: FirestoreService.userCollectionStream(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
+                  child: StreamBuilder<List<Target>>(
+                    stream: FirestoreService.targetLocCollectionStream(),
+                    builder: (context, targetSnapshot) {
+                      if (targetSnapshot.connectionState ==
+                          ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
 
-                      if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      if (!targetSnapshot.hasData ||
+                          targetSnapshot.data!.isEmpty) {
                         return const Center(
                           child: Text('No data available'),
                         );
                       }
 
                       // final Set<Marker> markers = {};
-                      for (var i = 0; i < snapshot.data!.length; i++) {
-                        final user = snapshot.data![i];
+                      for (var i = 0; i < targetSnapshot.data!.length; i++) {
+                        final targetLoc = targetSnapshot.data![i];
                         setOfMarkers.add(
                           Marker(
-                            markerId: MarkerId('${user.name} position $i'),
-                            icon: pinLocationIcon,
+                            markerId:
+                                MarkerId('${targetLoc.roomName} position $i'),
                             infoWindow: InfoWindow(
-                              title: user.username,
-                              snippet: user.name,
+                              title: targetLoc.roomName,
+                              snippet: targetLoc.roomName,
                               onTap: () {
-                                print('Info window tapped!');
+                                print('Target Info window tapped!');
                               },
                             ),
-                            position:
-                                LatLng(user.location.lat, user.location.lng),
+                            position: LatLng(
+                                targetLoc.location.lat, targetLoc.location.lng),
                           ),
                         );
                       }
-                      return GoogleMap(
-                        initialCameraPosition: _initialPosition,
-                        markers: setOfMarkers,
 
-                        // trafficEnabled: true,
-                        // mapType: MapType.hybrid,
-                        // fortyFiveDegreeImageryEnabled : true,
-
-                        onMapCreated: (GoogleMapController controller) {
-                          mapController = controller;
-                          if (!_controllerCompleter.isCompleted) {
-                            _controllerCompleter.complete(controller);
+                      // User's streamBuilder
+                      return StreamBuilder<List<User>>(
+                        stream: FirestoreService.userCollectionStream(),
+                        builder: (userContext, userSnapshot) {
+                          if (userSnapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
                           }
+
+                          if (!userSnapshot.hasData ||
+                              userSnapshot.data!.isEmpty) {
+                            return const Center(
+                              child: Text('No data available'),
+                            );
+                          }
+
+                          // final Set<Marker> markers = {};
+                          for (var i = 0; i < userSnapshot.data!.length; i++) {
+                            final user = userSnapshot.data![i];
+                            setOfMarkers.add(
+                              Marker(
+                                markerId: MarkerId('${user.name} position $i'),
+                                icon: pinLocationIcon,
+                                infoWindow: InfoWindow(
+                                  title: user.username,
+                                  snippet: user.name,
+                                ),
+                                position: LatLng(
+                                    user.location.lat, user.location.lng),
+                                // onTap: () {
+                                //   print('Marker id is :');
+                                //   print('${user.name} position $i');
+                                // },
+                              ),
+                            );
+                          }
+                          return GoogleMap(
+                            initialCameraPosition: _initialPosition,
+                            markers: setOfMarkers,
+
+                            // trafficEnabled: true,
+                            // mapType: MapType.hybrid,
+                            // fortyFiveDegreeImageryEnabled : true,
+
+                            onMapCreated: (GoogleMapController controller) {
+                              mapController = controller;
+                              if (!_controllerCompleter.isCompleted) {
+                                _controllerCompleter.complete(controller);
+                              }
+                            },
+
+                            // ----
+
+                            // ---
+                          );
                         },
-
-                        // ----
-
-                        // ---
                       );
                     },
                   ),
@@ -411,8 +454,10 @@ class MapScreenState extends State<MapScreen> {
                   child: SizedBox(
                     height: 160,
                     width: MediaQuery.of(context).size.width,
-                    child: clientsToggle
-                        ? ListView(
+                    child: 
+                    // clientsToggle
+                    //     ? 
+                        ListView(
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.all(9),
                             children: setOfMarkers.map(
@@ -421,10 +466,10 @@ class MapScreenState extends State<MapScreen> {
                               },
                             ).toList(),
                           )
-                        : const SizedBox(
-                            height: 1,
-                            width: 1,
-                          ),
+                        // : const SizedBox(
+                        //     height: 1,
+                        //     width: 1,
+                        //   ),
                   ),
                 ),
               ],
