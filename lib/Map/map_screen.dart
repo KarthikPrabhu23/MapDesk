@@ -394,27 +394,28 @@ class MapScreenState extends State<MapScreen> {
                 // ),
 
                 // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
-                // Positioned(
-                //   top: MediaQuery.of(context).size.height - 240,
-                //   child: SizedBox(
-                //     height: 160,
-                //     width: MediaQuery.of(context).size.width,
-                //     child: clientsToggle
-                //         ? ListView(
-                //             scrollDirection: Axis.horizontal,
-                //             padding: const EdgeInsets.all(9),
-                //             children: setOfMarkers.map(
-                //               (element) {
-                //                 return targetCard(element);
-                //               },
-                //             ).toList(),
-                //           )
-                //         : const SizedBox(
-                //             height: 1,
-                //             width: 1,
-                //           ),
-                //   ),
-                // ),
+                Positioned(
+                  top: MediaQuery.of(context).size.height - 240,
+                  child: SizedBox(
+                    height: 160,
+                    width: MediaQuery.of(context).size.width,
+                    child: clientsToggle
+                        ? ListView(
+                            scrollDirection: Axis.horizontal,
+                            padding: const EdgeInsets.all(9),
+                            children: setOfMarkers.map(
+                              (element) {
+                                return targetCard(element);
+                              },
+                            ).toList(),
+                          )
+                        : const SizedBox(
+                            height: 1,
+                            width: 1,
+                          ),
+                  ),
+                ),
+            
               ],
             ),
           ],

@@ -50,6 +50,41 @@ class User {
   }
 }
 
+class Target {
+  Target({
+    required this.completed,
+    required this.roomName,
+    required this.location,
+  });
+
+  factory Target.fromMap(Map<String, dynamic> map) {
+    return Target(
+      completed: map['completed'],
+      roomName: map['roomName'],
+      location: Location(
+        lat: map['location']['lat'],
+        lng: map['location']['lng'],
+      ),
+    );
+  }
+
+  final Location location;
+  final String completed;
+  final String roomName;
+
+// Convert a User object to a Map
+  Map<String, dynamic> toMap() {
+    return {
+      'completed': completed,
+      'roomName': roomName,
+      'location': {
+        'lat': location.lat,
+        'lng': location.lng,
+      },
+    };
+  }
+}
+
 class StreamLocationService {
   static bool _isLocationGranted = false;
   static const LocationSettings _locationSettings =
@@ -86,6 +121,11 @@ class FirestoreService {
   static Stream<List<User>> userCollectionStream() {
     return _firestore.collection('users').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => User.fromMap(doc.data())).toList());
+  }
+
+  static Stream<List<Target>> targetLocCollectionStream() {
+    return _firestore.collection('TargetLoc').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => Target.fromMap(doc.data())).toList());
   }
 
   // Check if user exists in Firestore
