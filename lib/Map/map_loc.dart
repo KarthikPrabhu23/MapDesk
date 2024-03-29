@@ -21,7 +21,7 @@ class MapLoc extends StatefulWidget {
 }
 
 class _MapLocState extends State<MapLoc> {
-  bool clientsToggle = true;
+  bool targetSliderToggle = true;
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
   late GoogleMapController mapController;
 
@@ -132,7 +132,7 @@ class _MapLocState extends State<MapLoc> {
         setState(
           () {
             // targetLocation = targetLocation;
-            clientsToggle = true;
+            targetSliderToggle = true;
           },
         );
       },
@@ -169,7 +169,7 @@ class _MapLocState extends State<MapLoc> {
         setState(
           () {
             // targetLocation = targetLocation;
-            // clientsToggle = true;
+            // targetSliderToggle = true;
           },
         );
       },
@@ -258,7 +258,7 @@ class _MapLocState extends State<MapLoc> {
                   child: SizedBox(
                     height: 100,
                     width: MediaQuery.of(context).size.width,
-                    child: clientsToggle
+                    child: targetSliderToggle
                         ? ListView(
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.all(9),
@@ -282,7 +282,7 @@ class _MapLocState extends State<MapLoc> {
                 // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
 
                 // TargetSlider(
-                //     clientsToggle: clientsToggle,
+                //     targetSliderToggle: targetSliderToggle,
                 //     setOfMarkers: targetLocation,
                 //     controller: controller),
               ],

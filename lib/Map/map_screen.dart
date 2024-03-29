@@ -22,7 +22,7 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
-  bool clientsToggle = true;
+  bool targetSliderToggle = true;
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
   late StreamSubscription<Position>? locationStreamSubscription;
   late GoogleMapController mapController;
@@ -141,7 +141,7 @@ class MapScreenState extends State<MapScreen> {
 
         setState(
           () {
-            // clientsToggle = true;
+            // targetSliderToggle = true;
           },
         );
       },
@@ -443,7 +443,7 @@ class MapScreenState extends State<MapScreen> {
 
                 // THIS IS THE SCROLL LOCATIONS ON MAP FEATURE
                 // TargetSlider(
-                //   clientsToggle: clientsToggle,
+                //   targetSliderToggle: targetSliderToggle,
                 //   setOfMarkers: setOfMarkers,
                 //   mapController: mapController,
                 // ),
@@ -454,10 +454,8 @@ class MapScreenState extends State<MapScreen> {
                   child: SizedBox(
                     height: 160,
                     width: MediaQuery.of(context).size.width,
-                    child: 
-                    // clientsToggle
-                    //     ? 
-                        ListView(
+                    child: targetSliderToggle
+                        ? ListView(
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.all(9),
                             children: setOfMarkers.map(
@@ -466,10 +464,10 @@ class MapScreenState extends State<MapScreen> {
                               },
                             ).toList(),
                           )
-                        // : const SizedBox(
-                        //     height: 1,
-                        //     width: 1,
-                        //   ),
+                        : const SizedBox(
+                            height: 1,
+                            width: 1,
+                          ),
                   ),
                 ),
               ],
@@ -502,6 +500,13 @@ class MapScreenState extends State<MapScreen> {
                   FloatingActionButton(
                     onPressed: () {
                       print("MAP button clicked");
+                      setState(() {
+                        if (targetSliderToggle) {
+                          targetSliderToggle = false;
+                        } else {
+                          targetSliderToggle = true;
+                        }
+                      });
                     },
                     backgroundColor: const Color.fromARGB(
                         255, 42, 40, 65), // Set the background color

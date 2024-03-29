@@ -8,12 +8,12 @@ class TargetSlider extends StatefulWidget {
 
   const TargetSlider({
     super.key,
-    required this.clientsToggle,
+    required this.targetSliderToggle,
     required this.setOfMarkers,
     required this.mapController,
   });
 
-  final bool clientsToggle;
+  final bool targetSliderToggle;
   final Set<Marker> setOfMarkers;
 
   @override
@@ -28,7 +28,7 @@ class _TargetSliderState extends State<TargetSlider> {
       child: SizedBox(
         height: 100,
         width: MediaQuery.of(context).size.width,
-        child: widget.clientsToggle
+        child: widget.targetSliderToggle
             ? ListView(
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.all(9),
