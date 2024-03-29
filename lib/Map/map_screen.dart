@@ -500,13 +500,11 @@ class MapScreenState extends State<MapScreen> {
                   FloatingActionButton(
                     onPressed: () {
                       print("MAP button clicked");
-                      setState(() {
-                        if (targetSliderToggle) {
-                          targetSliderToggle = false;
-                        } else {
-                          targetSliderToggle = true;
-                        }
-                      });
+                      setState(
+                        () {
+                          targetSliderToggle = !targetSliderToggle;
+                        },
+                      );
                     },
                     backgroundColor: const Color.fromARGB(
                         255, 42, 40, 65), // Set the background color
