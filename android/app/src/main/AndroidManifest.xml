@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- <uses-persmission android:name="android.permission.INTERNET"/>
+    <uses-persmission android:name="android.permission.INTERNET"/>
     <uses-persmission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-persmission android:name="android.permission.CAMERA"/>
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/> -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/> 
 
     <!-- Allows the application to access the Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <!-- Allows the application to access approximate location using network-based methods -->
-    <!-- <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- Allows the application to access location in the background -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />

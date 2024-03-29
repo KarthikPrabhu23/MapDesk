@@ -71,14 +71,17 @@ class MapScreenState extends State<MapScreen> {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(devicePixelRatio: 2.5), 'lib/images/user.png');
 
-    targetLocationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.5),
-        'lib/images/targetPin.png');
-
     Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png'))
         .buffer
         .asUint8List();
     targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
+
+    Uint8List imageData2 = (await rootBundle.load('lib/images/completePin.png'))
+        .buffer
+        .asUint8List();
+    targetLocationIcon = BitmapDescriptor.fromBytes(imageData2);
+
+
   }
 
   StreamSubscription<Position>? locationStream() {
@@ -123,6 +126,7 @@ class MapScreenState extends State<MapScreen> {
     });
   }
 
+// FETCH FROM Realtime database
   _fetchtargetLocation() {
     databaseReference.child('Rooms').get().then(
       (DataSnapshot snapshot) {
@@ -383,6 +387,7 @@ class MapScreenState extends State<MapScreen> {
                           Marker(
                             markerId:
                                 MarkerId('${targetLoc.roomName} position $i'),
+                            icon: targetLocationIcon,
                             infoWindow: InfoWindow(
                               title: targetLoc.roomName,
                               snippet: targetLoc.roomName,
