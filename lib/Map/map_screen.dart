@@ -1,6 +1,7 @@
 // This is the new Map with Firestore connection
 // ignore_for_file: unused_import, avoid_print
 import 'dart:async';
+import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class MapScreenState extends State<MapScreen> {
   Set<Marker> setOfMarkers = {};
 
   late BitmapDescriptor pinLocationIcon;
+  late BitmapDescriptor targetLocationIcon;
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
@@ -68,6 +70,15 @@ class MapScreenState extends State<MapScreen> {
   void setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
         const ImageConfiguration(devicePixelRatio: 2.5), 'lib/images/user.png');
+
+    targetLocationIcon = await BitmapDescriptor.fromAssetImage(
+        const ImageConfiguration(devicePixelRatio: 2.5),
+        'lib/images/targetPin.png');
+
+    Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png'))
+        .buffer
+        .asUint8List();
+    targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
   }
 
   StreamSubscription<Position>? locationStream() {
@@ -122,11 +133,7 @@ class MapScreenState extends State<MapScreen> {
             setOfMarkers.add(
               Marker(
                 markerId: MarkerId(key),
-                icon: values['completed'] == true
-                    ? BitmapDescriptor.defaultMarkerWithHue(
-                        BitmapDescriptor.hueBlue)
-                    : BitmapDescriptor.defaultMarkerWithHue(
-                        BitmapDescriptor.hueRed),
+                icon: targetLocationIcon,
                 position: LatLng(
                   double.parse(values['latitude'].toString()),
                   double.parse(values['longitude'].toString()),
@@ -162,11 +169,12 @@ class MapScreenState extends State<MapScreen> {
         setOfMarkers.add(
           Marker(
             markerId: MarkerId(doc.id),
-            icon: doc['completed'] == true
-                ? BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueBlue)
-                : BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueRed),
+            icon:
+                // doc['completed'] == true
+                //     ? BitmapDescriptor.defaultMarkerWithHue(
+                //         BitmapDescriptor.hueBlue)
+                // :
+                targetLocationIcon,
             position: LatLng(
               double.parse(doc['location']['lat'].toString()),
               double.parse(doc['location']['lng'].toString()),
