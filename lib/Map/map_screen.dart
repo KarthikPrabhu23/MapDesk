@@ -129,7 +129,7 @@ class MapScreenState extends State<MapScreen> {
       padding: const EdgeInsets.only(left: 12, top: 10),
       child: InkWell(
         onTap: () {
-          zoomInMarker(element);
+          // zoomInMarker(element);
         },
         child: Container(
           height: 160,
@@ -180,14 +180,14 @@ class MapScreenState extends State<MapScreen> {
                           CrossAxisAlignment.start, // Align text to left
                       children: [
                         Text(
-                          element.infoWindow.title.toString(),
+                          element.roomName.toString(),
                           style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                         Text(
-                          element.infoWindow.snippet.toString(),
+                          element.roomName.toString(),
                           style: const TextStyle(
                             fontSize: 12.0,
                             color: Colors.white70,
@@ -198,14 +198,15 @@ class MapScreenState extends State<MapScreen> {
                             IconButton(
                               color: const Color.fromARGB(255, 0, 0, 0),
                               onPressed: () async {
-                                zoomInMarker(element);
+                                // zoomInMarker(element);
 
                                 Position currPosition =
                                     await Geolocator.getCurrentPosition(
                                         desiredAccuracy: LocationAccuracy.high);
 
                                 areCoordinatesClose(
-                                    element.position,
+                                    LatLng(element.location.lat,
+                                        element.location.lng),
                                     LatLng(currPosition.latitude,
                                         currPosition.longitude));
                               },
@@ -403,23 +404,47 @@ class MapScreenState extends State<MapScreen> {
                   child: SizedBox(
                     height: 160,
                     width: MediaQuery.of(context).size.width,
-                    child: targetSliderToggle
-                        ? ListView(
+                    // child: targetSliderToggle
+                    //     ?
+                    //  ListView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     padding: const EdgeInsets.all(9),
+                    //     children: setOfMarkers.map(
+                    //       (element) {
+                    //         // return TargetCard(
+                    //         //   markerElement: element,
+                    //         //   controller: mapController,
+                    //         // );
+                    //         return targetCard(element);
+                    //       },
+                    //     ).toList(),
+                    //   )
+                    // : const SizedBox(
+                    //     height: 1,
+                    //     width: 1,
+                    //   ),
+
+                    child: StreamBuilder<List<Target>>(
+                      stream: FirestoreService.targetLocCollectionStream(),
+                      builder: (context, targetSnapshot) {
+                        if (targetSnapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (targetSnapshot.hasError) {
+                          return Text('Error: ${targetSnapshot.error}');
+                        } else {
+                          return ListView.builder(
                             scrollDirection: Axis.horizontal,
                             padding: const EdgeInsets.all(9),
-                            children: setOfMarkers.map(
-                              (element) {
-                                return TargetCard(
-                                  markerElement: element,
-                                  controller: mapController,
-                                );
-                              },
-                            ).toList(),
-                          )
-                        : const SizedBox(
-                            height: 1,
-                            width: 1,
-                          ),
+                            itemCount: targetSnapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              final targetLoc = targetSnapshot.data![index];
+                              return targetCard(targetLoc);
+                            },
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ),
               ],

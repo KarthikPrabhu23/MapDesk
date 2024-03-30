@@ -51,6 +51,10 @@ class User {
 }
 
 class Target {
+  final Location location;
+  final bool completed;
+  final String roomName;
+
   Target({
     required this.completed,
     required this.roomName,
@@ -67,10 +71,6 @@ class Target {
       ),
     );
   }
-
-  final Location location;
-  final bool completed;
-  final String roomName;
 
 // Convert a User object to a Map
   Map<dynamic, dynamic> toMap() {

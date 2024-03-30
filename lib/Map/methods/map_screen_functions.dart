@@ -39,8 +39,8 @@ bool areCoordinatesClose(LatLng coord1, LatLng coord2) {
   double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   double distance = earthRadius * c;
 
-  print(distance <= 5 ? 'Distance within 5' : 'Distance is far');
+  print(distance <= 10 ? 'Distance within 10' : 'Distance is far');
 
   // Check if the distance is less than or equal to 5 meters
-  return distance <= 5;
+  return distance <= 10;
 }
