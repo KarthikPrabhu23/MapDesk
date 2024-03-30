@@ -8,6 +8,7 @@ import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'firebase_options.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +16,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // TODO:
+  // FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: 'YOUR_RECAPTCHA_SITE_KEY');
   runApp(const MyApp());
 }
 

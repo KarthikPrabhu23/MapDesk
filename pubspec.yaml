@@ -55,6 +55,7 @@ dependencies:
   permission_handler: ^11.3.0
   firebase_storage: ^11.6.8
   custom_info_window: ^1.0.1
+  firebase_app_check: ^0.2.1+19
 
 
 dev_dependencies:
