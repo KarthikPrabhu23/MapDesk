@@ -204,9 +204,9 @@ class MapScreenState extends State<MapScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return ConfirmationDialog(
-                                      title: "Have you reached the Target Location",
-                                      message:
-                                          "Are you within 10 meters?",
+                                      title:
+                                          "Have you reached the Target Location",
+                                      message: "Are you within 10 meters?",
                                       onYesPressed: () async {
                                         zoomInMarker(element);
 
@@ -217,12 +217,16 @@ class MapScreenState extends State<MapScreen> {
                                                     LocationAccuracy.high);
 
                                         // Check if coordinates are close
-                                        areCoordinatesClose(
+                                        bool reachedTarget =
+                                            areCoordinatesClose(
                                           LatLng(element.location.lat,
                                               element.location.lng),
                                           LatLng(currPosition.latitude,
                                               currPosition.longitude),
                                         );
+
+                                        print(
+                                            '${element.roomName.toString()} is ${reachedTarget ? 'visited' : 'NOT visited'}');
                                       },
                                     );
                                   },
