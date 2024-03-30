@@ -16,6 +16,10 @@ class Location {
 }
 
 class User {
+  final String name;
+  final String username;
+  final Location location;
+
   User({
     required this.name,
     required this.username,
@@ -33,10 +37,6 @@ class User {
     );
   }
 
-  final Location location;
-  final String name;
-  final String username;
-
 // Convert a User object to a Map
   Map<String, dynamic> toMap() {
     return {
@@ -51,17 +51,19 @@ class User {
 }
 
 class Target {
-  final Location location;
   final bool completed;
   final String roomName;
+  final Location location;
+  final String targetUid;
 
   Target({
     required this.completed,
     required this.roomName,
     required this.location,
+    required this.targetUid,
   });
 
-  factory Target.fromMap(Map<dynamic, dynamic> map) {
+  factory Target.fromMap(String docId, Map<dynamic, dynamic> map) {
     return Target(
       completed: map['completed'],
       roomName: map['roomName'],
@@ -69,6 +71,7 @@ class Target {
         lat: map['location']['lat'],
         lng: map['location']['lng'],
       ),
+      targetUid: docId,
     );
   }
 
@@ -118,6 +121,19 @@ class FirestoreService {
     }
   }
 
+  static Future<void> updateTargetCompletion(
+      String userId) async {
+    try {
+      await _firestore.collection('TargetLoc').doc(userId).update({
+        'completed': true,
+      });
+    } on FirebaseException catch (e) {
+      print('Ann error due to firebase occured $e');
+    } catch (err) {
+      print('Ann error occured $err');
+    }
+  }
+
   static Stream<List<User>> userCollectionStream() {
     return _firestore.collection('users').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => User.fromMap(doc.data())).toList());
@@ -125,7 +141,9 @@ class FirestoreService {
 
   static Stream<List<Target>> targetLocCollectionStream() {
     return _firestore.collection('TargetLoc').snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => Target.fromMap(doc.data())).toList());
+        snapshot.docs
+            .map((doc) => Target.fromMap(doc.id, doc.data()))
+            .toList());
   }
 
   // Check if user exists in Firestore

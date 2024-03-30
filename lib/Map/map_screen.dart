@@ -198,57 +198,30 @@ class MapScreenState extends State<MapScreen> {
                           children: [
                             IconButton(
                               color: const Color.fromARGB(255, 0, 0, 0),
-                              onPressed: () async {
-                                zoomInMarker(element);
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return ConfirmationDialog(
-                                      title:
-                                          "Have you reached the Target Location",
-                                      message: "Are you within 10 meters?",
-                                      onYesPressed: () async {
-                                        zoomInMarker(element);
-
-                                        // Get current position
-                                        Position currPosition =
-                                            await Geolocator.getCurrentPosition(
-                                                desiredAccuracy:
-                                                    LocationAccuracy.high);
-
-                                        // Check if coordinates are close
-                                        bool reachedTarget =
-                                            areCoordinatesClose(
-                                          LatLng(element.location.lat,
-                                              element.location.lng),
-                                          LatLng(currPosition.latitude,
-                                              currPosition.longitude),
-                                        );
-
-                                        print(
-                                            '${element.roomName.toString()} is ${reachedTarget ? 'visited' : 'NOT visited'}');
-                                      },
-                                    );
-                                  },
-                                );
+                              icon: element.completed
+                                  ? const Row(
+                                      children: [
+                                        Icon(
+                                          Icons.verified_rounded,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(width: 2),
+                                        Text(
+                                          'Target Visited',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : const Icon(
+                                          Icons.man,
+                                          color: Colors.white,
+                                        ),
+                              onPressed:() {
+                                
                               },
-                              icon: const Row(
-                                children: [
-                                  Icon(
-                                    Icons.verified_rounded,
-                                    color: Colors.white,
-                                  ),
-                                  SizedBox(width: 2),
-                                  // Text(
-                                  //   'Reached',
-                                  //   style: TextStyle(
-                                  //     color: Colors.white,
-                                  //     fontSize:
-                                  //         12, // Adjust the font size as needed
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
                             )
                           ],
                         ),
@@ -262,8 +235,41 @@ class MapScreenState extends State<MapScreen> {
                     Icons.car_crash_rounded,
                     color: Colors.white,
                   ), // Replace with your desired icon
-                  onPressed: () {
-                    // Handle button press event
+                  onPressed: () async {
+                    zoomInMarker(element);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return ConfirmationDialog(
+                          title: "Have you reached the Target Location",
+                          message: "Are you within 10 meters?",
+                          onYesPressed: () async {
+                            zoomInMarker(element);
+
+                            // Get current position
+                            Position currPosition =
+                                await Geolocator.getCurrentPosition(
+                                    desiredAccuracy: LocationAccuracy.high);
+
+                            // Check if coordinates are close
+                            bool reachedTarget = areCoordinatesClose(
+                              LatLng(
+                                  element.location.lat, element.location.lng),
+                              LatLng(currPosition.latitude,
+                                  currPosition.longitude),
+                            );
+
+                            print(
+                                '${element.roomName.toString()} is ${reachedTarget ? 'visited' : 'NOT visited'}');
+
+                            if (reachedTarget) {
+                              FirestoreService.updateTargetCompletion(
+                                  element.targetUid);
+                            }
+                          },
+                        );
+                      },
+                    );
                   },
                 ),
               ],
