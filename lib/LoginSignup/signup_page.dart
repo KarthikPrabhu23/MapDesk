@@ -34,38 +34,38 @@ class _SignUpState extends State<SignUp> {
 
   final _picker = ImagePicker();
 
-  late PickedFile _image;
+  // late PickedFile _image;
 
-  Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _image = PickedFile(pickedFile.path);
-      });
-    } else {
-      // Handle the case where no image was picked
-      // You may display a message to the user or perform any other appropriate action
-    }
-  }
+  // Future<void> _pickImage() async {
+  //   final XFile? pickedFile =
+  //       await _picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //       _image = PickedFile(pickedFile.path);
+  //     });
+  //   } else {
+  //     // Handle the case where no image was picked
+  //     // You may display a message to the user or perform any other appropriate action
+  //   }
+  // }
 
-  Future<void> _uploadImage() async {
-    if (_image == null) {
-      // Handle the case where no image has been selected
-      return;
-    }
+  // Future<void> _uploadImage() async {
+  //   if (_image == null) {
+  //     // Handle the case where no image has been selected
+  //     return;
+  //   }
 
-    FirebaseStorage storage = FirebaseStorage.instance;
-    Reference ref = storage
-        .ref()
-        .child("profilepic")
-        .child('${DateTime.now()}.jpg'); // Add file extension if needed
-    UploadTask uploadTask = ref.putFile(File(_image.path));
-    // TaskSnapshot snapshot = await uploadTask;
-    // downloadUrl = await snapshot.ref.getDownloadURL();
+  //   FirebaseStorage storage = FirebaseStorage.instance;
+  //   Reference ref = storage
+  //       .ref()
+  //       .child("profilepic")
+  //       .child('${DateTime.now()}.jpg'); // Add file extension if needed
+  //   // UploadTask uploadTask = ref.putFile(File(_image.path));
+  //   // TaskSnapshot snapshot = await uploadTask;
+  //   // downloadUrl = await snapshot.ref.getDownloadURL();
 
-    // Store the download URL in Firestore or wherever needed
-  }
+  //   // Store the download URL in Firestore or wherever needed
+  // }
 
   void pickUploadImage() async {
     final image = await ImagePicker().pickImage(
@@ -111,6 +111,17 @@ class _SignUpState extends State<SignUp> {
         );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _confirmPassword;
+    _email;
+    _password;
+    _picker;
+    _formKey;
+    _username;
   }
 
   @override

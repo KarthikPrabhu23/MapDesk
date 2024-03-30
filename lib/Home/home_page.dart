@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
           'lng': longitude,
           'timestamp': firestore.FieldValue.serverTimestamp(),
         },
-        'name': ufullname,
+        'name': "Default",
       });
       print('User location updated ');
     } catch (error) {
@@ -134,7 +134,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Check if the user is signed in
     if (auth.currentUser != null) {
-      // The user is signed in, you can get the UID
       String uid = auth.currentUser!.uid;
       print('Current User UID: $uid \n _getCurrentUser');
 
