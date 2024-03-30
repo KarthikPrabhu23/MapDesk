@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:map1/Home/profile_page.dart';
+import 'package:map1/Map/classes.dart';
+import 'package:map1/Record/components/task_complete_card.dart';
 
 class RecordLog extends StatefulWidget {
   const RecordLog({super.key});
@@ -48,23 +50,69 @@ class _RecordLogState extends State<RecordLog> {
             ),
           ],
         ),
-        body: const SingleChildScrollView(
+        body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                child: Text(
-                  'Record logs',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 25,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
+                  child: Text(
+                    'Record logs',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 25,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.80,
+                  // height: 600,
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  decoration: BoxDecoration(
+                    color: Colors.indigo.shade700,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SingleChildScrollView(
+                        padding: EdgeInsets.all(10),
+                        scrollDirection: Axis.vertical,
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.7,
+                          // height: 500,
+                          child: StreamBuilder<List<Target>>(
+                            stream: FirestoreService.targetLocCollectionStream(),
+                            builder: (context, targetSnapshot) {
+                              if (targetSnapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const CircularProgressIndicator();
+                              } else if (targetSnapshot.hasError) {
+                                return Text('Error: ${targetSnapshot.error}');
+                              } else {
+                                return ListView.builder(
+                                  
+                                  scrollDirection: Axis.vertical,
+                                  padding: const EdgeInsets.all(9),
+                                  itemCount: targetSnapshot.data!.length,
+                                  itemBuilder: (context, index) {
+                                    final targetLoc = targetSnapshot.data![index];
+                                    return TaskCard();
+                                  },
+                                );
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

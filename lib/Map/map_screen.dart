@@ -216,12 +216,10 @@ class MapScreenState extends State<MapScreen> {
                                       ],
                                     )
                                   : const Icon(
-                                          Icons.man,
-                                          color: Colors.white,
-                                        ),
-                              onPressed:() {
-                                
-                              },
+                                      Icons.man,
+                                      color: Colors.white,
+                                    ),
+                              onPressed: () {},
                             )
                           ],
                         ),
