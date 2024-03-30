@@ -48,8 +48,9 @@ class MapScreenState extends State<MapScreen> {
 
   @override
   void dispose() {
-    super.dispose();
     locationStreamSubscription?.cancel();
+    mapController.dispose();
+    super.dispose();
   }
 
   @override
@@ -205,8 +206,8 @@ class MapScreenState extends State<MapScreen> {
 
                                 areCoordinatesClose(
                                     element.position,
-                                    LatLng(
-                                        currPosition.latitude, currPosition.longitude));
+                                    LatLng(currPosition.latitude,
+                                        currPosition.longitude));
                               },
                               icon: const Row(
                                 children: [
@@ -408,7 +409,10 @@ class MapScreenState extends State<MapScreen> {
                             padding: const EdgeInsets.all(9),
                             children: setOfMarkers.map(
                               (element) {
-                                return targetCard(element);
+                                return TargetCard(
+                                  markerElement: element,
+                                  controller: mapController,
+                                );
                               },
                             ).toList(),
                           )

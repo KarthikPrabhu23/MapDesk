@@ -37,9 +37,15 @@ class _TargetSliderState extends State<TargetSlider> {
                     if (element.icon ==
                         BitmapDescriptor.defaultMarkerWithHue(
                             BitmapDescriptor.hueRed)) {
-                      return targetCard(element, widget.mapController);
+                      return TargetCard(
+                        markerElement: element,
+                        controller: widget.mapController,
+                      );
                     } else {
-                      return targetCard(element, widget.mapController);
+                      return TargetCard(
+                        markerElement: element,
+                        controller: widget.mapController,
+                      );
                     }
                   },
                 ).toList(),
