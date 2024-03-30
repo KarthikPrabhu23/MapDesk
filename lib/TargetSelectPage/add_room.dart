@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print, non_constant_identifier_names
 import "package:flutter/material.dart";
+import 'package:intl/intl.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/geolocation.dart';
@@ -33,6 +34,9 @@ class _AddRoomState extends State<AddRoom> {
 
   // ignore: unused_field
   late GoogleMapController _mapController;
+  // late TimeOfDay selectedTime;
+
+  late DateTime selectedDate;
   late TimeOfDay selectedTime;
 
   @override
@@ -40,6 +44,8 @@ class _AddRoomState extends State<AddRoom> {
     super.initState();
     dbRef = FirebaseDatabase.instance.ref().child('Rooms');
 
+    selectedTime = TimeOfDay.now();
+    selectedDate = DateTime.now();
     selectedTime = TimeOfDay.now();
   }
 
@@ -75,6 +81,32 @@ class _AddRoomState extends State<AddRoom> {
     if (pickedTime != null && pickedTime != selectedTime) {
       setState(() {
         selectedTime = pickedTime;
+      });
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime ?? TimeOfDay.now(),
+    );
+    if (picked != null) {
+      setState(() {
+        selectedTime = picked;
       });
     }
   }
@@ -142,17 +174,38 @@ class _AddRoomState extends State<AddRoom> {
                   child: Row(
                     children: [
                       Text(
-                        'Deadline for the task : ${selectedTime.format(context)}',
+                        'Deadline time for the task : ${selectedTime.format(context)}',
                         style: TextStyle(fontSize: 15),
                       ),
                       SizedBox(
                           width:
-                              6), // Add spacing between the text and the button
+                              6),
                       IconButton(
-                        onPressed: () => _selectTimeDate(context),
+                        onPressed: () => _selectTime(context),
                         icon: Icon(
                             Icons.access_time), // Use your desired icon here
                         tooltip: 'Select Time',
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Deadline date for the task : ${DateFormat.yMMMd().format(selectedDate)}',
+                        style: TextStyle(fontSize: 15),
+                      ),
+
+                      SizedBox(
+                          width:
+                              6),
+                      IconButton(
+                        onPressed: () => _selectDate(context),
+                        icon: Icon(
+                            Icons.calendar_month), // Use your desired icon here
+                        tooltip: 'Select Date',
                       ),
                     ],
                   ),
@@ -208,6 +261,14 @@ class _AddRoomState extends State<AddRoom> {
                       selectedTime.minute,
                     );
 
+                    DateTime dateTime = DateTime(
+                      selectedDate.year,
+                      selectedDate.month,
+                      selectedDate.day,
+                      selectedTime.hour,
+                      selectedTime.minute,
+                    );
+
                     print("FIRESTORE to store TARGETLOC");
                     FirebaseFirestore.instance
                         .collection('TargetLoc')
@@ -222,7 +283,8 @@ class _AddRoomState extends State<AddRoom> {
                           'lat': lat,
                           'lng': long,
                         },
-                        'deadlineTime': Timestamp.fromDate(selectedDateTime),
+                        // 'deadlineTime': Timestamp.fromDate(selectedDateTime),
+                        'deadlineTime': dateTime,
                       },
                     );
                     Navigator.pop(context);
@@ -232,8 +294,6 @@ class _AddRoomState extends State<AddRoom> {
                   height: 35,
                   child: const Text('Create Task'),
                 ),
-             
-             
               ],
             ),
           ),
