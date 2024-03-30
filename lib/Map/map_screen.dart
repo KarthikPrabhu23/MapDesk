@@ -263,6 +263,8 @@ class MapScreenState extends State<MapScreen> {
                             if (reachedTarget) {
                               FirestoreService.updateTargetCompletion(
                                   element.targetUid);
+
+                              // FirestoreService.increaseTargetCompletionCount(auth.UserMetadata);
                             }
                           },
                         );

@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, unused_import
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -23,7 +22,6 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
   String userUID = "";
-  // static String downloadUrl = "";
   String dpUrl = " ";
 
   final _confirmPassword = TextEditingController();
@@ -31,41 +29,7 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final _password = TextEditingController();
   final _username = TextEditingController();
-
   final _picker = ImagePicker();
-
-  // late PickedFile _image;
-
-  // Future<void> _pickImage() async {
-  //   final XFile? pickedFile =
-  //       await _picker.pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     setState(() {
-  //       _image = PickedFile(pickedFile.path);
-  //     });
-  //   } else {
-  //     // Handle the case where no image was picked
-  //     // You may display a message to the user or perform any other appropriate action
-  //   }
-  // }
-
-  // Future<void> _uploadImage() async {
-  //   if (_image == null) {
-  //     // Handle the case where no image has been selected
-  //     return;
-  //   }
-
-  //   FirebaseStorage storage = FirebaseStorage.instance;
-  //   Reference ref = storage
-  //       .ref()
-  //       .child("profilepic")
-  //       .child('${DateTime.now()}.jpg'); // Add file extension if needed
-  //   // UploadTask uploadTask = ref.putFile(File(_image.path));
-  //   // TaskSnapshot snapshot = await uploadTask;
-  //   // downloadUrl = await snapshot.ref.getDownloadURL();
-
-  //   // Store the download URL in Firestore or wherever needed
-  // }
 
   void pickUploadImage() async {
     final image = await ImagePicker().pickImage(
@@ -135,7 +99,6 @@ class _SignUpState extends State<SignUp> {
             padding: const EdgeInsets.all(18.0),
             child: Form(
               key: _formKey,
-              // height: 700,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
@@ -156,28 +119,6 @@ class _SignUpState extends State<SignUp> {
                     const SizedBox(
                       height: 20,
                     ),
-                    // InkWell(
-                    //   onTap: _pickImage,
-                    //   child: Icon(
-                    //     Icons.add_a_photo,
-                    //     size: 50,
-                    //   ),
-                    // ),
-                    // _image != null
-                    //     ? Image.file(
-                    //         File(_image.path),
-                    //         height: 200,
-                    //       )
-                    //     : const Placeholder(
-                    //         fallbackHeight: 200,
-                    //       ),
-                    // ElevatedButton(
-                    //   onPressed: (){
-
-                    //   },
-                    //   // onPressed: _pickImage,
-                    //   child: const Text('Pick Image'),
-                    // ),
                     GestureDetector(
                       onTap: () {
                         pickUploadImage();
@@ -265,9 +206,6 @@ class _SignUpState extends State<SignUp> {
                                   'email': value.user!.email.toString(),
                                   'username': _username.text.toString(),
                                   'status': '',
-                                  //  'profilepic': downloadUrl,
-                                  // 'profilepic':
-                                  //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOBQGiBzk0bcsHU0V-xMAqi6MWyfc-G_2OrA&usqp=CAU',
                                 },
                               );
                               // _uploadImage;
@@ -288,7 +226,7 @@ class _SignUpState extends State<SignUp> {
                                   'username': _username.text.toString(),
                                   'status': '',
                                   'profilepic': dpUrl,
-                                  // 'fullname': ufullname,
+                                  'targetCompletionCount' : 0,
                                 },
                               );
                               SessionController().userid = value.user!.uid;
@@ -308,8 +246,6 @@ class _SignUpState extends State<SignUp> {
                                     // Handle the case where the email is already in use.
                                     print(
                                         'The email address is already in use by another account.');
-                                    // You may want to show a message to the user.
-                                    // For example:
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                         content: Text(
@@ -322,7 +258,6 @@ class _SignUpState extends State<SignUp> {
                                         'Error ${error.code}: ${error.message}');
                                   }
                                 } else {
-                                  // Handle other types of errors.
                                   print('Unexpected error: $error');
                                 }
                               },

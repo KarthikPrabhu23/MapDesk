@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -108,6 +109,8 @@ class StreamLocationService {
 
 class FirestoreService {
   static final _firestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firebasefirestore = FirebaseFirestore.instance;
+  static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   static Future<void> updateUserLocation(String userId, LatLng location) async {
     try {
@@ -133,6 +136,41 @@ class FirestoreService {
       print('Ann error occured $err');
     }
   }
+
+  static Future<void> increaseTargetCompletionCount(
+      String userId) async {
+    try {
+      await _firestore.collection('users').doc(userId).update({
+        'targetCompletionCount': FieldValue.increment(1) ,
+      });
+    } on FirebaseException catch (e) {
+      print('Ann error due to firebase occured $e');
+    } catch (err) {
+      print('Ann error occured $err');
+    }
+  }
+
+  // static Future<String?> getCurrentUserDocId() async {
+  //   try {
+  //     // Get the current user
+  //     User? currUser = _auth.currentUser;
+
+  //     if (currUser != null) {
+  //       // Query Firestore to get the document associated with the user's UID
+  //       DocumentSnapshot<Map<String, dynamic>> snapshot =
+  //           await _firebasefirestore.collection('users').doc(currUser.uid).get();
+
+  //       // Return the document ID if the document exists
+  //       if (snapshot.exists) {
+  //         return snapshot.id;
+  //       }
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching current user doc ID: $e');
+  //   }
+
+  //   return null; // Return null if there's an error or no current user
+  // }
 
   static Stream<List<User>> userCollectionStream() {
     return _firestore.collection('users').snapshots().map((snapshot) =>
