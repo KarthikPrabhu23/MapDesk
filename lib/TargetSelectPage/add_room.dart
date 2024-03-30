@@ -37,7 +37,6 @@ class _AddRoomState extends State<AddRoom> {
   void initState() {
     super.initState();
     dbRef = FirebaseDatabase.instance.ref().child('Rooms');
-    // Firestore.instance.collection('Target');
   }
 
   _handleTap(LatLng tappedPoint) {
@@ -87,8 +86,8 @@ class _AddRoomState extends State<AddRoom> {
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Room name',
-                      hintText: 'Enter Room name',
+                      labelText: 'Target name',
+                      hintText: 'Enter Target name',
                     ),
                   ),
                 ),
@@ -102,8 +101,8 @@ class _AddRoomState extends State<AddRoom> {
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Room location',
-                      hintText: 'Enter Room location',
+                      labelText: 'Target location',
+                      hintText: 'Enter Target location',
                     ),
                   ),
                 ),

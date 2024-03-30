@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:map1/Home/add_room.dart';
+import 'package:map1/TargetSelectPage/add_room.dart';
 import 'package:map1/Home/components/banner_home_widget.dart';
 import 'package:map1/Home/components/room_scrollview_widget.dart';
 import 'package:map1/Home/profile_page.dart';
