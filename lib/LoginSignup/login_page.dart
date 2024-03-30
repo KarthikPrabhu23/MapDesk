@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously, unused_import, avoid_print
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/home_page.dart';
@@ -19,7 +18,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // final _username = TextEditingController();
   final _email = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
   final _password = TextEditingController();
 
@@ -49,6 +47,14 @@ class _LoginPageState extends State<LoginPage> {
       email: _email.text,
       password: _password.text,
     );
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    _email;
+    _formKey;
+    _password;
   }
 
   @override
@@ -110,11 +116,13 @@ class _LoginPageState extends State<LoginPage> {
                                         const ResetPassword()),
                               );
                             },
-                            child: const Text('Forgot password?',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.black45,
-                                ),),
+                            child: const Text(
+                              'Forgot password?',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w800,
+                                color: Colors.black45,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -134,8 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                               password: _password.text,
                             )
                                 .then((value) {
-                              SessionController().userid =
-                                  value.user!.uid;
+                              SessionController().userid = value.user!.uid;
                               // SessionController().username =
                               //     value.user!.username;
                               Navigator.push(
