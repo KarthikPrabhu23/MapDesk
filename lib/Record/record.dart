@@ -52,22 +52,22 @@ class _RecordLogState extends State<RecordLog> {
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                  child: Text(
-                    'Record logs',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 25,
-                    ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
+                child: Text(
+                  'Task completion records',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 25,
                   ),
                 ),
-                Container(
+              ),
+              Center(
+                child: Container(
                   height: MediaQuery.of(context).size.height * 0.80,
                   // height: 600,
                   width: MediaQuery.of(context).size.width * 0.95,
@@ -79,13 +79,14 @@ class _RecordLogState extends State<RecordLog> {
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SingleChildScrollView(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         scrollDirection: Axis.vertical,
                         child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          height: MediaQuery.of(context).size.height * 0.75,
                           // height: 500,
                           child: StreamBuilder<List<Target>>(
-                            stream: FirestoreService.targetLocCollectionStream(),
+                            stream:
+                                FirestoreService.targetLocCollectionStream(),
                             builder: (context, targetSnapshot) {
                               if (targetSnapshot.connectionState ==
                                   ConnectionState.waiting) {
@@ -94,13 +95,17 @@ class _RecordLogState extends State<RecordLog> {
                                 return Text('Error: ${targetSnapshot.error}');
                               } else {
                                 return ListView.builder(
-                                  
                                   scrollDirection: Axis.vertical,
                                   padding: const EdgeInsets.all(9),
                                   itemCount: targetSnapshot.data!.length,
                                   itemBuilder: (context, index) {
-                                    final targetLoc = targetSnapshot.data![index];
-                                    return TaskCard();
+                                    final targetLoc =
+                                        targetSnapshot.data![index];
+                                    if (targetLoc.completed) {
+                                      return TaskCard();
+                                    } else {
+                                      return Container();
+                                    }
                                   },
                                 );
                               }
@@ -111,8 +116,8 @@ class _RecordLogState extends State<RecordLog> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
