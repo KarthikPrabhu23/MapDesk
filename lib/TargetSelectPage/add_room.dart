@@ -6,6 +6,7 @@ import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:map1/TargetSelectPage/components/time_picker.dart';
 
 //  File to choose target location on map and add it to the realtime database
 
@@ -32,11 +33,14 @@ class _AddRoomState extends State<AddRoom> {
 
   // ignore: unused_field
   late GoogleMapController _mapController;
+  late TimeOfDay selectedTime;
 
   @override
   void initState() {
     super.initState();
     dbRef = FirebaseDatabase.instance.ref().child('Rooms');
+
+    selectedTime = TimeOfDay.now();
   }
 
   _handleTap(LatLng tappedPoint) {
@@ -63,11 +67,23 @@ class _AddRoomState extends State<AddRoom> {
     );
   }
 
+  Future<void> _selectTimeDate(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+    );
+    if (pickedTime != null && pickedTime != selectedTime) {
+      setState(() {
+        selectedTime = pickedTime;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add room'),
+        title: const Text('Add Task'),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -86,8 +102,8 @@ class _AddRoomState extends State<AddRoom> {
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Target name',
-                      hintText: 'Enter Target name',
+                      labelText: 'Task name',
+                      hintText: 'Enter Task name',
                     ),
                   ),
                 ),
@@ -101,8 +117,8 @@ class _AddRoomState extends State<AddRoom> {
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Target location',
-                      hintText: 'Enter Target location',
+                      labelText: 'Task location',
+                      hintText: 'Enter Task location',
                     ),
                   ),
                 ),
@@ -121,6 +137,26 @@ class _AddRoomState extends State<AddRoom> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 23.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Deadline for the task : ${selectedTime.format(context)}',
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      SizedBox(
+                          width:
+                              6), // Add spacing between the text and the button
+                      IconButton(
+                        onPressed: () => _selectTimeDate(context),
+                        icon: Icon(
+                            Icons.access_time), // Use your desired icon here
+                        tooltip: 'Select Time',
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 5,
                 ),
@@ -129,7 +165,7 @@ class _AddRoomState extends State<AddRoom> {
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: Colors.grey[600],
-                    fontSize: 14,
+                    fontSize: 12,
                   ),
                 ),
                 SizedBox(
@@ -163,6 +199,15 @@ class _AddRoomState extends State<AddRoom> {
 
                     dbRef.push().set(roomsMap);
 
+                    DateTime now = DateTime.now();
+                    DateTime selectedDateTime = DateTime(
+                      now.year,
+                      now.month,
+                      now.day,
+                      selectedTime.hour,
+                      selectedTime.minute,
+                    );
+
                     print("FIRESTORE to store TARGETLOC");
                     FirebaseFirestore.instance
                         .collection('TargetLoc')
@@ -177,8 +222,7 @@ class _AddRoomState extends State<AddRoom> {
                           'lat': lat,
                           'lng': long,
                         },
-                        // 'latitude': lat,
-                        // 'longitude': long,
+                        'deadlineTime': Timestamp.fromDate(selectedDateTime),
                       },
                     );
                     Navigator.pop(context);
@@ -186,8 +230,10 @@ class _AddRoomState extends State<AddRoom> {
                   color: Colors.blueAccent,
                   textColor: Colors.white,
                   height: 35,
-                  child: const Text('Create room'),
+                  child: const Text('Create Task'),
                 ),
+             
+             
               ],
             ),
           ),
