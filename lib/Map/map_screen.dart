@@ -129,7 +129,7 @@ class MapScreenState extends State<MapScreen> {
       padding: const EdgeInsets.only(left: 12, top: 10),
       child: InkWell(
         onTap: () {
-          // zoomInMarker(element);
+          zoomInMarker(element);
         },
         child: Container(
           height: 160,
@@ -198,7 +198,7 @@ class MapScreenState extends State<MapScreen> {
                             IconButton(
                               color: const Color.fromARGB(255, 0, 0, 0),
                               onPressed: () async {
-                                // zoomInMarker(element);
+                                zoomInMarker(element);
 
                                 Position currPosition =
                                     await Geolocator.getCurrentPosition(
@@ -256,7 +256,7 @@ class MapScreenState extends State<MapScreen> {
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(element.position.latitude, element.position.longitude),
+          target: LatLng(element.location.lat, element.location.lng),
           zoom: 18,
           bearing: 90,
           tilt: 50,
