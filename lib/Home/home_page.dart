@@ -1,19 +1,15 @@
-// ignore_for_file: unused_import, avoid_print
+
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:map1/Home/add_room.dart';
 import 'package:map1/Home/components/banner_home_widget.dart';
-import 'package:map1/Home/components/room_element_widget.dart';
 import 'package:map1/Home/components/room_scrollview_widget.dart';
 import 'package:map1/Home/profile_page.dart';
-import 'package:map1/LoginSignup/components/session_controller.dart';
-// import 'package:map1/Map/classes.dart';
-import 'package:map1/Map/map_loc.dart';
-import 'package:map1/Home/home_page.dart';
 import 'package:location/location.dart';
 import 'package:map1/Map/map_screen.dart';
 import 'package:map1/Record/record.dart';
@@ -21,14 +17,9 @@ import 'package:map1/Record/record.dart';
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
     super.key,
-    // required this.title,
   });
 
   final String title = "Home";
-
-  // final String? roomName;
-  // final String? roomLocation;
-  // const roomElement(Map room, {super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -71,10 +62,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Start listening for location updates
     final locationStream = Geolocator.getPositionStream(
-        // desiredAccuracy: LocationAccuracy.high,
-        // distanceFilter:
-        //     10, // Minimum distance between location updates (in meters)
-        );
+      // locationSettings: LocationAccuracy.high,
+      // LocationAccuracyStatusValue = 'Precise',
+      // distanceFilter:
+      //     10, // Minimum distance between location updates (in meters)
+    );
 
     // Store location updates in Firestore
     locationStream.listen(
@@ -89,29 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
       String uid, double latitude, double longitude, String currEmail) async {
     print('Inside storeUserLocation');
     try {
-      // String? emailId = FirebaseAuth.instance.currentUser?.email;
-
-      // Get the current user's display name
-      // String? displayName = FirebaseAuth.instance.currentUser?.displayName;
-
-      // Store the user's location in Firestore
-      // await firestore.FirebaseFirestore.instance
-      //     .collection('users')
-      //     .doc(uid)
-      //     .set(
-      //   {
-      //     'location': {
-      //       'lat': latitude,
-      //       'lng': longitude,
-      //       'timestamp': firestore.FieldValue.serverTimestamp(),
-      //     },
-      //     'emailid': emailId,
-      //     'name': ufullname,
-      //     // 'fullname': ufullname,
-      //   },
-      // );
-      // print('User location stored ');
-
       await firestore.FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -186,6 +155,15 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       );
     }
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    // _subscribeToLocationChanges();
+    // _getLocation();
+    // _getCurrentUser();
+    firestoreLogin();
   }
 
   @override
