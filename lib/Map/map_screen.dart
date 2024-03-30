@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:map1/Map/components/confirmationDialog.dart';
 import 'package:map1/Map/components/custom_info_window.dart';
 import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
@@ -199,16 +200,33 @@ class MapScreenState extends State<MapScreen> {
                               color: const Color.fromARGB(255, 0, 0, 0),
                               onPressed: () async {
                                 zoomInMarker(element);
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return ConfirmationDialog(
+                                      title: "Have you reached the Target Location",
+                                      message:
+                                          "Are you within 10 meters?",
+                                      onYesPressed: () async {
+                                        zoomInMarker(element);
 
-                                Position currPosition =
-                                    await Geolocator.getCurrentPosition(
-                                        desiredAccuracy: LocationAccuracy.high);
+                                        // Get current position
+                                        Position currPosition =
+                                            await Geolocator.getCurrentPosition(
+                                                desiredAccuracy:
+                                                    LocationAccuracy.high);
 
-                                areCoordinatesClose(
-                                    LatLng(element.location.lat,
-                                        element.location.lng),
-                                    LatLng(currPosition.latitude,
-                                        currPosition.longitude));
+                                        // Check if coordinates are close
+                                        areCoordinatesClose(
+                                          LatLng(element.location.lat,
+                                              element.location.lng),
+                                          LatLng(currPosition.latitude,
+                                              currPosition.longitude),
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
                               },
                               icon: const Row(
                                 children: [
