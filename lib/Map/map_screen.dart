@@ -35,8 +35,8 @@ class MapScreenState extends State<MapScreen> {
   late BitmapDescriptor targetLocationIcon;
   late BitmapDescriptor completeLocationIcon;
 
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  // final Completer<GoogleMapController> _controller =
+  //     Completer<GoogleMapController>();
 
   final Completer<GoogleMapController> _controllerCompleter =
       Completer<GoogleMapController>();
@@ -125,12 +125,12 @@ class MapScreenState extends State<MapScreen> {
     });
   }
 
-  Widget targetCard(element) {
+  Widget targetCard(Target targetElem) {
     return Padding(
       padding: const EdgeInsets.only(left: 12, top: 10),
       child: InkWell(
         onTap: () {
-          zoomInMarker(element);
+          zoomInMarker(targetElem);
         },
         child: Container(
           height: 160,
@@ -181,14 +181,14 @@ class MapScreenState extends State<MapScreen> {
                           CrossAxisAlignment.start, // Align text to left
                       children: [
                         Text(
-                          element.roomName.toString(),
+                          targetElem.location.toString(),
                           style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
                         ),
                         Text(
-                          element.roomName.toString(),
+                          targetElem.roomName.toString(),
                           style: const TextStyle(
                             fontSize: 12.0,
                             color: Colors.white70,
@@ -198,7 +198,7 @@ class MapScreenState extends State<MapScreen> {
                           children: [
                             IconButton(
                               color: const Color.fromARGB(255, 0, 0, 0),
-                              icon: element.completed
+                              icon: targetElem.completed
                                   ? const Row(
                                       children: [
                                         Icon(
@@ -234,7 +234,7 @@ class MapScreenState extends State<MapScreen> {
                     color: Colors.white,
                   ), // Replace with your desired icon
                   onPressed: () async {
-                    zoomInMarker(element);
+                    zoomInMarker(targetElem);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -242,7 +242,7 @@ class MapScreenState extends State<MapScreen> {
                           title: "Have you reached the Target Location",
                           message: "Are you within 10 meters?",
                           onYesPressed: () async {
-                            zoomInMarker(element);
+                            zoomInMarker(targetElem);
 
                             // Get current position
                             Position currPosition =
@@ -252,17 +252,17 @@ class MapScreenState extends State<MapScreen> {
                             // Check if coordinates are close
                             bool reachedTarget = areCoordinatesClose(
                               LatLng(
-                                  element.location.lat, element.location.lng),
+                                  targetElem.location.lat, targetElem.location.lng),
                               LatLng(currPosition.latitude,
                                   currPosition.longitude),
                             );
 
                             print(
-                                '${element.roomName.toString()} is ${reachedTarget ? 'visited' : 'NOT visited'}');
+                                '${targetElem.roomName.toString()} is ${reachedTarget ? 'visited' : 'NOT visited'}');
 
                             if (reachedTarget) {
                               FirestoreService.updateTargetCompletion(
-                                  element.targetUid);
+                                  targetElem.targetUid);
 
                               // FirestoreService.increaseTargetCompletionCount(auth.UserMetadata);
                             }
@@ -280,30 +280,17 @@ class MapScreenState extends State<MapScreen> {
     );
   }
 
-  zoomInMarker(element) {
+  zoomInMarker(Target targetElem) {
     mapController.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(element.location.lat, element.location.lng),
+          target: LatLng(targetElem.location.lat, targetElem.location.lng),
           zoom: 18,
           bearing: 90,
           tilt: 50,
         ),
       ),
     );
-  }
-
-  void zoomOutMarker() {
-    _controller.future.then((controller) {
-      controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-          const CameraPosition(
-            target: LatLng(12.898799, 74.984734),
-            zoom: 16,
-          ),
-        ),
-      );
-    });
   }
 
   @override
