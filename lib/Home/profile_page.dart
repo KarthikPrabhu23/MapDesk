@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
+import 'package:map1/my_colors.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,6 +18,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // FirebaseAuth auth = FirebaseAuth.instance;
   // final user = auth.currentUser;
+
+  @override
+  void dispose() {
+    super.dispose();
+    // ref.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Colors.amber,
+                                color: MyColors.ButtonBlue,
                                 width: 5,
                               ),
                             ),
