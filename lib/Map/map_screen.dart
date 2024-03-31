@@ -160,12 +160,19 @@ class MapScreenState extends State<MapScreen> {
                     child: ClipRRect(
                       // Clip rounded corners for image
                       borderRadius: BorderRadius.circular(10.0),
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
-                        cacheWidth: 175,
-                        cacheHeight: 175,
-                        fit: BoxFit.cover, // Adjust fit if needed
-                      ),
+                      child: targetElem.completed
+                          ? Image.asset(
+                              'lib/images/completePin.png',
+                              width: 175,
+                              height: 172,
+                              fit: BoxFit.cover,
+                            )
+                          : Image.asset(
+                              'lib/images/targetPin.png',
+                              width: 175,
+                              height: 172,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                 ),
@@ -181,7 +188,7 @@ class MapScreenState extends State<MapScreen> {
                           CrossAxisAlignment.start, // Align text to left
                       children: [
                         Text(
-                          targetElem.location.toString(),
+                          targetElem.roomName.toString(),
                           style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
@@ -251,8 +258,8 @@ class MapScreenState extends State<MapScreen> {
 
                             // Check if coordinates are close
                             bool reachedTarget = areCoordinatesClose(
-                              LatLng(
-                                  targetElem.location.lat, targetElem.location.lng),
+                              LatLng(targetElem.location.lat,
+                                  targetElem.location.lng),
                               LatLng(currPosition.latitude,
                                   currPosition.longitude),
                             );
@@ -265,6 +272,17 @@ class MapScreenState extends State<MapScreen> {
                                   targetElem.targetUid);
 
                               // FirestoreService.increaseTargetCompletionCount(auth.UserMetadata);
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return ConfirmationDialog(
+                                      onYesPressed: () {},
+                                      title: "Task not reached yet ",
+                                      message:
+                                          "Reach within 10 meters to the target location");
+                                },
+                              );
                             }
                           },
                         );
