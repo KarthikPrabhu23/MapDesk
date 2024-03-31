@@ -35,11 +35,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const MyHomePage()
-      home: AddRoom(),
+      // home: AddRoom(),
       // home: MapLoc(),
       // home: const SignUpWidget(),
       // home: const SignUp(),
-      // home: LoginPage(),
+      home: LoginPage(),
     );
   }
 }

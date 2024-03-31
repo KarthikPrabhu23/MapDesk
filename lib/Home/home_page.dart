@@ -194,7 +194,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(right: 28.0),
                 child: CircleAvatar(
                   radius: 23,
-                  backgroundColor:  Color.fromARGB(222, 21, 30, 132),
+                  backgroundColor: Color.fromARGB(222, 21, 30, 132),
                   child: CircleAvatar(
                     radius: 20.0,
                     backgroundImage: NetworkImage(
@@ -288,43 +288,16 @@ class _MyHomePageState extends State<MyHomePage> {
                           colors: [Color(0xff4338CA), Color(0xff6D28D9)],
                         ),
                       ),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          elevation: MaterialStateProperty.all(0),
-                          alignment: Alignment.center,
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.only(
-                                  right: 45, left: 45, top: 15, bottom: 15)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                          ),
-                        ),
+                      child: Button(
+                        buttonText: 'Record log',
+                        buttonIcon: Icons.book_rounded,
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const RecordLog()),
+                                builder: (context) => RecordLog()),
                           );
                         },
-                        child: const Row(
-                          mainAxisSize: MainAxisSize
-                              .min, // Restrict size based on content
-                          children: [
-                            Icon(
-                              Icons.book_rounded,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 5.0),
-                            Text(
-                              "Record Log",
-                              style: TextStyle(
-                                  color: Color(0xffffffff), fontSize: 16),
-                            )
-                          ],
-                        ),
                       ),
                     ),
                   ),
@@ -366,6 +339,54 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
+class Button extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String buttonText;
+  final IconData buttonIcon;
+
+  const Button({
+    required this.onPressed,
+    required this.buttonText,
+    required this.buttonIcon,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        elevation: MaterialStateProperty.all(0),
+        alignment: Alignment.center,
+        padding: MaterialStateProperty.all(
+          const EdgeInsets.only(right: 45, left: 45, top: 15, bottom: 15),
+        ),
+        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Row(
+        mainAxisSize: MainAxisSize.min, // Restrict size based on content
+        children: [
+          Icon(
+            buttonIcon,
+            color: Colors.white,
+          ),
+          const SizedBox(width: 5.0),
+          Text(
+            buttonText,
+            style: const TextStyle(color: Colors.white, fontSize: 16),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
 
 // 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE1fHx1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60'
 
