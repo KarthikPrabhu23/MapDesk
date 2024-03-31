@@ -74,8 +74,13 @@ class _RecordLogState extends State<RecordLog> {
                   height: MediaQuery.of(context).size.height * 0.90,
                   // height: 600,
                   width: MediaQuery.of(context).size.width * 1,
-                  decoration: BoxDecoration(
-                    color: Colors.indigo.shade500,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 192, 187, 238),
+                        Color.fromARGB(255, 221, 219, 224)
+                      ],
+                    ),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -104,7 +109,6 @@ class _RecordLogState extends State<RecordLog> {
                                   itemBuilder: (context, index) {
                                     final targetLoc =
                                         targetSnapshot.data![index];
-
 
                                     if (targetLoc.completed) {
                                       return TaskCard(
