@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:map1/Home/components/room_element_widget.dart';
 
 
-
 class RoomScrollView extends StatelessWidget {
   const RoomScrollView({
     super.key,
@@ -52,7 +51,6 @@ class RoomScrollView extends StatelessWidget {
                   },
                 ),
               ),
-    
               // CONTENT ENDS
             ],
           ),

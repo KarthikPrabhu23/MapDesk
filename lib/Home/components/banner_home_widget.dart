@@ -9,13 +9,13 @@ class BannerHomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 200,
+      height: 180,
       decoration: BoxDecoration(
         color: Colors.black12,
-        image: const DecorationImage(
+        image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage('https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'), 
-          // image: Image.asset('images/bg1.png',).image,
+          // image: NetworkImage('https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'), 
+          image: Image.asset('lib/images/bg2.png').image,
           // image: AssetImage('bg2.png'),
         ),
         boxShadow: const [
@@ -35,27 +35,32 @@ class BannerHomeWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 0),
+          padding: const EdgeInsetsDirectional.fromSTEB(12, 20, 12, 0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 70, 0),
                 child: Text(
-                  'Some text to write here',
+                  'Navigate with precision and ease.',
                   style: TextStyle(
                     color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 18,
                   ),
                 ),
+              ),
+              const SizedBox(
+                height: 15,
               ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Text(
                   'Active users',
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 15,
                     fontStyle: FontStyle.italic,
                     color: Colors.white,
                   ),
