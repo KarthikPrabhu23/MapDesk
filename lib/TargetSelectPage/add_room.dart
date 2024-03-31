@@ -1,4 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print, non_constant_identifier_names
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -220,19 +222,28 @@ class _AddRoomState extends State<AddRoom> {
                   height: 15,
                 ),
                 SizedBox(
-                  height: 400,
-                  width: 300,
+                  height: 500,
+                  width: 380,
                   // child: PlacePicker(),
-                  child: GoogleMap(
-                    initialCameraPosition: _cecLocation,
-                    myLocationButtonEnabled: true,
-                    myLocationEnabled: true,
-                    markers: Set.from(myMarker),
-                    onTap: handleTap,
-                    mapType: MapType.normal,
-                    onMapCreated: (GoogleMapController Addcontroller) {
-                      _mapController = Addcontroller;
-                    },
+                  child: GestureDetector(
+                    onVerticalDragStart: (start) {},
+                    child: GoogleMap(
+                      initialCameraPosition: _cecLocation,
+                      myLocationButtonEnabled: true,
+                      myLocationEnabled: true,
+                      markers: Set.from(myMarker),
+                      onTap: handleTap,
+                      mapType: MapType.normal,
+                      gestureRecognizers: <Factory<
+                          OneSequenceGestureRecognizer>>{
+                        Factory<OneSequenceGestureRecognizer>(
+                          () => EagerGestureRecognizer(),
+                        ),
+                      },
+                      onMapCreated: (GoogleMapController Addcontroller) {
+                        _mapController = Addcontroller;
+                      },
+                    ),
                   ),
                 ),
                 // MapDialog(
