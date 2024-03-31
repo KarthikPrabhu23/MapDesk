@@ -7,7 +7,7 @@ import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:map1/TargetSelectPage/components/map_dialog.dart';
 
 //  File to choose target location on map and add it to the realtime database
 
@@ -49,7 +49,7 @@ class _AddRoomState extends State<AddRoom> {
     selectedTime = TimeOfDay.now();
   }
 
-  _handleTap(LatLng tappedPoint) {
+  handleTap(LatLng tappedPoint) {
     (tappedPoint);
 
     lat = tappedPoint.latitude;
@@ -177,9 +177,7 @@ class _AddRoomState extends State<AddRoom> {
                         'Deadline time for the task : ${selectedTime.format(context)}',
                         style: TextStyle(fontSize: 15),
                       ),
-                      SizedBox(
-                          width:
-                              6),
+                      SizedBox(width: 6),
                       IconButton(
                         onPressed: () => _selectTime(context),
                         icon: Icon(
@@ -197,10 +195,7 @@ class _AddRoomState extends State<AddRoom> {
                         'Deadline date for the task : ${DateFormat.yMMMd().format(selectedDate)}',
                         style: TextStyle(fontSize: 15),
                       ),
-
-                      SizedBox(
-                          width:
-                              6),
+                      SizedBox(width: 6),
                       IconButton(
                         onPressed: () => _selectDate(context),
                         icon: Icon(
@@ -225,20 +220,25 @@ class _AddRoomState extends State<AddRoom> {
                   height: 15,
                 ),
                 SizedBox(
-                  height: 440,
+                  height: 400,
+                  width: 300,
                   // child: PlacePicker(),
                   child: GoogleMap(
                     initialCameraPosition: _cecLocation,
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     markers: Set.from(myMarker),
-                    onTap: _handleTap,
+                    onTap: handleTap,
                     mapType: MapType.normal,
                     onMapCreated: (GoogleMapController Addcontroller) {
                       _mapController = Addcontroller;
                     },
                   ),
                 ),
+                // MapDialog(
+                //     initialCameraPosition: _cecLocation,
+                //     mapController: mapController,
+                //     myMarker: myMarker),
                 MaterialButton(
                   onPressed: () {
                     Map<dynamic, dynamic> roomsMap = {
