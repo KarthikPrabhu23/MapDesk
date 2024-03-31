@@ -19,6 +19,10 @@ class TaskCard extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
+          side: const BorderSide(
+            color: Colors.white, // Border color
+            width: 2, // Border width
+          ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Column(
