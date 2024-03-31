@@ -14,9 +14,8 @@ class BannerHomeWidget extends StatelessWidget {
         color: Colors.black12,
         image: const DecorationImage(
           fit: BoxFit.cover,
-          // image: NetworkImage('https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'), 
-          image: AssetImage('lib/images/bg2.png'),
-          // image: AssetImage('bg2.png'),
+          image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/bg1.png?alt=media&token=f98fb95f-bcd0-45cf-b344-78d82489390a'), 
+          
         ),
         boxShadow: const [
           BoxShadow(

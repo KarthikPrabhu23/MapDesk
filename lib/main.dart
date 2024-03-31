@@ -13,6 +13,7 @@ import 'firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {
     await Firebase.initializeApp(
@@ -23,10 +24,11 @@ void main() async {
       projectId: Constants.projectId,
     ));
   } else {
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   }
 
-  // WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp(
   //   options: DefaultFirebaseOptions.currentPlatform,
   // );

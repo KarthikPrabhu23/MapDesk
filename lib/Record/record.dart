@@ -66,13 +66,16 @@ class _RecordLogState extends State<RecordLog> {
                   ),
                 ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               Center(
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.80,
+                  height: MediaQuery.of(context).size.height * 0.90,
                   // height: 600,
-                  width: MediaQuery.of(context).size.width * 0.95,
+                  width: MediaQuery.of(context).size.width * 1,
                   decoration: BoxDecoration(
-                    color: Colors.indigo.shade700,
+                    color: Colors.indigo.shade500,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,8 +104,12 @@ class _RecordLogState extends State<RecordLog> {
                                   itemBuilder: (context, index) {
                                     final targetLoc =
                                         targetSnapshot.data![index];
+
+
                                     if (targetLoc.completed) {
-                                      return TaskCard();
+                                      return TaskCard(
+                                        targetLoc: targetLoc,
+                                      );
                                     } else {
                                       return Container();
                                     }
