@@ -10,6 +10,7 @@ import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
+import 'package:map1/components/my_button.dart';
 
 //  File to choose target location on map and add it to the realtime database
 
@@ -125,6 +126,7 @@ class _AddRoomState extends State<AddRoom> {
           child: Padding(
             padding: EdgeInsets.all(3),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
                   height: 7,
@@ -246,65 +248,122 @@ class _AddRoomState extends State<AddRoom> {
                     ),
                   ),
                 ),
-                // MapDialog(
-                //     initialCameraPosition: _cecLocation,
-                //     mapController: mapController,
-                //     myMarker: myMarker),
-                MaterialButton(
-                  onPressed: () {
-                    Map<dynamic, dynamic> roomsMap = {
-                      'roomName': roomName.text,
-                      'roomLocation': roomLocation.text,
-                      'latitude': lat,
-                      'longitude': long,
-                      'completed': false,
-                      'targetInfo': tInfo.text,
-                    };
-
-                    dbRef.push().set(roomsMap);
-
-                    DateTime now = DateTime.now();
-                    DateTime selectedDateTime = DateTime(
-                      now.year,
-                      now.month,
-                      now.day,
-                      selectedTime.hour,
-                      selectedTime.minute,
-                    );
-
-                    DateTime dateTime = DateTime(
-                      selectedDate.year,
-                      selectedDate.month,
-                      selectedDate.day,
-                      selectedTime.hour,
-                      selectedTime.minute,
-                    );
-
-                    print("FIRESTORE to store TARGETLOC");
-                    FirebaseFirestore.instance
-                        .collection('TargetLoc')
-                        .doc()
-                        .set(
-                      {
-                        'roomName': roomName.text,
-                        'roomLocation': roomLocation.text,
-                        'completed': false,
-                        'targetInfo': tInfo.text,
-                        'location': {
-                          'lat': lat,
-                          'lng': long,
-                        },
-                        // 'deadlineTime': Timestamp.fromDate(selectedDateTime),
-                        'deadlineTime': dateTime,
-                      },
-                    );
-                    Navigator.pop(context);
-                  },
-                  color: Colors.blueAccent,
-                  textColor: Colors.white,
-                  height: 35,
-                  child: const Text('Create Task'),
+                const SizedBox(
+                  height: 15,
                 ),
+                Center(
+                   child:  MyButton(
+                      onPressed: () {
+                        Map<dynamic, dynamic> roomsMap = {
+                          'roomName': roomName.text,
+                          'roomLocation': roomLocation.text,
+                          'latitude': lat,
+                          'longitude': long,
+                          'completed': false,
+                          'targetInfo': tInfo.text,
+                        };
+                    
+                        dbRef.push().set(roomsMap);
+                    
+                        DateTime now = DateTime.now();
+                        DateTime selectedDateTime = DateTime(
+                          now.year,
+                          now.month,
+                          now.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
+                    
+                        DateTime dateTime = DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
+                    
+                        print("FIRESTORE to store TARGETLOC");
+                        FirebaseFirestore.instance
+                            .collection('TargetLoc')
+                            .doc()
+                            .set(
+                          {
+                            'roomName': roomName.text,
+                            'roomLocation': roomLocation.text,
+                            'completed': false,
+                            'targetInfo': tInfo.text,
+                            'location': {
+                              'lat': lat,
+                              'lng': long,
+                            },
+                            // 'deadlineTime': Timestamp.fromDate(selectedDateTime),
+                            'deadlineTime': dateTime,
+                          },
+                        );
+                        Navigator.pop(context);
+                      },
+                      buttonIcon: Icons.map,
+                      buttonText: 'Create Task',
+                    ),
+                ),
+                const SizedBox(
+                  height: 105,
+                ),
+                // MaterialButton(
+                //   onPressed: () {
+                //     Map<dynamic, dynamic> roomsMap = {
+                //       'roomName': roomName.text,
+                //       'roomLocation': roomLocation.text,
+                //       'latitude': lat,
+                //       'longitude': long,
+                //       'completed': false,
+                //       'targetInfo': tInfo.text,
+                //     };
+
+                //     dbRef.push().set(roomsMap);
+
+                //     DateTime now = DateTime.now();
+                //     DateTime selectedDateTime = DateTime(
+                //       now.year,
+                //       now.month,
+                //       now.day,
+                //       selectedTime.hour,
+                //       selectedTime.minute,
+                //     );
+
+                //     DateTime dateTime = DateTime(
+                //       selectedDate.year,
+                //       selectedDate.month,
+                //       selectedDate.day,
+                //       selectedTime.hour,
+                //       selectedTime.minute,
+                //     );
+
+                //     print("FIRESTORE to store TARGETLOC");
+                //     FirebaseFirestore.instance
+                //         .collection('TargetLoc')
+                //         .doc()
+                //         .set(
+                //       {
+                //         'roomName': roomName.text,
+                //         'roomLocation': roomLocation.text,
+                //         'completed': false,
+                //         'targetInfo': tInfo.text,
+                //         'location': {
+                //           'lat': lat,
+                //           'lng': long,
+                //         },
+                //         // 'deadlineTime': Timestamp.fromDate(selectedDateTime),
+                //         'deadlineTime': dateTime,
+                //       },
+                //     );
+                //     Navigator.pop(context);
+                //   },
+                //   color: Colors.blueAccent,
+                //   textColor: Colors.white,
+                //   height: 35,
+                //   child: const Text('Create Task'),
+                // ),
               ],
             ),
           ),

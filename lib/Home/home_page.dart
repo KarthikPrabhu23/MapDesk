@@ -12,6 +12,7 @@ import 'package:map1/Home/profile_page.dart';
 import 'package:location/location.dart';
 import 'package:map1/Map/map_screen.dart';
 import 'package:map1/Record/record.dart';
+import 'package:map1/components/my_button.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -226,82 +227,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               RoomScrollView(dbRef: dbRef),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          gradient: const LinearGradient(
-                              colors: [Color(0xff4338CA), Color(0xff6D28D9)])),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          elevation: MaterialStateProperty.all(0),
-                          alignment: Alignment.center,
-                          padding: MaterialStateProperty.all(
-                              const EdgeInsets.only(
-                                  right: 45, left: 45, top: 15, bottom: 15)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15)),
-                          ),
-                        ),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const MapScreen()),
-                          );
-                        },
-                        child: const Row(
-                          mainAxisSize: MainAxisSize
-                              .min, // Restrict size based on content
-                          children: [
-                            Icon(
-                              Icons.map_rounded,
-                              color: Colors.white,
-                            ),
-                            SizedBox(width: 5.0),
-                            Text(
-                              "Open Map",
-                              style: TextStyle(
-                                  color: Color(0xffffffff), fontSize: 16),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              MyButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MapScreen()),
+                  );
+                },
+                buttonIcon: Icons.map,
+                buttonText: 'Open Map',
               ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        gradient: const LinearGradient(
-                          colors: [Color(0xff4338CA), Color(0xff6D28D9)],
-                        ),
-                      ),
-                      child: Button(
-                        buttonText: 'Record log',
-                        buttonIcon: Icons.book_rounded,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RecordLog()),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
+              MyButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const RecordLog()),
+                  );
+                },
+                buttonIcon: Icons.book,
+                buttonText: 'Record Logs',
               ),
             ],
           ),
@@ -339,53 +283,6 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
-
-class Button extends StatelessWidget {
-  final VoidCallback onPressed;
-  final String buttonText;
-  final IconData buttonIcon;
-
-  const Button({
-    required this.onPressed,
-    required this.buttonText,
-    required this.buttonIcon,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        elevation: MaterialStateProperty.all(0),
-        alignment: Alignment.center,
-        padding: MaterialStateProperty.all(
-          const EdgeInsets.only(right: 45, left: 45, top: 15, bottom: 15),
-        ),
-        backgroundColor: MaterialStateProperty.all(Colors.transparent),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        ),
-      ),
-      onPressed: onPressed,
-      child: Row(
-        mainAxisSize: MainAxisSize.min, // Restrict size based on content
-        children: [
-          Icon(
-            buttonIcon,
-            color: Colors.white,
-          ),
-          const SizedBox(width: 5.0),
-          Text(
-            buttonText,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 
 
 // 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTE1fHx1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60'
