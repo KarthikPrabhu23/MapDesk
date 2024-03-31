@@ -1,4 +1,3 @@
-
 // ignore_for_file: avoid_print
 
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
@@ -62,11 +61,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Start listening for location updates
     final locationStream = Geolocator.getPositionStream(
-      // locationSettings: LocationAccuracy.high,
-      // LocationAccuracyStatusValue = 'Precise',
-      // distanceFilter:
-      //     10, // Minimum distance between location updates (in meters)
-    );
+        // locationSettings: LocationAccuracy.high,
+        // LocationAccuracyStatusValue = 'Precise',
+        // distanceFilter:
+        //     10, // Minimum distance between location updates (in meters)
+        );
 
     // Store location updates in Firestore
     locationStream.listen(
@@ -158,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     // _subscribeToLocationChanges();
     // _getLocation();
@@ -171,6 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(
             'TrackNow',
             style: TextStyle(
@@ -194,11 +194,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.only(right: 28.0),
                 child: CircleAvatar(
                   radius: 23,
-                  backgroundColor: Colors.amber,
+                  backgroundColor:  Color.fromARGB(222, 21, 30, 132),
                   child: CircleAvatar(
                     radius: 20.0,
                     backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
+                        'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
                   ),
                 ),
               ),
@@ -349,7 +349,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                   icon: const Icon(Icons.add),
-                  label: const Text('Add room'),
+                  label: const Text(
+                    'Add Task',
+                    style: TextStyle(
+                      fontFamily: 'YourCustomFont',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ],
