@@ -2,20 +2,34 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:map1/TargetSelectPage/add_room.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
 import 'package:map1/Map/map_loc.dart';
+import 'package:map1/app_constants.dart';
 import 'firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+        options: FirebaseOptions(
+      apiKey: Constants.apiKey,
+      appId: Constants.appId,
+      messagingSenderId: Constants.messagingSenderId,
+      projectId: Constants.projectId,
+    ));
+  } else {
+    await Firebase.initializeApp();
+  }
+
+  WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
   // TODO:
   // FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: 'YOUR_RECAPTCHA_SITE_KEY');
   runApp(const MyApp());
@@ -43,4 +57,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
