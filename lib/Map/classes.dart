@@ -54,10 +54,16 @@ class User {
 class Target {
   final bool completed;
   final String roomName;
+  final String roomLocation;
+  final String targetInfo;
   final Location location;
   final String targetUid;
+  final Timestamp deadlineTime;
 
   Target({
+    required this.roomLocation,
+    required this.targetInfo,
+    required this.deadlineTime,
     required this.completed,
     required this.roomName,
     required this.location,
@@ -66,13 +72,16 @@ class Target {
 
   factory Target.fromMap(String docId, Map<dynamic, dynamic> map) {
     return Target(
+      targetUid: docId,
       completed: map['completed'],
-      roomName: map['roomName'],
+      deadlineTime: map['deadlineTime'],
       location: Location(
         lat: map['location']['lat'],
         lng: map['location']['lng'],
       ),
-      targetUid: docId,
+      roomName: map['roomName'],
+      roomLocation: map['roomLocation'],
+      targetInfo: map['targetInfo'],
     );
   }
 
@@ -109,7 +118,8 @@ class StreamLocationService {
 
 class FirestoreService {
   static final _firestore = FirebaseFirestore.instance;
-  static final FirebaseFirestore _firebasefirestore = FirebaseFirestore.instance;
+  static final FirebaseFirestore _firebasefirestore =
+      FirebaseFirestore.instance;
   static final FirebaseAuth _auth = FirebaseAuth.instance;
 
   static Future<void> updateUserLocation(String userId, LatLng location) async {
@@ -124,8 +134,7 @@ class FirestoreService {
     }
   }
 
-  static Future<void> updateTargetCompletion(
-      String userId) async {
+  static Future<void> updateTargetCompletion(String userId) async {
     try {
       await _firestore.collection('TargetLoc').doc(userId).update({
         'completed': true,
@@ -137,11 +146,10 @@ class FirestoreService {
     }
   }
 
-  static Future<void> increaseTargetCompletionCount(
-      String userId) async {
+  static Future<void> increaseTargetCompletionCount(String userId) async {
     try {
       await _firestore.collection('users').doc(userId).update({
-        'targetCompletionCount': FieldValue.increment(1) ,
+        'targetCompletionCount': FieldValue.increment(1),
       });
     } on FirebaseException catch (e) {
       print('Ann error due to firebase occured $e');

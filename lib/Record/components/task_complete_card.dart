@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:map1/Record/components/record_class.dart';
 import 'package:map1/my_colors.dart';
+import 'package:intl/intl.dart';
 
 class TaskCard extends StatelessWidget {
   final Target targetLoc;
@@ -59,7 +60,7 @@ class TaskCard extends StatelessWidget {
                         Container(height: 5),
                         // Add a subtitle widget
                         Text(
-                          targetLoc.roomName,
+                          targetLoc.roomLocation,
                           style: MyTextSample.body1(context)!.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -68,14 +69,51 @@ class TaskCard extends StatelessWidget {
                         // Add some spacing between the subtitle and the text
                         Container(height: 10),
                         // Add a text widget to display some text
-                        Text(
-                          MyStringsSample.card_text,
-                          maxLines: 2,
-                          style: MyTextSample.subhead(context)!.copyWith(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w300,
-                          ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Task Info:', // Replace 'Heading 1' with your actual heading text
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              targetLoc.targetInfo,
+                              maxLines: 2,
+                              style: MyTextSample.subhead(context)!.copyWith(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 10), // Add spacing between sections
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Deadline :', // Replace 'Heading 2' with your actual heading text
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            Text(
+                              DateFormat('dd-MM-yyyy, hh:mm a')
+                                  .format(targetLoc.deadlineTime.toDate()),
+                              maxLines: 2,
+                              style: MyTextSample.subhead(context)!.copyWith(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
