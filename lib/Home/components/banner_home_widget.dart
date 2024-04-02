@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:map1/Home/components/circular_banner_image.dart';
 
 class BannerHomeWidget extends StatelessWidget {
   const BannerHomeWidget({
@@ -9,13 +10,13 @@ class BannerHomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 180,
+      height: MediaQuery.of(context).size.height * 0.27,
       decoration: BoxDecoration(
         color: Colors.black12,
         image: const DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/bg1.png?alt=media&token=f98fb95f-bcd0-45cf-b344-78d82489390a'), 
-          
+          image: NetworkImage(
+              'https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/bg1.png?alt=media&token=f98fb95f-bcd0-45cf-b344-78d82489390a'),
         ),
         boxShadow: const [
           BoxShadow(
@@ -33,14 +34,14 @@ class BannerHomeWidget extends StatelessWidget {
           color: const Color(0x430F1113),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(12, 20, 12, 0),
+        child: const Padding(
+          padding: EdgeInsetsDirectional.fromSTEB(12, 20, 12, 0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0, 70, 0),
                 child: Text(
                   'Navigate with precision and ease.',
@@ -51,10 +52,10 @@ class BannerHomeWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
+              SizedBox(
                 height: 15,
               ),
-              const Padding(
+              Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                 child: Text(
                   'Active users',
@@ -66,45 +67,21 @@ class BannerHomeWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
+                    CircularBannerImage(
+                      imageUrl:
                           'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
-                          width: 44,
-                          height: 44,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
-                          'https://images.unsplash.com/photo-1533689476487-034f57831a58?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTA4fHx1c2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900&q=60',
-                          width: 44,
-                          height: 44,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 4, 0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: Image.network(
+                    CircularBannerImage(
+                      imageUrl:
                           'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
-                          width: 44,
-                          height: 44,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                    ),
+                    CircularBannerImage(
+                      imageUrl:
+                          'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
                     ),
                   ],
                 ),
@@ -116,3 +93,4 @@ class BannerHomeWidget extends StatelessWidget {
     );
   }
 }
+
