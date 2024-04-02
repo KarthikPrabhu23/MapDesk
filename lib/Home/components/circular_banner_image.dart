@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CircularBannerImage extends StatelessWidget {
-  final  String imageUrl;
+  final String imageUrl;
 
   const CircularBannerImage({
     required this.imageUrl,

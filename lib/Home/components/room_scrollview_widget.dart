@@ -3,7 +3,6 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Home/components/room_element_widget.dart';
 
-
 class RoomScrollView extends StatelessWidget {
   const RoomScrollView({
     super.key,
@@ -18,7 +17,7 @@ class RoomScrollView extends StatelessWidget {
       padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
       child: Container(
         width: double.infinity,
-        height: 320,
+        height: MediaQuery.of(context).size.height * 0.41,
         decoration: const BoxDecoration(
           color: Color.fromARGB(211, 242, 247, 255),
         ),
@@ -31,22 +30,19 @@ class RoomScrollView extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: [
               // CONTENT STARTS
-    
+
               SizedBox(
-                // width: double.infinity,
-                width: 500,
-                height: 300,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: FirebaseAnimatedList(
                   scrollDirection: Axis.horizontal,
                   query: dbRef.orderByChild("roomName"),
-                  itemBuilder: (BuildContext context,
-                      DataSnapshot snapshot,
-                      Animation<double> animation,
-                      int index) {
+                  itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                      Animation<double> animation, int index) {
                     Map room = snapshot.value as Map;
-    
+
                     room['key'] = snapshot.key;
-    
+
                     return RoomElementWidget(context: context, room: room);
                   },
                 ),
@@ -59,4 +55,3 @@ class RoomScrollView extends StatelessWidget {
     );
   }
 }
-

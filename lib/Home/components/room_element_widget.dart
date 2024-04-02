@@ -17,7 +17,7 @@ class RoomElementWidget extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(16, 8, 0, 8),
+            padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 8),
             child: GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -27,7 +27,7 @@ class RoomElementWidget extends StatelessWidget {
               },
               child: Container(
                 width: 170,
-                height: 265,
+                height: MediaQuery.of(context).size.height * 0.35,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(222, 21, 30, 132),
                   boxShadow: const [
@@ -52,6 +52,8 @@ class RoomElementWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                           child: Image.network(
                             'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
+                            cacheHeight: 175,
+                            cacheWidth: 175,
                             width: double.infinity,
                             height: 150,
                             fit: BoxFit.cover,
@@ -64,6 +66,7 @@ class RoomElementWidget extends StatelessWidget {
                         child: Text(
                           // 'Room Name',
                           room['roomName'],
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
@@ -78,8 +81,9 @@ class RoomElementWidget extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Text(
-                              '1. ${room['roomLocation']}',
+                              room['roomLocation'],
                               style: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
                                 color: Colors.white,
                                 fontSize: 13,
                               ),
