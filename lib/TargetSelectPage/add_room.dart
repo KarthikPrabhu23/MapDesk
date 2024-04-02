@@ -37,7 +37,6 @@ class _AddRoomState extends State<AddRoom> {
 
   // ignore: unused_field
   late GoogleMapController _mapController;
-  // late TimeOfDay selectedTime;
 
   late DateTime selectedDate;
   late TimeOfDay selectedTime;
@@ -76,22 +75,10 @@ class _AddRoomState extends State<AddRoom> {
     );
   }
 
-  Future<void> _selectTimeDate(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: selectedTime,
-    );
-    if (pickedTime != null && pickedTime != selectedTime) {
-      setState(() {
-        selectedTime = pickedTime;
-      });
-    }
-  }
-
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate ?? DateTime.now(),
+      initialDate: selectedDate,
       firstDate: DateTime.now(),
       lastDate: DateTime(2101),
     );
@@ -105,7 +92,7 @@ class _AddRoomState extends State<AddRoom> {
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: selectedTime ?? TimeOfDay.now(),
+      initialTime: selectedTime,
     );
     if (picked != null) {
       setState(() {
@@ -178,7 +165,7 @@ class _AddRoomState extends State<AddRoom> {
                   child: Row(
                     children: [
                       Text(
-                        'Deadline time for the task : ${selectedTime.format(context)}',
+                        'Deadline time : ${selectedTime.format(context)}',
                         style: TextStyle(fontSize: 15),
                       ),
                       SizedBox(width: 6),
@@ -186,7 +173,7 @@ class _AddRoomState extends State<AddRoom> {
                         onPressed: () => _selectTime(context),
                         icon: Icon(
                             Icons.access_time), // Use your desired icon here
-                        tooltip: 'Select Time',
+                        tooltip: 'Select Deadline',
                       ),
                     ],
                   ),
@@ -196,15 +183,16 @@ class _AddRoomState extends State<AddRoom> {
                   child: Row(
                     children: [
                       Text(
-                        'Deadline date for the task : ${DateFormat.yMMMd().format(selectedDate)}',
+                        'Deadline date : ${DateFormat.yMMMd().format(selectedDate)}',
                         style: TextStyle(fontSize: 15),
                       ),
                       SizedBox(width: 6),
                       IconButton(
+                        focusColor: Colors.blue.withOpacity(0.7),
                         onPressed: () => _selectDate(context),
                         icon: Icon(
                             Icons.calendar_month), // Use your desired icon here
-                        tooltip: 'Select Date',
+                        tooltip: 'Select Deadline',
                       ),
                     ],
                   ),
@@ -223,150 +211,87 @@ class _AddRoomState extends State<AddRoom> {
                 SizedBox(
                   height: 15,
                 ),
-                SizedBox(
-                  height: 500,
-                  width: 380,
-                  // child: PlacePicker(),
-                  child: GestureDetector(
-                    onVerticalDragStart: (start) {},
-                    child: GoogleMap(
-                      initialCameraPosition: _cecLocation,
-                      myLocationButtonEnabled: true,
-                      myLocationEnabled: true,
-                      markers: Set.from(myMarker),
-                      onTap: handleTap,
-                      mapType: MapType.normal,
-                      gestureRecognizers: <Factory<
-                          OneSequenceGestureRecognizer>>{
-                        Factory<OneSequenceGestureRecognizer>(
-                          () => EagerGestureRecognizer(),
-                        ),
-                      },
-                      onMapCreated: (GoogleMapController Addcontroller) {
-                        _mapController = Addcontroller;
-                      },
-                    ),
-                  ),
-                ),
+                AddRoomMap(context),
                 const SizedBox(
                   height: 15,
                 ),
                 Center(
-                   child:  MyButton(
-                      onPressed: () {
-                        Map<dynamic, dynamic> roomsMap = {
+                  child: MyButton(
+                    onPressed: () {
+                      Map<dynamic, dynamic> roomsMap = {
+                        'roomName': roomName.text,
+                        'roomLocation': roomLocation.text,
+                        'latitude': lat,
+                        'longitude': long,
+                        'completed': false,
+                        'targetInfo': tInfo.text,
+                      };
+
+                      dbRef.push().set(roomsMap);
+
+                      DateTime dateTime = DateTime(
+                        selectedDate.year,
+                        selectedDate.month,
+                        selectedDate.day,
+                        selectedTime.hour,
+                        selectedTime.minute,
+                      );
+
+                      print("FIRESTORE to store TARGETLOC");
+                      FirebaseFirestore.instance
+                          .collection('TargetLoc')
+                          .doc()
+                          .set(
+                        {
                           'roomName': roomName.text,
                           'roomLocation': roomLocation.text,
-                          'latitude': lat,
-                          'longitude': long,
                           'completed': false,
                           'targetInfo': tInfo.text,
-                        };
-                    
-                        dbRef.push().set(roomsMap);
-                    
-                        DateTime now = DateTime.now();
-                        DateTime selectedDateTime = DateTime(
-                          now.year,
-                          now.month,
-                          now.day,
-                          selectedTime.hour,
-                          selectedTime.minute,
-                        );
-                    
-                        DateTime dateTime = DateTime(
-                          selectedDate.year,
-                          selectedDate.month,
-                          selectedDate.day,
-                          selectedTime.hour,
-                          selectedTime.minute,
-                        );
-                    
-                        print("FIRESTORE to store TARGETLOC");
-                        FirebaseFirestore.instance
-                            .collection('TargetLoc')
-                            .doc()
-                            .set(
-                          {
-                            'roomName': roomName.text,
-                            'roomLocation': roomLocation.text,
-                            'completed': false,
-                            'targetInfo': tInfo.text,
-                            'location': {
-                              'lat': lat,
-                              'lng': long,
-                            },
-                            // 'deadlineTime': Timestamp.fromDate(selectedDateTime),
-                            'deadlineTime': dateTime,
+                          'location': {
+                            'lat': lat,
+                            'lng': long,
                           },
-                        );
-                        Navigator.pop(context);
-                      },
-                      buttonIcon: Icons.map,
-                      buttonText: 'Create Task',
-                    ),
+                          'deadlineTime': dateTime,
+                        },
+                      );
+                      Navigator.pop(context);
+                    },
+                    buttonIcon: Icons.map,
+                    buttonText: 'Create Task',
+                  ),
                 ),
                 const SizedBox(
-                  height: 105,
+                  height: 55,
                 ),
-                // MaterialButton(
-                //   onPressed: () {
-                //     Map<dynamic, dynamic> roomsMap = {
-                //       'roomName': roomName.text,
-                //       'roomLocation': roomLocation.text,
-                //       'latitude': lat,
-                //       'longitude': long,
-                //       'completed': false,
-                //       'targetInfo': tInfo.text,
-                //     };
-
-                //     dbRef.push().set(roomsMap);
-
-                //     DateTime now = DateTime.now();
-                //     DateTime selectedDateTime = DateTime(
-                //       now.year,
-                //       now.month,
-                //       now.day,
-                //       selectedTime.hour,
-                //       selectedTime.minute,
-                //     );
-
-                //     DateTime dateTime = DateTime(
-                //       selectedDate.year,
-                //       selectedDate.month,
-                //       selectedDate.day,
-                //       selectedTime.hour,
-                //       selectedTime.minute,
-                //     );
-
-                //     print("FIRESTORE to store TARGETLOC");
-                //     FirebaseFirestore.instance
-                //         .collection('TargetLoc')
-                //         .doc()
-                //         .set(
-                //       {
-                //         'roomName': roomName.text,
-                //         'roomLocation': roomLocation.text,
-                //         'completed': false,
-                //         'targetInfo': tInfo.text,
-                //         'location': {
-                //           'lat': lat,
-                //           'lng': long,
-                //         },
-                //         // 'deadlineTime': Timestamp.fromDate(selectedDateTime),
-                //         'deadlineTime': dateTime,
-                //       },
-                //     );
-                //     Navigator.pop(context);
-                //   },
-                //   color: Colors.blueAccent,
-                //   textColor: Colors.white,
-                //   height: 35,
-                //   child: const Text('Create Task'),
-                // ),
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  SizedBox AddRoomMap(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.52,
+      width: MediaQuery.of(context).size.width,
+      child: GestureDetector(
+        onVerticalDragStart: (start) {},
+        child: GoogleMap(
+          initialCameraPosition: _cecLocation,
+          myLocationButtonEnabled: true,
+          myLocationEnabled: true,
+          markers: Set.from(myMarker),
+          onTap: handleTap,
+          mapType: MapType.normal,
+          gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+            Factory<OneSequenceGestureRecognizer>(
+              () => EagerGestureRecognizer(),
+            ),
+          },
+          onMapCreated: (GoogleMapController Addcontroller) {
+            _mapController = Addcontroller;
+          },
         ),
       ),
     );
