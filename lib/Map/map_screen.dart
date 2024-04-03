@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Map/components/confirmationDialog.dart';
@@ -195,40 +196,48 @@ class MapScreenState extends State<MapScreen> {
                               color: Colors.white),
                         ),
                         Text(
-                          targetElem.roomName.toString(),
+                          targetElem.roomLocation.toString(),
                           style: const TextStyle(
                             fontSize: 12.0,
                             color: Colors.white70,
                           ),
                         ),
                         Row(
-                          children: [
-                            IconButton(
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                              icon: targetElem.completed
-                                  ? const Row(
-                                      children: [
-                                        Icon(
-                                          Icons.verified_rounded,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(width: 2),
-                                        Text(
-                                          'Target Visited',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : const Icon(
-                                      Icons.man,
+                          children: targetElem.completed
+                              ? [
+                                  IconButton(
+                                    color: const Color.fromARGB(255, 0, 0, 0),
+                                    icon: targetElem.completed
+                                        ? const Row(
+                                            children: [
+                                              Icon(
+                                                Icons.verified_rounded,
+                                                color: Colors.white,
+                                              ),
+                                              SizedBox(width: 2),
+                                              Text(
+                                                'Target Visited',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : const SizedBox.shrink(),
+                                    onPressed: () {},
+                                  ),
+                                ]
+                              : [
+                                  Text(
+                                    DateFormat('dd-MM-yyyy hh:mm a').format(
+                                        targetElem.deadlineTime.toDate()),
+                                    style: const TextStyle(
+                                      fontSize: 12,
                                       color: Colors.white,
                                     ),
-                              onPressed: () {},
-                            )
-                          ],
+                                  ),
+                                ],
                         ),
                       ],
                     ),
@@ -237,7 +246,7 @@ class MapScreenState extends State<MapScreen> {
                 // Button container
                 IconButton(
                   icon: const Icon(
-                    Icons.car_crash_rounded,
+                    Icons.location_on,
                     color: Colors.white,
                   ), // Replace with your desired icon
                   onPressed: () async {
