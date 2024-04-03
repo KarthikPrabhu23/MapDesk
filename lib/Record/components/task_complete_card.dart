@@ -126,16 +126,17 @@ class TaskCard extends StatelessWidget {
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
-                            // Text(
-                            //   DateFormat('dd-MM-yyyy, hh:mm a')
-                            //       .format(targetLoc.deadlineCompletedAt.toDate()),
-                            //   maxLines: 2,
-                            //   style: MyTextSample.subhead(context)!.copyWith(
-                            //     color: Colors.white,
-                            //     fontSize: 13,
-                            //     fontWeight: FontWeight.w500,
-                            //   ),
-                            // ),
+                            Text(
+                              // DateFormat('dd-MM-yyyy, hh:mm a')
+                              //     .format(targetLoc.deadlineCompletedAt.toDate()),
+                              targetLoc.deadlineCompletedAt,
+                              maxLines: 2,
+                              style: MyTextSample.subhead(context)!.copyWith(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ],
                         ),
                       ],

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Location {
@@ -59,7 +60,7 @@ class Target {
   final Location location;
   final String targetUid;
   final Timestamp deadlineTime;
-  final Timestamp deadlineCompletedAt;
+  final String deadlineCompletedAt;
 
   Target({
     required this.roomLocation,
@@ -77,7 +78,6 @@ class Target {
       targetUid: docId,
       completed: map['completed'],
       deadlineTime: map['deadlineTime'],
-      deadlineCompletedAt: map['deadlineCompletedAt'],
       location: Location(
         lat: map['location']['lat'],
         lng: map['location']['lng'],
@@ -85,6 +85,10 @@ class Target {
       roomName: map['roomName'],
       roomLocation: map['roomLocation'],
       targetInfo: map['targetInfo'],
+      deadlineCompletedAt: map['deadlineCompletedAt'],
+      //     deadlineCompletedAt: (map['deadlineCompletedAt'] != null)
+      // ? (map['deadlineCompletedAt'] as Timestamp).toDate()
+      // : DateTime.now(),
     );
   }
 
@@ -140,12 +144,14 @@ class FirestoreService {
   static Future<void> updateTargetCompletion(String userId) async {
     try {
       DateTime currentTime = DateTime.now();
+      String formattedDate =
+          DateFormat('dd-MM-yyyy   hh:mm a').format(currentTime);
+      print(formattedDate.toString() + " is the currentTime");
 
-      Timestamp firestoreTimestamp = Timestamp.fromDate(currentTime);
 
       await _firestore.collection('TargetLoc').doc(userId).update({
         'completed': true,
-        'deadlineCompletedAt': firestoreTimestamp,
+        'deadlineCompletedAt': formattedDate.toString(),
       });
     } on FirebaseException catch (e) {
       print('Ann error due to firebase occured $e');
