@@ -9,6 +9,7 @@ import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:map1/Map/classes.dart';
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
 import 'package:map1/components/my_button.dart';
 
@@ -40,6 +41,11 @@ class _AddRoomState extends State<AddRoom> {
 
   late DateTime selectedDate;
   late TimeOfDay selectedTime;
+
+  // Dropdown widget
+  // User? selectedUser;
+  String selectedUser = "";
+  String selectedAssign = "";
 
   @override
   void initState() {
@@ -215,6 +221,51 @@ class _AddRoomState extends State<AddRoom> {
                 const SizedBox(
                   height: 15,
                 ),
+                Container(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+
+                      if (!snapshot.hasData) {
+                        return CircularProgressIndicator();
+                      }
+
+                      List<DropdownMenuItem<String>> items = [];
+                      
+                      final users = snapshot.data!.docs;
+
+                      for (var user in users) {
+                        final userData = user.data() as Map<String, dynamic>;
+                        final username = userData['username'] ;
+                        items.add(
+                          DropdownMenuItem(
+                            value: username,
+                            child: Text(username),
+                          ),
+                        );
+                      }
+
+                      return DropdownButton<String>(
+                        items: items,
+                        onChanged: (selectedUser) {
+                          print(selectedUser);
+                          setState((){
+                            print("Inside setstate");
+                            selectedAssign = selectedUser!;
+                          }) ;
+                          print('Selected User: $selectedUser');
+                          print('selectedAssign: $selectedAssign');
+                        },
+                        hint: Text('Select User'),
+                      );
+                    },
+                  ),
+                ),
                 Center(
                   child: MyButton(
                     onPressed: () {
@@ -253,6 +304,7 @@ class _AddRoomState extends State<AddRoom> {
                           },
                           'deadlineTime': dateTime,
                           'deadlineCompletedAt': dateTime.toString(),
+                          'assigned to': selectedAssign,
                         },
                       );
                       Navigator.pop(context);
