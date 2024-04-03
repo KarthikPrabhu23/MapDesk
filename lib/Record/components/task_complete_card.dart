@@ -15,7 +15,6 @@ class TaskCard extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Card(
         shadowColor: Colors.black87,
-        // color: Color.fromARGB(255, 232, 251, 252),
         color: MyColors.ButtonBlue,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(
@@ -91,12 +90,12 @@ class TaskCard extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10), // Add spacing between sections
+                        const SizedBox(height: 10), 
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Deadline :', // Replace 'Heading 2' with your actual heading text
+                              'Deadline :', 
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 13,
@@ -104,7 +103,7 @@ class TaskCard extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              DateFormat('dd-MM-yyyy, hh:mm a')
+                              DateFormat('dd-MM-yyyy hh:mm a')
                                   .format(targetLoc.deadlineTime.toDate()),
                               maxLines: 2,
                               style: MyTextSample.subhead(context)!.copyWith(
@@ -113,6 +112,30 @@ class TaskCard extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
+                          ],
+                        ),
+                        const SizedBox(height: 10), // Add spacing between sections
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Task achieved at :',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            // Text(
+                            //   DateFormat('dd-MM-yyyy, hh:mm a')
+                            //       .format(targetLoc.deadlineCompletedAt.toDate()),
+                            //   maxLines: 2,
+                            //   style: MyTextSample.subhead(context)!.copyWith(
+                            //     color: Colors.white,
+                            //     fontSize: 13,
+                            //     fontWeight: FontWeight.w500,
+                            //   ),
+                            // ),
                           ],
                         ),
                       ],

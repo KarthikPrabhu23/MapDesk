@@ -71,8 +71,15 @@ class _MyHomePageState extends State<MyHomePage> {
     // Store location updates in Firestore
     locationStream.listen(
       (Position position) {
-        storeUserLocation(
-            uid, position.latitude, position.longitude, currEmail);
+        try {
+          storeUserLocation(
+              uid, position.latitude, position.longitude, currEmail);
+        } catch (e) {
+          // Handle the exception
+          print('An error occurred inside locationStream: $e');
+          // You can also re-throw the exception if you want to propagate it further
+          // throw e;
+        }
       },
     );
   }
@@ -88,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
         'location': {
           'lat': latitude,
           'lng': longitude,
-          'timestamp': firestore.FieldValue.serverTimestamp(),
+          // 'timestamp': firestore.FieldValue.serverTimestamp(),
         },
         'name': "Default",
       });

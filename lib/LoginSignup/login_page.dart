@@ -52,9 +52,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   dispose() {
     super.dispose();
-    _email;
-    _formKey;
-    _password;
+    // _email;
+    // _formKey;
+    // _password;
   }
 
   @override

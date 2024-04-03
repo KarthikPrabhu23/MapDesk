@@ -252,6 +252,7 @@ class _AddRoomState extends State<AddRoom> {
                             'lng': long,
                           },
                           'deadlineTime': dateTime,
+                          'deadlineCompletedAt'  : dateTime,
                         },
                       );
                       Navigator.pop(context);

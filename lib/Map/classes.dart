@@ -59,6 +59,7 @@ class Target {
   final Location location;
   final String targetUid;
   final Timestamp deadlineTime;
+  final Timestamp deadlineCompletedAt;
 
   Target({
     required this.roomLocation,
@@ -68,6 +69,7 @@ class Target {
     required this.roomName,
     required this.location,
     required this.targetUid,
+    required this.deadlineCompletedAt,
   });
 
   factory Target.fromMap(String docId, Map<dynamic, dynamic> map) {
@@ -75,6 +77,7 @@ class Target {
       targetUid: docId,
       completed: map['completed'],
       deadlineTime: map['deadlineTime'],
+      deadlineCompletedAt: map['deadlineCompletedAt'],
       location: Location(
         lat: map['location']['lat'],
         lng: map['location']['lng'],
@@ -136,8 +139,13 @@ class FirestoreService {
 
   static Future<void> updateTargetCompletion(String userId) async {
     try {
+      DateTime currentTime = DateTime.now();
+
+      Timestamp firestoreTimestamp = Timestamp.fromDate(currentTime);
+
       await _firestore.collection('TargetLoc').doc(userId).update({
         'completed': true,
+        'deadlineCompletedAt': firestoreTimestamp,
       });
     } on FirebaseException catch (e) {
       print('Ann error due to firebase occured $e');
