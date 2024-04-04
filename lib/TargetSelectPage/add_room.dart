@@ -1,4 +1,6 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print, non_constant_identifier_names
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print, non_constant_identifier_names, library_prefixes
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
@@ -9,7 +11,7 @@ import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:map1/Map/classes.dart';
+import 'package:map1/Map/classes.dart' as MyClass;
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
 import 'package:map1/components/my_button.dart';
 
@@ -43,9 +45,14 @@ class _AddRoomState extends State<AddRoom> {
   late TimeOfDay selectedTime;
 
   // Dropdown widget
-  // User? selectedUser;
-  String selectedUser = "";
-  String selectedAssign = "";
+  late MyClass.User selectedUser;
+  late MyClass.User selectedAssign;
+
+  bool IsEmployeeAssigned = false;
+  
+  bool MapTapped = false;
+  // String selectedUser = "";
+  // String selectedAssign = "";
 
   @override
   void initState() {
@@ -65,6 +72,7 @@ class _AddRoomState extends State<AddRoom> {
 
     setState(
       () {
+        MapTapped = true;
         myMarker = [];
         myMarker.add(
           Marker(
@@ -235,36 +243,66 @@ class _AddRoomState extends State<AddRoom> {
                         return CircularProgressIndicator();
                       }
 
-                      List<DropdownMenuItem<String>> items = [];
-                      
+                      List<DropdownMenuItem<MyClass.User>> items = [];
+
                       final users = snapshot.data!.docs;
 
                       for (var user in users) {
                         final userData = user.data() as Map<String, dynamic>;
-                        final username = userData['username'] ;
+                        final username = userData['username'] as String;
+                        final userObject = MyClass.User(
+                          name: userData['name'] as String,
+                          username: username,
+                          userUid: user.id,
+                          location: MyClass.Location(
+                            lat: Random().nextDouble() * 180 - 90,
+                            lng: Random().nextDouble() * 360 - 180,
+                          ),
+                        );
                         items.add(
-                          DropdownMenuItem(
-                            value: username,
+                          DropdownMenuItem<MyClass.User>(
+                            value: userObject,
                             child: Text(username),
                           ),
                         );
                       }
 
-                      return DropdownButton<String>(
+                      return DropdownButton<MyClass.User>(
                         items: items,
-                        onChanged: (selectedUser) {
-                          print(selectedUser);
-                          setState((){
-                            print("Inside setstate");
-                            selectedAssign = selectedUser!;
-                          }) ;
-                          print('Selected User: $selectedUser');
+                        onChanged: (selectedItem) {
+                          setState(() {
+                            selectedUser = selectedItem!;
+                            selectedAssign = selectedUser;
+                            IsEmployeeAssigned = true;
+                          });
+                          print('Selected MyClass.User: $selectedUser');
+                          print(
+                              'SelectedUser uid is : ${selectedUser.userUid}');
+                          print(
+                              'SelectedAssign uid is : ${selectedAssign.userUid}');
+                          print(
+                              'SelectedAssign name is : ${selectedAssign.username}');
                           print('selectedAssign: $selectedAssign');
                         },
-                        hint: Text('Select User'),
+                        hint: Text('Select Assign'),
                       );
                     },
                   ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: IsEmployeeAssigned
+                      ? Text(
+                          'Task Assigned to ${selectedAssign.username}',
+                          style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        )
+                      : SizedBox(),
                 ),
                 Center(
                   child: MyButton(
@@ -289,24 +327,31 @@ class _AddRoomState extends State<AddRoom> {
                       );
 
                       print("FIRESTORE to store TARGETLOC");
-                      FirebaseFirestore.instance
-                          .collection('TargetLoc')
-                          .doc()
-                          .set(
-                        {
-                          'roomName': roomName.text,
-                          'roomLocation': roomLocation.text,
-                          'completed': false,
-                          'targetInfo': tInfo.text,
-                          'location': {
-                            'lat': lat,
-                            'lng': long,
+                      try {
+                        FirebaseFirestore.instance
+                            .collection('TargetLoc')
+                            .doc()
+                            .set(
+                          {
+                            'roomName': roomName.text,
+                            'roomLocation': roomLocation.text,
+                            'completed': false,
+                            'targetInfo': tInfo.text,
+                            'location': {
+                              'lat': lat,
+                              'lng': long,
+                            },
+                            'deadlineTime': dateTime,
+                            'deadlineCompletedAt': dateTime.toString(),
+                            // 'assignedToEmployee': selectedAssign,
+                            'assignedToEmployee': selectedUser.username,
                           },
-                          'deadlineTime': dateTime,
-                          'deadlineCompletedAt': dateTime.toString(),
-                          'assigned to': selectedAssign,
-                        },
-                      );
+                        );
+                        print('Data stored successfully');
+                      } catch (e) {
+                        print('Error storing data: $e');
+                      }
+
                       Navigator.pop(context);
                     },
                     buttonIcon: Icons.map,
