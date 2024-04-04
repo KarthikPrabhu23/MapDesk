@@ -321,33 +321,31 @@ class _AddRoomState extends State<AddRoom> {
                                     height: MediaQuery.of(context).size.height *
                                         0.266,
                                     // height: 500,
-                                    child: StreamBuilder<List<Target>>(
+                                    child: StreamBuilder<List<User>>(
                                       stream: FirestoreService
-                                          .targetLocCollectionStream(),
-                                      builder: (context, targetSnapshot) {
-                                        if (targetSnapshot.connectionState ==
+                                          .userCollectionStream(),
+                                      builder: (context, userSnapshot) {
+                                        if (userSnapshot.connectionState ==
                                             ConnectionState.waiting) {
                                           return const CircularProgressIndicator();
-                                        } else if (targetSnapshot.hasError) {
+                                        } else if (userSnapshot.hasError) {
                                           return Text(
-                                              'Error: ${targetSnapshot.error}');
+                                              'Error: ${userSnapshot.error}');
                                         } else {
                                           return ListView.builder(
                                             scrollDirection: Axis.vertical,
                                             padding: const EdgeInsets.all(9),
                                             itemCount:
-                                                targetSnapshot.data!.length,
+                                                userSnapshot.data!.length,
                                             itemBuilder: (context, index) {
-                                              final targetLoc =
-                                                  targetSnapshot.data![index];
+                                              final user =
+                                                  userSnapshot.data![index];
 
-                                              if (targetLoc.completed) {
-                                                return TaskCard(
-                                                  targetLoc: targetLoc,
-                                                );
-                                              } else {
+                                              // if (user.assignedToEmployee) {
+                                              //   return Text('username');
+                                              // } else {
                                                 return Container();
-                                              }
+                                              // }
                                             },
                                           );
                                         }
