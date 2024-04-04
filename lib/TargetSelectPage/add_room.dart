@@ -12,6 +12,8 @@ import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:map1/Map/classes.dart' as MyClass;
+import 'package:map1/Map/classes.dart';
+import 'package:map1/Record/components/task_complete_card.dart';
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
 import 'package:map1/components/my_button.dart';
 
@@ -49,7 +51,7 @@ class _AddRoomState extends State<AddRoom> {
   late MyClass.User selectedAssign;
 
   bool IsEmployeeAssigned = false;
-  
+
   bool MapTapped = false;
   // String selectedUser = "";
   // String selectedAssign = "";
@@ -288,6 +290,76 @@ class _AddRoomState extends State<AddRoom> {
                       );
                     },
                   ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: MapTapped
+                      ? Container(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            // height: 600,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Color.fromARGB(255, 192, 187, 238),
+                                  Color.fromARGB(255, 221, 219, 224)
+                                ],
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SingleChildScrollView(
+                                  padding: const EdgeInsets.all(10),
+                                  scrollDirection: Axis.vertical,
+                                  child: SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.266,
+                                    // height: 500,
+                                    child: StreamBuilder<List<Target>>(
+                                      stream: FirestoreService
+                                          .targetLocCollectionStream(),
+                                      builder: (context, targetSnapshot) {
+                                        if (targetSnapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return const CircularProgressIndicator();
+                                        } else if (targetSnapshot.hasError) {
+                                          return Text(
+                                              'Error: ${targetSnapshot.error}');
+                                        } else {
+                                          return ListView.builder(
+                                            scrollDirection: Axis.vertical,
+                                            padding: const EdgeInsets.all(9),
+                                            itemCount:
+                                                targetSnapshot.data!.length,
+                                            itemBuilder: (context, index) {
+                                              final targetLoc =
+                                                  targetSnapshot.data![index];
+
+                                              if (targetLoc.completed) {
+                                                return TaskCard(
+                                                  targetLoc: targetLoc,
+                                                );
+                                              } else {
+                                                return Container();
+                                              }
+                                            },
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
                 ),
                 const SizedBox(
                   height: 15,
