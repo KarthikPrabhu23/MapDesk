@@ -102,6 +102,7 @@ class MapScreenState extends State<MapScreen> {
           await FirestoreService.addNewUser(
             uid,
             User(
+              userUid: uid,
               name: 'New User', // Provide a default name for new users
               location: Location(
                 lat: position.latitude,
