@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_field
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,15 +21,18 @@ class User {
   final String name;
   final String username;
   final Location location;
+  final String userUid;
 
   User({
     required this.name,
     required this.username,
     required this.location,
+    required this.userUid,
   });
 
-  factory User.fromMap(Map<String, dynamic> map) {
+  factory User.fromMap(String docId, Map<String, dynamic> map) {
     return User(
+      userUid : docId,
       name: map['name'],
       username: map['username'],
       location: Location(
@@ -86,9 +89,6 @@ class Target {
       roomLocation: map['roomLocation'],
       targetInfo: map['targetInfo'],
       deadlineCompletedAt: map['deadlineCompletedAt'],
-      //     deadlineCompletedAt: (map['deadlineCompletedAt'] != null)
-      // ? (map['deadlineCompletedAt'] as Timestamp).toDate()
-      // : DateTime.now(),
     );
   }
 
@@ -146,7 +146,7 @@ class FirestoreService {
       DateTime currentTime = DateTime.now();
       String formattedDate =
           DateFormat('dd-MM-yyyy   hh:mm a').format(currentTime);
-      print(formattedDate.toString() + " is the currentTime");
+      print("$formattedDate is the currentTime");
 
 
       await _firestore.collection('TargetLoc').doc(userId).update({
@@ -196,7 +196,7 @@ class FirestoreService {
 
   static Stream<List<User>> userCollectionStream() {
     return _firestore.collection('users').snapshots().map((snapshot) =>
-        snapshot.docs.map((doc) => User.fromMap(doc.data())).toList());
+        snapshot.docs.map((doc) => User.fromMap(doc.id, doc.data())).toList());
   }
 
   static Stream<List<Target>> targetLocCollectionStream() {
