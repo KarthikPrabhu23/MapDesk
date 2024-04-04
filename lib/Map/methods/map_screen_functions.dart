@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, library_prefixes
 
 import 'dart:math' as Math;
+import 'dart:math';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 bool areCoordinatesClose(LatLng coord1, LatLng coord2) {
@@ -27,4 +28,27 @@ bool areCoordinatesClose(LatLng coord1, LatLng coord2) {
 
   // Check if the distance is less than or equal to 5 meters
   return distance <= 10;
+}
+
+double calculateDistance(LatLng coord1, LatLng coord2) {
+  const double pi = 3.1415926535897932;
+  const double earthRadius = 6371000; // Radius of the earth in meters
+
+  // Convert latitude and longitude from degrees to radians
+  double lat1 = coord1.latitude * pi / 180.0;
+  double lon1 = coord1.longitude * pi / 180.0;
+  double lat2 = coord2.latitude * pi / 180.0;
+  double lon2 = coord2.longitude * pi / 180.0;
+
+  // Calculate the differences between latitudes and longitudes
+  double dLat = lat2 - lat1;
+  double dLon = lon2 - lon1;
+
+  // Calculate the distance using the Haversine formula
+  double a = sin(dLat / 2) * sin(dLat / 2) +
+      cos(lat1) * cos(lat2) * sin(dLon / 2) * sin(dLon / 2);
+  double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+  double distance = earthRadius * c;
+
+  return distance; 
 }
