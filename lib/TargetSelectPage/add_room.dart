@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:map1/Map/classes.dart' as MyClass;
 import 'package:map1/Map/classes.dart';
 import 'package:map1/Record/components/task_complete_card.dart';
+import 'package:map1/TargetSelectPage/components/display_employee_assigned.dart';
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
 import 'package:map1/components/my_button.dart';
 
@@ -301,7 +302,7 @@ class _AddRoomState extends State<AddRoom> {
                             height: MediaQuery.of(context).size.height * 0.3,
                             // height: 600,
                             width: MediaQuery.of(context).size.width * 0.8,
-                            
+
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
@@ -344,7 +345,7 @@ class _AddRoomState extends State<AddRoom> {
                                               // if (user.assignedToEmployee) {
                                               //   return Text('username');
                                               // } else {
-                                                return Container();
+                                              return Container();
                                               // }
                                             },
                                           );
@@ -362,17 +363,11 @@ class _AddRoomState extends State<AddRoom> {
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  child: IsEmployeeAssigned
-                      ? Text(
-                          'Task Assigned to ${selectedAssign.username}',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
-                      : SizedBox(),
+                DisplayEmployeeAssigned(
+                    IsEmployeeAssigned: IsEmployeeAssigned,
+                    selectedAssign: selectedAssign),
+                const SizedBox(
+                  height: 15,
                 ),
                 Center(
                   child: MyButton(
