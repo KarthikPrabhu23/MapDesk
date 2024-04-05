@@ -64,6 +64,7 @@ class Target {
   final String targetUid;
   final Timestamp deadlineTime;
   final String deadlineCompletedAt;
+  final String assignedToEmployeeID;
   final String assignedToEmployee;
 
   Target({
@@ -75,7 +76,8 @@ class Target {
     required this.location,
     required this.targetUid,
     required this.deadlineCompletedAt,
-    required this.assignedToEmployee
+    required this.assignedToEmployeeID,
+    required this.assignedToEmployee,
   });
 
   factory Target.fromMap(String docId, Map<dynamic, dynamic> map) {
@@ -91,6 +93,7 @@ class Target {
       roomLocation: map['roomLocation'],
       targetInfo: map['targetInfo'],
       deadlineCompletedAt: map['deadlineCompletedAt'],
+      assignedToEmployeeID: map['assignedToEmployeeID'],
       assignedToEmployee: map['assignedToEmployee'],
     );
   }
