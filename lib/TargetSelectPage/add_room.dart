@@ -243,7 +243,7 @@ class _AddRoomState extends State<AddRoom> {
                   child: MapTapped
                       ? Container(
                           child: Container(
-                            height: MediaQuery.of(context).size.height * 0.3,
+                            height: MediaQuery.of(context).size.height * 0.34,
                             // height: 600,
                             width: MediaQuery.of(context).size.width * 0.8,
 
@@ -259,12 +259,22 @@ class _AddRoomState extends State<AddRoom> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               // mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Text(
+                                    'Your Employees :',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                    ),
+                                  ),
+                                ),
                                 SingleChildScrollView(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                                   scrollDirection: Axis.vertical,
                                   child: SizedBox(
                                     height: MediaQuery.of(context).size.height *
-                                        0.266,
+                                        0.283,
                                     // height: 500,
                                     child: StreamBuilder<List<User>>(
                                       stream: FirestoreService
@@ -455,7 +465,7 @@ class _AddRoomState extends State<AddRoom> {
                             .doc(selectedUser.userUid)
                             .update(
                           {
-                            'assignedToTask' : roomName.text,
+                            'assignedToTask': roomName.text,
                           },
                         );
                         print('Data stored successfully');
