@@ -240,6 +240,14 @@ class MapScreenState extends State<MapScreen> {
                                   ),
                                 ],
                         ),
+                        Text(
+                          'Assignee: ${targetElem.assignedToEmployee}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10,
+                            color: Colors.white,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -412,7 +420,8 @@ class MapScreenState extends State<MapScreen> {
                           return GoogleMap(
                             initialCameraPosition: _initialPosition,
                             markers: setOfMarkers,
-
+                            myLocationButtonEnabled: true,
+                            myLocationEnabled: true,
                             // trafficEnabled: true,
                             // mapType: MapType.hybrid,
                             // fortyFiveDegreeImageryEnabled : true,

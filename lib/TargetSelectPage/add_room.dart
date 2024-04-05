@@ -440,8 +440,22 @@ class _AddRoomState extends State<AddRoom> {
                             },
                             'deadlineTime': dateTime,
                             'deadlineCompletedAt': dateTime.toString(),
-                            // 'assignedToEmployee': selectedAssign,
-                            'assignedToEmployee': selectedUser.username,
+                            'assignedToEmployee': selectedAssign.username,
+                            'assignedToEmployeeID': selectedUser.userUid,
+                          },
+                        );
+                        print('Data stored successfully');
+                      } catch (e) {
+                        print('Error storing data: $e');
+                      }
+
+                      try {
+                        FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(selectedUser.userUid)
+                            .update(
+                          {
+                            'assignedToTask' : roomName.text,
                           },
                         );
                         print('Data stored successfully');
