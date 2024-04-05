@@ -236,66 +236,6 @@ class _AddRoomState extends State<AddRoom> {
                 const SizedBox(
                   height: 15,
                 ),
-                Container(
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      }
-
-                      if (!snapshot.hasData) {
-                        return CircularProgressIndicator();
-                      }
-
-                      List<DropdownMenuItem<MyClass.User>> items = [];
-
-                      final users = snapshot.data!.docs;
-
-                      for (var user in users) {
-                        final userData = user.data() as Map<String, dynamic>;
-                        final username = userData['username'] as String;
-                        final userObject = MyClass.User(
-                          name: userData['name'] as String,
-                          username: username,
-                          userUid: user.id,
-                          location: MyClass.Location(
-                            lat: Random().nextDouble() * 180 - 90,
-                            lng: Random().nextDouble() * 360 - 180,
-                          ),
-                        );
-                        items.add(
-                          DropdownMenuItem<MyClass.User>(
-                            value: userObject,
-                            child: Text(username),
-                          ),
-                        );
-                      }
-
-                      return DropdownButton<MyClass.User>(
-                        items: items,
-                        onChanged: (selectedItem) {
-                          setState(() {
-                            selectedUser = selectedItem!;
-                            selectedAssign = selectedUser;
-                            IsEmployeeAssigned = true;
-                          });
-                          print('Selected MyClass.User: $selectedUser');
-                          print(
-                              'SelectedUser uid is : ${selectedUser.userUid}');
-                          print(
-                              'SelectedAssign uid is : ${selectedAssign.userUid}');
-                          print(
-                              'SelectedAssign name is : ${selectedAssign.username}');
-                          print('selectedAssign: $selectedAssign');
-                        },
-                        hint: Text('Select Assign'),
-                      );
-                    },
-                  ),
-                ),
                 const SizedBox(
                   height: 15,
                 ),
@@ -348,7 +288,9 @@ class _AddRoomState extends State<AddRoom> {
 
                                               // if (user.assignedToEmployee) {
                                               return EmployeeCard(
-                                                  UserEmployee: user, EmployeeLocation: user.location,);
+                                                UserEmployee: user,
+                                                EmployeeLocation: user.location,
+                                              );
                                               // } else {
                                               // return Container();
                                               // }
@@ -369,6 +311,82 @@ class _AddRoomState extends State<AddRoom> {
                   height: 15,
                 ),
                 Container(
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      }
+
+                      if (!snapshot.hasData) {
+                        return CircularProgressIndicator();
+                      }
+
+                      List<DropdownMenuItem<MyClass.User>> items = [];
+
+                      final users = snapshot.data!.docs;
+
+                      for (var user in users) {
+                        final userData = user.data() as Map<String, dynamic>;
+                        final username = userData['username'] as String;
+                        final userObject = MyClass.User(
+                          name: userData['name'] as String,
+                          username: username,
+                          userUid: user.id,
+                          location: MyClass.Location(
+                            lat: Random().nextDouble() * 180 - 90,
+                            lng: Random().nextDouble() * 360 - 180,
+                          ),
+                        );
+                        items.add(
+                          DropdownMenuItem<MyClass.User>(
+                            value: userObject,
+                            child: Text(username),
+                          ),
+                        );
+                      }
+
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Assign task to ',
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w300),
+                          ),
+                          DropdownButton<MyClass.User>(
+                            items: items,
+                            onChanged: (selectedItem) {
+                              setState(() {
+                                selectedUser = selectedItem!;
+                                selectedAssign = selectedUser;
+                                IsEmployeeAssigned = true;
+                              });
+                              print('Selected MyClass.User: $selectedUser');
+                              print(
+                                  'SelectedUser uid is : ${selectedUser.userUid}');
+                              print(
+                                  'SelectedAssign uid is : ${selectedAssign.userUid}');
+                              print(
+                                  'SelectedAssign name is : ${selectedAssign.username}');
+                              print('selectedAssign: $selectedAssign');
+                            },
+                            hint: Text(
+                              ' employee',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w300,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+                Container(
                   child: IsEmployeeAssigned
                       ? Text(
                           'Task Assigned to ${selectedAssign.username}',
@@ -379,6 +397,9 @@ class _AddRoomState extends State<AddRoom> {
                           ),
                         )
                       : SizedBox(),
+                ),
+                const SizedBox(
+                  height: 15,
                 ),
                 Center(
                   child: MyButton(

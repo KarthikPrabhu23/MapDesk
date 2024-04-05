@@ -37,7 +37,7 @@ class _EmployeeCardState extends State<EmployeeCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 1),
       child: Card(
         shadowColor: Colors.black87,
         color: MyColors.ButtonBlue,
@@ -86,7 +86,7 @@ class _EmployeeCardState extends State<EmployeeCard> {
 
                         // Add a subtitle widget
                         Text(
-                          'Distance from selected Target location : ',
+                          'Distance from Target location : ',
                           style: MyTextSample.body1(context)!.copyWith(
                             color: Colors.white,
                             fontWeight: FontWeight.w300,
