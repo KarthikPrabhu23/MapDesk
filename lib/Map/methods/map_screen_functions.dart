@@ -30,7 +30,7 @@ bool areCoordinatesClose(LatLng coord1, LatLng coord2) {
   return distance <= 10;
 }
 
-double calculateDistance(LatLng coord1, LatLng coord2) {
+String calculateDistance(LatLng coord1, LatLng coord2) {
   const double pi = 3.1415926535897932;
   const double earthRadius = 6371000; // Radius of the earth in meters
 
@@ -50,5 +50,13 @@ double calculateDistance(LatLng coord1, LatLng coord2) {
   double c = 2 * atan2(sqrt(a), sqrt(1 - a));
   double distance = earthRadius * c;
 
-  return distance; 
+  // Convert the distance to kilometers if it's more than 1 km, otherwise, keep it in meters
+  String result;
+  if (distance >= 1000) {
+    result = (distance / 1000).toStringAsFixed(2) + ' km';
+  } else {
+    result = distance.toStringAsFixed(2) + ' m';
+  }
+  
+  return result;
 }

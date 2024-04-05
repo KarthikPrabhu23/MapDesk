@@ -14,10 +14,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:map1/Map/classes.dart' as MyClass;
 import 'package:map1/Map/classes.dart';
 import 'package:map1/Record/components/task_complete_card.dart';
+import 'package:map1/TargetSelectPage/components/employee_card.dart';
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
 import 'package:map1/components/my_button.dart';
 
 //  File to choose target location on map and add it to the realtime database
+
+late LatLng TapPoint;
 
 class AddRoom extends StatefulWidget {
   const AddRoom({super.key});
@@ -53,6 +56,7 @@ class _AddRoomState extends State<AddRoom> {
   bool IsEmployeeAssigned = false;
 
   bool MapTapped = false;
+
   // String selectedUser = "";
   // String selectedAssign = "";
 
@@ -74,6 +78,7 @@ class _AddRoomState extends State<AddRoom> {
 
     setState(
       () {
+        TapPoint = tappedPoint;
         MapTapped = true;
         myMarker = [];
         myMarker.add(
@@ -301,7 +306,7 @@ class _AddRoomState extends State<AddRoom> {
                             height: MediaQuery.of(context).size.height * 0.3,
                             // height: 600,
                             width: MediaQuery.of(context).size.width * 0.8,
-                            
+
                             decoration: const BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
@@ -342,9 +347,10 @@ class _AddRoomState extends State<AddRoom> {
                                                   userSnapshot.data![index];
 
                                               // if (user.assignedToEmployee) {
-                                              //   return Text('username');
+                                              return EmployeeCard(
+                                                  UserEmployee: user, EmployeeLocation: user.location,);
                                               // } else {
-                                                return Container();
+                                              // return Container();
                                               // }
                                             },
                                           );
@@ -439,6 +445,7 @@ class _AddRoomState extends State<AddRoom> {
     );
   }
 
+// MARK: AddRoomMap
   SizedBox AddRoomMap(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.52,
