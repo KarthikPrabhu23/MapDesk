@@ -206,48 +206,57 @@ class MapScreenState extends State<MapScreen> {
                         Row(
                           children: targetElem.completed
                               ? [
-                                  IconButton(
-                                    color: const Color.fromARGB(255, 0, 0, 0),
-                                    icon: targetElem.completed
-                                        ? const Row(
-                                            children: [
-                                              Icon(
-                                                Icons.verified_rounded,
-                                                color: Colors.white,
-                                              ),
-                                              SizedBox(width: 2),
-                                              Text(
-                                                'Target Visited',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        : const SizedBox.shrink(),
-                                    onPressed: () {},
+                                  Column(
+                                    children: [
+                                      IconButton(
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
+                                        icon: targetElem.completed
+                                            ? const Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.verified_rounded,
+                                                    color: Colors.white,
+                                                  ),
+                                                  SizedBox(width: 2),
+                                                  Text(
+                                                    'Target Visited',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            : const SizedBox.shrink(),
+                                        onPressed: () {},
+                                      ),
+                                    ],
                                   ),
                                 ]
                               : [
-                                  Text(
-                                    DateFormat('dd-MM-yyyy hh:mm a').format(
-                                        targetElem.deadlineTime.toDate()),
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white,
-                                    ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        DateFormat('dd-MM-yyyy hh:mm a').format(
+                                            targetElem.deadlineTime.toDate()),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Assignee : ${targetElem.assignedToEmployee}',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 10,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ],
                         ),
-                        Text(
-                          'Assignee: ${targetElem.assignedToEmployee}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 10,
-                            color: Colors.white,
-                          ),
-                        )
                       ],
                     ),
                   ),
@@ -288,19 +297,21 @@ class MapScreenState extends State<MapScreen> {
                             if (reachedTarget) {
                               FirestoreService.updateTargetCompletion(
                                   targetElem.targetUid);
-
-                              // FirestoreService.increaseTargetCompletionCount(auth.UserMetadata);
                             } else {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return ConfirmationDialog(
+                              // Use mounted check to ensure the context is valid
+                              if (mounted) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return ConfirmationDialog(
                                       onYesPressed: () {},
-                                      title: "Task not reached yet ",
+                                      title: "Task not reached yet",
                                       message:
-                                          "Reach within 10 meters to the target location");
-                                },
-                              );
+                                          "Reach within 10 meters to the target location",
+                                    );
+                                  },
+                                );
+                              }
                             }
                           },
                         );
@@ -420,11 +431,11 @@ class MapScreenState extends State<MapScreen> {
                           return GoogleMap(
                             initialCameraPosition: _initialPosition,
                             markers: setOfMarkers,
-                            myLocationButtonEnabled: true,
-                            myLocationEnabled: true,
-                            // trafficEnabled: true,
-                            // mapType: MapType.hybrid,
-                            // fortyFiveDegreeImageryEnabled : true,
+                            // myLocationButtonEnabled: true,
+                            // myLocationEnabled: true,
+                            trafficEnabled: true,
+                            mapType: MapType.hybrid,
+                            fortyFiveDegreeImageryEnabled: true,
 
                             onMapCreated: (GoogleMapController controller) {
                               mapController = controller;

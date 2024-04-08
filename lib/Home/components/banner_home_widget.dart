@@ -10,7 +10,7 @@ class BannerHomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.27,
+      height: MediaQuery.of(context).size.height * 0.24,
       decoration: BoxDecoration(
         color: Colors.black12,
         image: const DecorationImage(
