@@ -75,10 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
           storeUserLocation(
               uid, position.latitude, position.longitude, currEmail);
         } catch (e) {
-          // Handle the exception
           print('An error occurred inside locationStream: $e');
-          // You can also re-throw the exception if you want to propagate it further
-          // throw e;
         }
       },
     );
@@ -95,7 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
         'location': {
           'lat': latitude,
           'lng': longitude,
-          // 'timestamp': firestore.FieldValue.serverTimestamp(),
         },
         'name': "Default",
       });
@@ -151,10 +147,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _updateLocationInDatabase(LocationData locationData) {
     if (currentLocation != null) {
-      // print('currUid is');
-      print(currUid);
+      print('currUid is $currUid');
 
-      String userId = currUid.toString(); // Replace with your user ID
+      String userId = currUid.toString(); 
       _userLocationRef.child(userId).update(
         {
           'latitude': locationData.latitude,
