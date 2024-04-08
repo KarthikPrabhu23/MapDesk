@@ -178,28 +178,6 @@ class FirestoreService {
     }
   }
 
-  // static Future<String?> getCurrentUserDocId() async {
-  //   try {
-  //     // Get the current user
-  //     User? currUser = _auth.currentUser;
-
-  //     if (currUser != null) {
-  //       // Query Firestore to get the document associated with the user's UID
-  //       DocumentSnapshot<Map<String, dynamic>> snapshot =
-  //           await _firebasefirestore.collection('users').doc(currUser.uid).get();
-
-  //       // Return the document ID if the document exists
-  //       if (snapshot.exists) {
-  //         return snapshot.id;
-  //       }
-  //     }
-  //   } catch (e) {
-  //     print('Error fetching current user doc ID: $e');
-  //   }
-
-  //   return null; // Return null if there's an error or no current user
-  // }
-
   static Stream<List<User>> userCollectionStream() {
     return _firestore.collection('users').snapshots().map((snapshot) =>
         snapshot.docs.map((doc) => User.fromMap(doc.id, doc.data())).toList());

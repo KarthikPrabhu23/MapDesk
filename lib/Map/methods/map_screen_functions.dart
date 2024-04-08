@@ -53,9 +53,9 @@ String calculateDistance(LatLng coord1, LatLng coord2) {
   // Convert the distance to kilometers if it's more than 1 km, otherwise, keep it in meters
   String result;
   if (distance >= 1000) {
-    result = (distance / 1000).toStringAsFixed(2) + ' km';
+    result = '${(distance / 1000).toStringAsFixed(2)} km';
   } else {
-    result = distance.toStringAsFixed(2) + ' m';
+    result = '${distance.toStringAsFixed(2)} m';
   }
   
   return result;

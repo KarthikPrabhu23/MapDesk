@@ -20,7 +20,7 @@ class EmployeeCard extends StatefulWidget {
 }
 
 class _EmployeeCardState extends State<EmployeeCard> {
-  late LatLng currentLocation = LatLng(0.0, 0.0);
+  late LatLng currentLocation = const LatLng(0.0, 0.0);
   late LatLng UserEmployeeLoc;
 
   LatLng? TapPointMap = TapPoint;
@@ -45,8 +45,8 @@ class _EmployeeCardState extends State<EmployeeCard> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
           side: const BorderSide(
-            color: Colors.white, // Border color
-            width: 2, // Border width
+            color: Colors.white, 
+            width: 2, 
           ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -64,15 +64,12 @@ class _EmployeeCardState extends State<EmployeeCard> {
                     width: 40,
                     fit: BoxFit.cover,
                   ),
-                  // Add some spacing between the image and the text
                   Container(width: 15),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        // Add some spacing between the top of the card and the title
                         Container(height: 5),
-                        // Add a title widget
                         Text(
                           widget.UserEmployee.username,
                           style: MyTextSample.title(context)!.copyWith(
@@ -81,10 +78,7 @@ class _EmployeeCardState extends State<EmployeeCard> {
                             fontSize: 16,
                           ),
                         ),
-                        // Add some spacing between the title and the subtitle
                         const SizedBox(height: 5),
-
-                        // Add a subtitle widget
                         Text(
                           'Distance from Target location : ',
                           style: MyTextSample.body1(context)!.copyWith(
@@ -94,7 +88,6 @@ class _EmployeeCardState extends State<EmployeeCard> {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        // Add a subtitle widget
                         Text(
                           calculateDistance(TapPoint, UserEmployeeLoc),
                           style: MyTextSample.body1(context)!.copyWith(
@@ -103,80 +96,6 @@ class _EmployeeCardState extends State<EmployeeCard> {
                             fontSize: 12,
                           ),
                         ),
-                        // Add some spacing between the subtitle and the text
-                        // Container(height: 10),
-                        // Add a text widget to display some text
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     const Text(
-                        //       'Task Info:', // Replace 'Heading 1' with your actual heading text
-                        //       style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontSize: 13,
-                        //         fontWeight: FontWeight.w300,
-                        //       ),
-                        //     ),
-                        //     Text(
-                        //       UserEmployee.targetInfo,
-                        //       maxLines: 2,
-                        //       style: MyTextSample.subhead(context)!.copyWith(
-                        //         color: Colors.white,
-                        //         fontSize: 13,
-                        //         fontWeight: FontWeight.w500,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        // const SizedBox(height: 10),
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     const Text(
-                        //       'Deadline :',
-                        //       style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontSize: 13,
-                        //         fontWeight: FontWeight.w300,
-                        //       ),
-                        //     ),
-                        //     Text(
-                        //       DateFormat('dd-MM-yyyy hh:mm a')
-                        //           .format(targetLoc.deadlineTime.toDate()),
-                        //       maxLines: 2,
-                        //       style: MyTextSample.subhead(context)!.copyWith(
-                        //         color: Colors.white,
-                        //         fontSize: 13,
-                        //         fontWeight: FontWeight.w500,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                        // const SizedBox(height: 10), // Add spacing between sections
-                        // Column(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   children: [
-                        //     const Text(
-                        //       'Task achieved at :',
-                        //       style: TextStyle(
-                        //         color: Colors.white,
-                        //         fontSize: 13,
-                        //         fontWeight: FontWeight.w300,
-                        //       ),
-                        //     ),
-                        //     Text(
-                        //       // DateFormat('dd-MM-yyyy, hh:mm a')
-                        //       //     .format(targetLoc.deadlineCompletedAt.toDate()),
-                        //       targetLoc.deadlineCompletedAt,
-                        //       maxLines: 2,
-                        //       style: MyTextSample.subhead(context)!.copyWith(
-                        //         color: Colors.white,
-                        //         fontSize: 13,
-                        //         fontWeight: FontWeight.w500,
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
                       ],
                     ),
                   ),
