@@ -148,17 +148,6 @@ class _TargetCardState extends State<TargetCard> {
   }
 }
 
-void zoomOutMarker(GoogleMapController gMapController) {
-  gMapController.animateCamera(
-    CameraUpdate.newCameraPosition(
-      const CameraPosition(
-        target: LatLng(12.898799, 74.984734),
-        zoom: 16,
-      ),
-    ),
-  );
-}
-
 zoomInMarker(element, mapController) {
   mapController.animateCamera(
     CameraUpdate.newCameraPosition(
