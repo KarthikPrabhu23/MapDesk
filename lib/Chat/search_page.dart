@@ -144,6 +144,7 @@ class _SearchPageState extends State<SearchPage> {
     await DatabaseService(uid: user!.uid)
         .isUserJoined(groupname, groupId, userName)
         .then((value) {
+          if(!mounted) return;
       setState(() {
         isJoined = value;
       });

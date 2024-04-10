@@ -13,6 +13,7 @@ import 'package:map1/Home/profile_page.dart';
 import 'package:location/location.dart';
 import 'package:map1/Map/map_screen.dart';
 import 'package:map1/Record/record.dart';
+import 'package:map1/components/helper.dart';
 import 'package:map1/components/my_button.dart';
 import 'package:map1/my_colors.dart';
 
@@ -134,11 +135,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void _subscribeToLocationChanges() {
     location.onLocationChanged.listen(
       (LocationData locationData) {
-        setState(
-          () {
-            currentLocation = locationData;
-          },
-        );
+        if (!mounted) return; // Check if widget is mounted before setState
+        setState(() {
+          currentLocation = locationData;
+        });
         print(locationData);
         print('Latitude is ${locationData.latitude}');
         print('Longitude is ${locationData.longitude}');
@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (currentLocation != null) {
       print('currUid is $currUid');
 
-      String userId = currUid.toString(); 
+      String userId = currUid.toString();
       _userLocationRef.child(userId).update(
         {
           'latitude': locationData.latitude,
@@ -161,14 +161,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    // _subscribeToLocationChanges();
-    // _getLocation();
-    // _getCurrentUser();
-    // firestoreLogin();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   _subscribeToLocationChanges();
+  //   _getLocation();
+  //   _getCurrentUser();
+  //   firestoreLogin();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -206,6 +206,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     radius: 20.0,
                     backgroundImage: NetworkImage(
                         'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
+                    //   backgroundImage: NetworkImage(
+                    //       HelperFunctions.getUserDPurlSF()),
                   ),
                 ),
               ),

@@ -27,7 +27,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
   String userUID = "";
-  String dpUrl = " ";
+  String dpUrl = "https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/pfp.png?alt=media&token=e3be88e8-d50c-491d-b52f-2f6c7843fbbc";
+  
 
   final _confirmPassword = TextEditingController();
   final _email = TextEditingController();
@@ -59,8 +60,8 @@ class _SignUpState extends State<SignUp> {
       print('Profile picture uploaded on FirebaseStorage, link is ');
       print(value);
       setState(() {
-        // Update the state variables here
         dpUrl = value;
+        HelperFunctions.saveUserDPurl(dpUrl);
         print('dpUrl is ');
         print(dpUrl);
       });
@@ -175,6 +176,7 @@ class _SignUpState extends State<SignUp> {
                       onChanged: (val) {
                         setState(() {
                           fullName = val;
+                          HelperFunctions.saveUserDPurl(dpUrl);
                         });
                       },
                       validator: (val) {
