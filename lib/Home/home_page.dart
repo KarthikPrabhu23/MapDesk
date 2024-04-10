@@ -16,6 +16,7 @@ import 'package:map1/Record/record.dart';
 import 'package:map1/components/helper.dart';
 import 'package:map1/components/my_button.dart';
 import 'package:map1/my_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -39,6 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late DatabaseReference _userLocationRef;
 
+  Future<String?> loggedInUsername = HelperFunctions.getUserNameFromSF();
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
     _getLocation();
     firestoreLogin();
     _subscribeToLocationChanges();
+
+    printUsername();
+  }
+
+  void printUsername() async {
+    final username = await loggedInUsername;
+    print("LoggedInUsername is: $username");
   }
 
   Future<void> firestoreLogin() async {
@@ -220,6 +230,13 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Padding(
+              //   padding: const EdgeInsets.all(18.0),
+              //   child: TopBarFb3(
+              //     title: 'Welcome back,',
+              //     upperTitle: loggedInUsername.toString(),
+              //   ),
+              // ),
               const Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
                 child: BannerHomeWidget(),
@@ -296,6 +313,54 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class TopBarFb3 extends StatelessWidget {
+  final String title;
+  final String upperTitle;
+
+  const TopBarFb3({required this.title, required this.upperTitle, Key? key})
+      : super(key: key);
+
+  final primaryColor = const Color(0xff4338CA);
+  final secondaryColor = const Color(0xff6D28D9);
+  final accentColor = const Color(0xffffffff);
+  final backgroundColor = const Color(0xffffffff);
+  final errorColor = const Color(0xffEF4444);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 160,
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle, // Ensure rectangular shape
+        borderRadius: const BorderRadius.all(Radius.circular(18),),
+        gradient: LinearGradient(
+          colors: [primaryColor, secondaryColor],
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(title,
+                style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal)),
+            Text(upperTitle,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold))
+          ],
         ),
       ),
     );

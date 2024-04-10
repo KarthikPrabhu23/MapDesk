@@ -119,18 +119,24 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 25,
                     ),
                     ReuseableRow(
-                        title: 'Username',
-                        icondata: Icons.person,
-                        value: map['username']),
+                      title: 'Username',
+                      icondata: Icons.person,
+                      value: 'username'
+                    ),
                     ReuseableRow(
-                        title: 'Email',
-                        icondata: Icons.mail,
-                        value: map['email']),
-                    // ReuseableRow(title: 'Phone Number', icondata: Icons.phone  , value: map['phone']),
+                      title: 'Email',
+                      icondata: Icons.mail,
+                      value: 'email',
+                    ),
+                    ReuseableRow(
+                      title: 'Phone Number',
+                      icondata: Icons.phone,
+                      value: 'phone',
+                    ),
                     ReuseableRow(
                       title: 'Status',
                       icondata: Icons.mark_chat_unread,
-                      value: map['status'],
+                      value: 'status',
                     ),
                     ReuseableRow(
                       title: 'Latitude',
