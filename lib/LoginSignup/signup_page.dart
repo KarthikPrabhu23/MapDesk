@@ -5,12 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:map1/Chat/chat_page.dart';
+import 'package:map1/Chat/chat_screen.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/emailIconField.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/LoginSignup/login_page.dart';
+import 'package:map1/components/helper.dart';
+import 'package:map1/service/auth_service.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -30,6 +35,12 @@ class _SignUpState extends State<SignUp> {
   final _password = TextEditingController();
   final _username = TextEditingController();
   final _picker = ImagePicker();
+
+  String email = "";
+  String password = "";
+  String fullName = "";
+  bool _isLoading = false;
+  AuthService authService = AuthService();
 
   void pickUploadImage() async {
     final image = await ImagePicker().pickImage(
@@ -154,6 +165,76 @@ class _SignUpState extends State<SignUp> {
                     // const SizedBox(
                     //   height: 20,
                     // ),
+                    TextFormField(
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Full Name",
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Theme.of(context).primaryColor,
+                          )),
+                      onChanged: (val) {
+                        setState(() {
+                          fullName = val;
+                        });
+                      },
+                      validator: (val) {
+                        if (val!.isNotEmpty) {
+                          return null;
+                        } else {
+                          return "Name cannot be empty";
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Email",
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Theme.of(context).primaryColor,
+                          )),
+                      onChanged: (val) {
+                        setState(() {
+                          email = val;
+                        });
+                      },
+
+                      // check tha validation
+                      validator: (val) {
+                        return RegExp(
+                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                .hasMatch(val!)
+                            ? null
+                            : "Please enter a valid email";
+                      },
+                    ),
+                    const SizedBox(height: 15),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: textInputDecoration.copyWith(
+                          labelText: "Password",
+                          prefixIcon: Icon(
+                            Icons.lock,
+                            color: Theme.of(context).primaryColor,
+                          )),
+                      validator: (val) {
+                        if (val!.length < 6) {
+                          return "Password must be at least 6 characters";
+                        } else {
+                          return null;
+                        }
+                      },
+                      onChanged: (val) {
+                        setState(() {
+                          password = val;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     myTextFormField(
                       MyController: _username,
                       hintText: "Enter username",
@@ -162,28 +243,28 @@ class _SignUpState extends State<SignUp> {
                     const SizedBox(
                       height: 15,
                     ),
-                    myTextFormField(
-                      MyController: _email,
-                      hintText: "Enter email id",
-                      labelText: "Email ID",
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    myTextFormField(
-                      MyController: _password,
-                      hintText: "Enter password",
-                      labelText: "Password",
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    myTextFormField(
-                      MyController: _confirmPassword,
-                      hintText: "Confirm password",
-                      labelText: "Confirm password",
-                      // ObscureText: true,
-                    ),
+                    // myTextFormField(
+                    //   MyController: _email,
+                    //   hintText: "Enter email id",
+                    //   labelText: "Email ID",
+                    // ),
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    // myTextFormField(
+                    //   MyController: _password,
+                    //   hintText: "Enter password",
+                    //   labelText: "Password",
+                    // ),
+                    // const SizedBox(
+                    //   height: 15,
+                    // ),
+                    // myTextFormField(
+                    //   MyController: _confirmPassword,
+                    //   hintText: "Confirm password",
+                    //   labelText: "Confirm password",
+                    //   // ObscureText: true,
+                    // ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -192,77 +273,80 @@ class _SignUpState extends State<SignUp> {
                       height: 55,
                       child: ElevatedButton(
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            // _uploadImage();
-                            FirebaseAuth.instance
-                                .createUserWithEmailAndPassword(
-                              email: _email.text,
-                              password: _password.text,
-                            )
-                                .then((value) {
-                              ref.child(value.user!.uid.toString()).set(
-                                {
-                                  'uid': value.user!.uid.toString(),
-                                  'email': value.user!.email.toString(),
-                                  'username': _username.text.toString(),
-                                  'status': '',
-                                },
-                              );
-                              // _uploadImage;
-                              FirebaseFirestore.instance
-                                  .collection('users')
-                                  .doc(value.user!.uid.toString())
-                                  .set(
-                                {
-                                  // 'location': {
-                                  //   'lat': latitude,
-                                  //   'lng': longitude,
-                                  //   'timestamp':
-                                  //       firestore.FieldValue.serverTimestamp(),
-                                  // },
-                                  // 'emailid': emailId,
-                                  // 'name': ufullname,
-                                  'email': _email.text.toString(),
-                                  'username': _username.text.toString(),
-                                  'status': '',
-                                  'profilepic': dpUrl,
-                                  'targetCompletionCount' : 0,
-                                },
-                              );
-                              SessionController().userid = value.user!.uid;
-                              SessionController().username =
-                                  _username.text.toString();
+                          register();
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MyHomePage(),
-                                ),
-                              );
-                            }).catchError(
-                              (error) {
-                                if (error is FirebaseAuthException) {
-                                  if (error.code == 'email-already-in-use') {
-                                    // Handle the case where the email is already in use.
-                                    print(
-                                        'The email address is already in use by another account.');
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'The email address is already in use.'),
-                                      ),
-                                    );
-                                  } else {
-                                    // Handle other FirebaseAuthException cases.
-                                    print(
-                                        'Error ${error.code}: ${error.message}');
-                                  }
-                                } else {
-                                  print('Unexpected error: $error');
-                                }
-                              },
-                            );
-                          }
+                          // if (_formKey.currentState!.validate()) {
+                          //   // _uploadImage();
+                          //   FirebaseAuth.instance
+                          //       .createUserWithEmailAndPassword(
+                          //     email: _email.text,
+                          //     password: _password.text,
+                          //   )
+                                // .then((value) {
+                              // ref.child(value.user!.uid.toString()).set(
+                              //   {
+                              //     'uid': value.user!.uid.toString(),
+                              //     'email': value.user!.email.toString(),
+                              //     'username': _username.text.toString(),
+                              //     'status': '',
+                              //   },
+                              // );
+                          //     // _uploadImage;
+                              // FirebaseFirestore.instance
+                              //     .collection('users')
+                              //     .doc(value.user!.uid.toString())
+                              //     .set(
+                              //   {
+                              //     // 'location': {
+                              //     //   'lat': latitude,
+                              //     //   'lng': longitude,
+                              //     //   'timestamp':
+                              //     //       firestore.FieldValue.serverTimestamp(),
+                              //     // },
+                              //     // 'emailid': emailId,
+                              //     // 'name': ufullname,
+                              //     'email': _email.text.toString(),
+                              //     'username': _username.text.toString(),
+                              //     'status': '',
+                              //     'profilepic': dpUrl,
+                              //     'targetCompletionCount': 0,
+                              //   },
+                              // );
+                              // SessionController().userid = value.user!.uid;
+                              // SessionController().username =
+                              //     _username.text.toString();
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => const MyHomePage(),
+                              //   ),
+                              // );
+
+                          //   }).catchError(
+                          //     (error) {
+                          //       if (error is FirebaseAuthException) {
+                          //         if (error.code == 'email-already-in-use') {
+                          //           // Handle the case where the email is already in use.
+                          //           print(
+                          //               'The email address is already in use by another account.');
+                          //           ScaffoldMessenger.of(context).showSnackBar(
+                          //             const SnackBar(
+                          //               content: Text(
+                          //                   'The email address is already in use.'),
+                          //             ),
+                          //           );
+                          //         } else {
+                          //           // Handle other FirebaseAuthException cases.
+                          //           print(
+                          //               'Error ${error.code}: ${error.message}');
+                          //         }
+                          //       } else {
+                          //         print('Unexpected error: $error');
+                          //       }
+                          //     },
+                          //   );
+                          // }
                         },
                         child: const Text(
                           "SignUp",
@@ -313,5 +397,38 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  register() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      await authService
+          .registerUserWithEmailandPassword(fullName, _username.text.toString(), dpUrl, email, password)
+
+      // await FirebaseAuth.instance
+      //     .createUserWithEmailAndPassword(
+      //   email: email,
+      //   password: password,
+      // )
+          .then((value) async {
+          await HelperFunctions.saveUserLoggedInStatus(true);
+          await HelperFunctions.saveUserEmailSF(email);
+          await HelperFunctions.saveUserNameSF(fullName);
+          // _uploadImage;
+         
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MyHomePage(),
+            ),
+          );
+
+          // nextScreenReplace(context, const ChatScreen());
+        } 
+      );
+    }
   }
 }

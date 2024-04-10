@@ -1,10 +1,11 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, unused_import
 
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:map1/Chat/chat_screen.dart';
 import 'package:map1/TargetSelectPage/add_room.dart';
 import 'package:map1/Home/components/banner_home_widget.dart';
 import 'package:map1/Home/components/room_scrollview_widget.dart';
@@ -13,6 +14,7 @@ import 'package:location/location.dart';
 import 'package:map1/Map/map_screen.dart';
 import 'package:map1/Record/record.dart';
 import 'package:map1/components/my_button.dart';
+import 'package:map1/my_colors.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -165,7 +167,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // _subscribeToLocationChanges();
     // _getLocation();
     // _getCurrentUser();
-    firestoreLogin();
+    // firestoreLogin();
   }
 
   @override
@@ -174,15 +176,17 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          toolbarHeight: 82,
           title: const Text(
             'TrackNow',
             style: TextStyle(
               fontSize: 31,
               fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
           ),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+          backgroundColor: Theme.of(context).primaryColor,
           actions: <Widget>[
             GestureDetector(
               onTap: () {
@@ -248,6 +252,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 buttonIcon: Icons.book,
                 buttonText: 'Record Logs',
+              ),
+              MyButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChatScreen()),
+                  );
+                },
+                buttonIcon: Icons.book,
+                buttonText: 'Chat Screen',
               ),
             ],
           ),
