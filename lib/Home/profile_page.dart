@@ -1,10 +1,11 @@
 // ignore_for_file: avoid_print
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
+import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/my_colors.dart';
+import 'package:map1/service/auth_service.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -16,8 +17,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final ref = FirebaseDatabase.instance.ref().child('User');
 
-  // FirebaseAuth auth = FirebaseAuth.instance;
-  // final user = auth.currentUser;
+  AuthService authService = AuthService();
 
   @override
   void dispose() {
@@ -37,18 +37,12 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut().then(
-                (value) {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: ((context) => const SignUp()),
-                  //   ),
-                  // );
-                  Navigator.pop(context);
-                },
-              );
+            onPressed: () async {
+              FirebaseAuth.instance.signOut();
+              await authService.signOut();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (route) => false);
             },
             icon: const Icon(Icons.logout_outlined),
           ),
