@@ -97,32 +97,66 @@ class _ChatScreenState extends State<ChatScreen> {
                 color: Colors.white,
               ))
         ],
+        iconTheme: const IconThemeData(
+          color: Colors.white, 
+        ),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         toolbarHeight: 82,
-          title: const Text(
-            'TrackNow',
-            style: TextStyle(
-              fontSize: 31,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
-            ),
+        title: const Text(
+          'TrackNow',
+          style: TextStyle(
+            fontSize: 31,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
           ),
-      ),
-      body: groupList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          popUpDialog(context);
-        },
-        elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 30,
         ),
       ),
+      body: groupList(),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  popUpDialog(context);
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                backgroundColor: Theme.of(context).primaryColor,
+                label: const Text(
+                  'Create group',
+                  style: TextStyle(
+                    fontFamily: 'YourCustomFont',
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     popUpDialog(context);
+      //   },
+      //   elevation: 0,
+      //   backgroundColor: Theme.of(context).primaryColor,
+      //   child: const Icon(
+      //     Icons.add,
+      //     color: Colors.white,
+      //     size: 30,
+      //   ),
+      // ),
     );
   }
 

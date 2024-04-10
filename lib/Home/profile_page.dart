@@ -29,10 +29,21 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 62,
+        // title: const Text(
+        //   'Your Profile',
+        //   style: TextStyle(
+        //     fontSize: 21,
+        //     fontWeight: FontWeight.w600,
+        //     color: Colors.white,
+        //   ),
+        // ),
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text(
           SessionController().userid.toString(),
           style: const TextStyle(
             fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
         actions: [
@@ -44,7 +55,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                   (route) => false);
             },
-            icon: const Icon(Icons.logout_outlined),
+            icon: const Icon(
+              Icons.logout_outlined,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -119,10 +133,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 25,
                     ),
                     ReuseableRow(
-                      title: 'Username',
-                      icondata: Icons.person,
-                      value: 'username'
-                    ),
+                        title: 'Username',
+                        icondata: Icons.person,
+                        value: 'username'),
                     ReuseableRow(
                       title: 'Email',
                       icondata: Icons.mail,

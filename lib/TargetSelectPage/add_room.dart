@@ -126,7 +126,19 @@ class _AddRoomState extends State<AddRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Task'),
+        iconTheme: const IconThemeData(
+          color: Colors.white, 
+        ),
+        toolbarHeight: 62,
+        title: const Text(
+          'Add Task',
+          style: TextStyle(
+            fontSize: 21,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -270,7 +282,8 @@ class _AddRoomState extends State<AddRoom> {
                                   ),
                                 ),
                                 SingleChildScrollView(
-                                  padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 2, horizontal: 5),
                                   scrollDirection: Axis.vertical,
                                   child: SizedBox(
                                     height: MediaQuery.of(context).size.height *

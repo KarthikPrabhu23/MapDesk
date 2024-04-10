@@ -49,12 +49,18 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
         title: const Text(
-          "Search",
+          "Chats",
           style: TextStyle(
-              fontSize: 27, fontWeight: FontWeight.bold, color: Colors.white),
+            fontSize: 21,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
       body: Column(
@@ -144,7 +150,7 @@ class _SearchPageState extends State<SearchPage> {
     await DatabaseService(uid: user!.uid)
         .isUserJoined(groupname, groupId, userName)
         .then((value) {
-          if(!mounted) return;
+      if (!mounted) return;
       setState(() {
         isJoined = value;
       });

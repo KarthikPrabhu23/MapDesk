@@ -185,6 +185,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
           automaticallyImplyLeading: false,
           toolbarHeight: 82,
           title: const Text(
@@ -339,7 +342,9 @@ class TopBarFb3 extends StatelessWidget {
       height: 160,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle, // Ensure rectangular shape
-        borderRadius: const BorderRadius.all(Radius.circular(18),),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(18),
+        ),
         gradient: LinearGradient(
           colors: [primaryColor, secondaryColor],
         ),

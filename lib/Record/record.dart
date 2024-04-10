@@ -16,15 +16,20 @@ class _RecordLogState extends State<RecordLog> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: const IconThemeData(
+            color: Colors.white,
+          ),
+          toolbarHeight: 82,
           title: const Text(
             'TrackNow',
             style: TextStyle(
               fontSize: 31,
               fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
           ),
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+          backgroundColor: Theme.of(context).primaryColor,
           actions: <Widget>[
             GestureDetector(
               onTap: () {
@@ -35,15 +40,17 @@ class _RecordLogState extends State<RecordLog> {
                   ),
                 );
               },
-              child: const Padding(
+               child: const Padding(
                 padding: EdgeInsets.only(right: 28.0),
                 child: CircleAvatar(
                   radius: 23,
-                  backgroundColor: Colors.amber,
+                  backgroundColor: Color.fromARGB(222, 21, 30, 132),
                   child: CircleAvatar(
                     radius: 20.0,
                     backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YmVhY2hlc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
+                        'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
+                    //   backgroundImage: NetworkImage(
+                    //       HelperFunctions.getUserDPurlSF()),
                   ),
                 ),
               ),
