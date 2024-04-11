@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:map1/Map/map_loc.dart';
+import 'package:map1/Map/map_screen.dart';
 
 class RoomElementWidget extends StatelessWidget {
   const RoomElementWidget({
@@ -22,7 +22,7 @@ class RoomElementWidget extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MapLoc()),
+                  MaterialPageRoute(builder: (context) => const MapScreen()),
                 );
               },
               child: Container(
