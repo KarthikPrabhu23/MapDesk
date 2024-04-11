@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:map1/my_colors.dart';
 
 const textInputDecoration = InputDecoration(
-  labelStyle: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontWeight: FontWeight.w300),
+  labelStyle: TextStyle(
+      color: Color.fromARGB(255, 255, 255, 255), fontWeight: FontWeight.w300),
   focusedBorder: OutlineInputBorder(
     borderSide: BorderSide(color: Colors.white, width: 2),
   ),
@@ -10,6 +12,20 @@ const textInputDecoration = InputDecoration(
   ),
   errorBorder: OutlineInputBorder(
     borderSide: BorderSide(color: Colors.white, width: 2),
+  ),
+);
+
+const textInputDecorationPrimary = InputDecoration(
+  labelStyle: TextStyle(
+      color: MyColors.ButtonBlue, fontWeight: FontWeight.w300),
+  focusedBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: MyColors.ButtonBlue, width: 2),
+  ),
+  enabledBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: MyColors.ButtonBlue, width: 2),
+  ),
+  errorBorder: OutlineInputBorder(
+    borderSide: BorderSide(color: MyColors.ButtonBlue, width: 2),
   ),
 );
 

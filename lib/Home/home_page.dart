@@ -15,6 +15,7 @@ import 'package:map1/Map/map_screen.dart';
 import 'package:map1/Record/record.dart';
 import 'package:map1/components/helper.dart';
 import 'package:map1/components/my_button.dart';
+import 'package:map1/main.dart';
 import 'package:map1/my_colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -191,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
           automaticallyImplyLeading: false,
           toolbarHeight: 82,
           title: const Text(
-            'TrackNow',
+            appName,
             style: TextStyle(
               fontSize: 31,
               fontWeight: FontWeight.w600,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:map1/Home/profile_page.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:map1/Record/components/task_complete_card.dart';
+import 'package:map1/main.dart';
 
 class RecordLog extends StatefulWidget {
   const RecordLog({super.key});
@@ -21,7 +22,7 @@ class _RecordLogState extends State<RecordLog> {
           ),
           toolbarHeight: 82,
           title: const Text(
-            'TrackNow',
+            appName,
             style: TextStyle(
               fontSize: 31,
               fontWeight: FontWeight.w600,
@@ -40,7 +41,7 @@ class _RecordLogState extends State<RecordLog> {
                   ),
                 );
               },
-               child: const Padding(
+              child: const Padding(
                 padding: EdgeInsets.only(right: 28.0),
                 child: CircleAvatar(
                   radius: 23,
@@ -134,8 +135,6 @@ class _RecordLogState extends State<RecordLog> {
                     ],
                   ),
                 ),
-             
-             
               ),
             ],
           ),

@@ -40,7 +40,6 @@ class _SignUpState extends State<SignUp> {
   String email = "";
   String password = "";
   String fullName = "";
-  bool _isLoading = false;
   AuthService authService = AuthService();
 
   void pickUploadImage() async {
@@ -404,7 +403,6 @@ class _SignUpState extends State<SignUp> {
   register() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
-        _isLoading = true;
       });
       await authService
           .registerUserWithEmailandPassword(fullName, _username.text.toString(), dpUrl, email, password)

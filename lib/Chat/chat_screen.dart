@@ -1,34 +1,10 @@
 import 'package:flutter/material.dart';
-
-// class ChatScreen extends StatefulWidget {
-//   const ChatScreen({super.key});
-
-//   @override
-//   State<ChatScreen> createState() => _ChatScreenState();
-// }
-
-// class _ChatScreenState extends State<ChatScreen> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold();
-//   }
-// }
-
-// import 'package:chatapp_firebase/helper/helper_function.dart';
-// import 'package:chatapp_firebase/pages/auth/login_page.dart';
-// import 'package:chatapp_firebase/pages/profile_page.dart';
-// import 'package:chatapp_firebase/pages/search_page.dart';
-// import 'package:chatapp_firebase/service/auth_service.dart';
-// import 'package:chatapp_firebase/service/database_service.dart';
-// import 'package:chatapp_firebase/widgets/group_tile.dart';
-// import 'package:chatapp_firebase/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:map1/Chat/chat_profile_page.dart';
 import 'package:map1/Chat/search_page.dart';
 import 'package:map1/Chat/widgets/group_tile.dart';
 import 'package:map1/LoginSignup/components/widgets.dart';
-import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/components/helper.dart';
+import 'package:map1/main.dart';
 import 'package:map1/service/auth_service.dart';
 import 'package:map1/service/database_service.dart';
 
@@ -89,23 +65,24 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                nextScreen(context, const SearchPage());
-              },
-              icon: const Icon(
-                Icons.search,
-                color: Colors.white,
-              ))
+            onPressed: () {
+              nextScreen(context, const SearchPage());
+            },
+            icon: const Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+          ),
         ],
         iconTheme: const IconThemeData(
-          color: Colors.white, 
+          color: Colors.white,
         ),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         toolbarHeight: 82,
         title: const Text(
-          'TrackNow',
+          appName,
           style: TextStyle(
             fontSize: 31,
             fontWeight: FontWeight.w600,
@@ -168,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
           return StatefulBuilder(builder: ((context, setState) {
             return AlertDialog(
               title: const Text(
-                "Create a group",
+                "Create a group chat",
                 textAlign: TextAlign.left,
               ),
               content: Column(
@@ -209,7 +186,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor),
-                  child: const Text("CANCEL"),
+                  child: const Text(
+                    "CANCEL",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -231,7 +211,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor),
-                  child: const Text("CREATE"),
+                  child: const Text(
+                    "CREATE",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 )
               ],
             );
@@ -296,7 +279,7 @@ class _ChatScreenState extends State<ChatScreen> {
           const Text(
             "You've not joined any groups, tap on the add icon to create a group or also search from top search button.",
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
     );

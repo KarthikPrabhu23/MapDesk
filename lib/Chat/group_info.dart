@@ -53,7 +53,10 @@ class _GroupInfoState extends State<GroupInfo> {
         centerTitle: true,
         elevation: 0,
         backgroundColor: Theme.of(context).primaryColor,
-        title: const Text("Group Info"),
+        title: const Text("Group Info", style: TextStyle(color: Colors.white),),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         actions: [
           IconButton(
               onPressed: () {

@@ -8,7 +8,7 @@
         <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:label="TrackNow"
+        android:label="MapDesk"
         android:name="${applicationName}"
         android:icon="@mipmap/tracknow">
 

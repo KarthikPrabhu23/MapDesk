@@ -9,6 +9,7 @@ import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/LoginSignup/reset_password.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
 import 'package:map1/components/helper.dart';
+import 'package:map1/main.dart';
 import 'package:map1/service/auth_service.dart';
 import 'package:map1/service/database_service.dart';
 // import 'package:map1/LoginSignup/auth_page.dart';
@@ -28,7 +29,6 @@ class _LoginPageState extends State<LoginPage> {
 
   String email = "";
   String password = "";
-  bool _isLoading = false;
   AuthService authService = AuthService();
 
   signInWithEmailAndPassword() async {
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                       height: 15,
                     ),
                     const Text(
-                      "TrackNow",
+                      appName,
                       style: TextStyle(
                           fontSize: 52,
                           color: Colors.white,
@@ -131,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                           email = val;
                         });
                       },
-          
+
                       // check tha validation
                       validator: (val) {
                         return RegExp(
@@ -215,12 +215,12 @@ class _LoginPageState extends State<LoginPage> {
                           login();
 
                           Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const MyHomePage(),
-                                ),
-                              );
-          
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyHomePage(),
+                            ),
+                          );
+
                           // if (_formKey.currentState!.validate()) {
                           //   FirebaseAuth.instance
                           //       .signInWithEmailAndPassword(
@@ -301,13 +301,10 @@ class _LoginPageState extends State<LoginPage> {
 
   login() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      setState(() {});
       await authService
           .loginWithUserNameandPassword(email, password)
           .then((value) async {
-             
         if (value == true) {
           QuerySnapshot snapshot =
               await DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
@@ -319,9 +316,7 @@ class _LoginPageState extends State<LoginPage> {
           nextScreenReplace(context, const MyHomePage());
         } else {
           showSnackbar(context, Colors.red, value);
-          setState(() {
-            _isLoading = false;
-          });
+          setState(() {});
         }
       });
     }

@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Chat/group_info.dart';
@@ -51,8 +50,16 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        title: Text(widget.groupName),
+        title: Text(
+          widget.groupName,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
         backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         actions: [
           IconButton(
               onPressed: () {

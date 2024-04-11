@@ -156,7 +156,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       icondata: Icons.mail,
                       value: userData['email'],
                     ),
-                    ReuseableRow(
+                    const ReuseableRow(
                       title: 'Phone Number',
                       icondata: Icons.phone,
                       value: "123456789",

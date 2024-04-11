@@ -14,6 +14,8 @@ import 'package:map1/my_colors.dart';
 import 'firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
+const String appName = "MapDesk";
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -67,10 +69,10 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Map1',
+      title: appName,
       theme: ThemeData(
         primaryColor: MyColors.ButtonBlue,
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: Color(0xFFE7F6FF),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
