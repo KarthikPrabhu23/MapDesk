@@ -6,6 +6,7 @@ import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/my_colors.dart';
 import 'package:map1/service/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -52,7 +53,9 @@ class _ProfilePageState extends State<ProfilePage> {
               FirebaseAuth.instance.signOut();
               await authService.signOut();
               Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  MaterialPageRoute(
+                    builder: (context) => const LoginPage(),
+                  ),
                   (route) => false);
             },
             icon: const Icon(
@@ -65,15 +68,25 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: StreamBuilder(
-            stream: ref.child(SessionController().userid.toString()).onValue,
-            builder: (context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) {
+          child: StreamBuilder<DocumentSnapshot>(
+            stream: FirebaseFirestore.instance
+                .collection('users')
+                .doc(SessionController().userid)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasData) {
-                print(snapshot.data.snapshot.value);
-                Map<dynamic, dynamic> map = snapshot.data.snapshot.value;
-
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text('Something went wrong'),
+                );
+              } else if (!snapshot.hasData || !snapshot.data!.exists) {
+                return const Center(
+                  child: Text('User data not found'),
+                );
+              } else {
+                Map<String, dynamic> userData =
+                    snapshot.data!.data() as Map<String, dynamic>;
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -97,15 +110,14 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(100),
-                              child: map['profilepic'].toString() == ""
+                              child: userData['profilepic'].toString().isEmpty
                                   ? const Icon(
                                       Icons.person,
                                       size: 85,
                                     )
-                                  : Image(
+                                  : Image.network(
+                                      userData['profilepic'],
                                       fit: BoxFit.cover,
-                                      image: const NetworkImage(
-                                          'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600'),
                                       loadingBuilder:
                                           (context, child, loadingProgress) {
                                         if (loadingProgress == null) {
@@ -120,7 +132,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            // Handle edit profile picture
+                          },
                           child: const CircleAvatar(
                             radius: 16,
                             child: Icon(Icons.edit,
@@ -133,39 +147,36 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 25,
                     ),
                     ReuseableRow(
-                        title: 'Username',
-                        icondata: Icons.person,
-                        value: 'username'),
+                      title: 'Username',
+                      icondata: Icons.person,
+                      value: userData['username'],
+                    ),
                     ReuseableRow(
                       title: 'Email',
                       icondata: Icons.mail,
-                      value: 'email',
+                      value: userData['email'],
                     ),
                     ReuseableRow(
                       title: 'Phone Number',
                       icondata: Icons.phone,
-                      value: 'phone',
+                      value: "123456789",
                     ),
                     ReuseableRow(
                       title: 'Status',
                       icondata: Icons.mark_chat_unread,
-                      value: 'status',
+                      value: userData['status'],
                     ),
                     ReuseableRow(
                       title: 'Latitude',
                       icondata: Icons.pin_drop_outlined,
-                      value: map['latitude'].toString(),
+                      value: userData['latitude'].toString(),
                     ),
                     ReuseableRow(
                       title: 'Longitude',
                       icondata: Icons.pin_drop,
-                      value: map['longitude'].toString(),
+                      value: userData['longitude'].toString(),
                     ),
                   ],
-                );
-              } else {
-                return const Center(
-                  child: Text('Something went wrong'),
                 );
               }
             },
