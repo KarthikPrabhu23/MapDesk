@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print, non_constant_identifier_names, library_prefixes, avoid_unnecessary_containers
 import 'dart:math';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
@@ -12,12 +11,14 @@ import 'package:google_maps_webservice/geolocation.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/Map/classes.dart' as MyClass;
 import 'package:map1/Map/classes.dart';
 import 'package:map1/Record/components/task_complete_card.dart';
 import 'package:map1/TargetSelectPage/components/employee_card.dart';
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
 import 'package:map1/components/my_button.dart';
+import 'package:map1/my_colors.dart';
 
 //  File to choose target location on map and add it to the realtime database
 
@@ -76,7 +77,9 @@ class _AddRoomState extends State<AddRoom> {
   }
 
   Future<void> _loadTargetLocationIcon() async {
-    Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png')).buffer.asUint8List();
+    Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png'))
+        .buffer
+        .asUint8List();
     targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
     setState(() {}); // Update the state after loading the icon
   }
@@ -164,90 +167,131 @@ class _AddRoomState extends State<AddRoom> {
         scrollDirection: Axis.vertical,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(3),
+            padding: EdgeInsets.symmetric(horizontal: 22),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 7,
+                  height: 8,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: TextField(
-                    controller: roomName,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Task name',
-                      hintText: 'Enter Task name',
+                TextFormField(
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  cursorColor: Theme.of(context).primaryColor,
+                  controller: roomName,
+                  decoration: textInputDecorationPrimary.copyWith(
+                    labelText: 'Task name',
+                    hintText: 'Enter Task name',
+                    border: OutlineInputBorder(),
+                    focusColor: Theme.of(context).primaryColor,
+                    fillColor: Theme.of(context).primaryColor,
+                    prefixIcon: Icon(
+                      Icons.work,
+                      color: Theme.of(context)
+                          .primaryColor, // Use primary color here
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 6,
+                  height: 8,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: TextField(
-                    controller: roomLocation,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Task location',
-                      hintText: 'Enter Task location',
+                TextFormField(
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  cursorColor: Theme.of(context).primaryColor,
+                  controller: roomLocation,
+                  decoration: textInputDecorationPrimary.copyWith(
+                    labelText: "Task Location",
+                    hintText: 'Enter Task location',
+                    border: OutlineInputBorder(),
+                    focusColor: Theme.of(context).primaryColor,
+                    fillColor: Theme.of(context).primaryColor,
+                    prefixIcon: Icon(
+                      Icons.location_city,
+                      color: Theme.of(context)
+                          .primaryColor, // Use primary color here
                     ),
                   ),
                 ),
                 SizedBox(
-                  height: 6,
+                  height: 8,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                  child: TextField(
-                    controller: tInfo,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Information',
-                      hintText: 'Enter target information',
+                TextFormField(
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  cursorColor: Theme.of(context).primaryColor,
+                  controller: tInfo,
+                  decoration: textInputDecorationPrimary.copyWith(
+                    labelText: 'Task Information',
+                    hintText: 'Enter task information',
+                    border: OutlineInputBorder(),
+                    focusColor: Theme.of(context).primaryColor,
+                    fillColor: Theme.of(context).primaryColor,
+                    prefixIcon: Icon(
+                      Icons.book,
+                      color: Theme.of(context)
+                          .primaryColor, // Use primary color here
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Deadline time : ${selectedTime.format(context)}',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      SizedBox(width: 6),
-                      IconButton(
-                        onPressed: () => _selectTime(context),
-                        icon: Icon(
-                            Icons.access_time), // Use your desired icon here
-                        tooltip: 'Select Deadline',
-                      ),
-                    ],
-                  ),
+                const SizedBox(
+                  height: 9,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 23.0),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Deadline date : ${DateFormat.yMMMd().format(selectedDate)}',
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      SizedBox(width: 6),
-                      IconButton(
-                        focusColor: Colors.blue.withOpacity(0.7),
-                        onPressed: () => _selectDate(context),
-                        icon: Icon(
-                            Icons.calendar_month), // Use your desired icon here
-                        tooltip: 'Select Deadline',
-                      ),
-                    ],
+                Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    color: MyColors.ButtonBlue2,
+                    width: 2,
+                  )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Deadline : ',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: MyColors.ButtonBlue2,
+                              fontWeight: FontWeight.w400),
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Time : ${selectedTime.format(context)}',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            SizedBox(width: 6),
+                            IconButton(
+                              onPressed: () => _selectTime(context),
+                              icon: Icon(Icons
+                                  .access_time), // Use your desired icon here
+                              tooltip: 'Select Deadline',
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              'Date : ${DateFormat.yMMMd().format(selectedDate)}',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            SizedBox(width: 6),
+                            IconButton(
+                              focusColor: Colors.blue.withOpacity(0.7),
+                              onPressed: () => _selectDate(context),
+                              icon: Icon(Icons
+                                  .calendar_month), // Use your desired icon here
+                              tooltip: 'Select Deadline',
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -397,7 +441,7 @@ class _AddRoomState extends State<AddRoom> {
                           Text(
                             'Assign task to ',
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.w300),
+                                fontSize: 16, fontWeight: FontWeight.w300),
                           ),
                           DropdownButton<MyClass.User>(
                             items: items,
@@ -524,8 +568,14 @@ class _AddRoomState extends State<AddRoom> {
   }
 
 // MARK: AddRoomMap
-  SizedBox AddRoomMap(BuildContext context) {
-    return SizedBox(
+  Container AddRoomMap(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: MyColors.ButtonBlue2,
+          width: 2,
+        ),
+      ),
       height: MediaQuery.of(context).size.height * 0.52,
       width: MediaQuery.of(context).size.width,
       child: GestureDetector(
