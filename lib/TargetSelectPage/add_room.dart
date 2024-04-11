@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
@@ -40,6 +41,8 @@ class _AddRoomState extends State<AddRoom> {
   final roomName = TextEditingController();
   final tInfo = TextEditingController();
 
+  late BitmapDescriptor targetLocationIcon;
+
   static const CameraPosition _cecLocation =
       CameraPosition(target: LatLng(12.898799, 74.984734), zoom: 15);
 
@@ -68,6 +71,14 @@ class _AddRoomState extends State<AddRoom> {
     selectedTime = TimeOfDay.now();
     selectedDate = DateTime.now();
     selectedTime = TimeOfDay.now();
+
+    _loadTargetLocationIcon();
+  }
+
+  Future<void> _loadTargetLocationIcon() async {
+    Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png')).buffer.asUint8List();
+    targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
+    setState(() {}); // Update the state after loading the icon
   }
 
   handleTap(LatLng tappedPoint) {
@@ -88,8 +99,10 @@ class _AddRoomState extends State<AddRoom> {
             infoWindow:
                 const InfoWindow(title: 'Target', snippet: 'Choose a target'),
             draggable: true,
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueAzure),
+            //   icon: BitmapDescriptor.defaultMarkerWithHue(
+            // BitmapDescriptor.hueAzure),
+            // ),
+            icon: targetLocationIcon,
           ),
         );
       },
@@ -122,12 +135,19 @@ class _AddRoomState extends State<AddRoom> {
     }
   }
 
+  void setCustomMapPin() async {
+    Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png'))
+        .buffer
+        .asUint8List();
+    targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.white, 
+          color: Colors.white,
         ),
         toolbarHeight: 62,
         title: const Text(
