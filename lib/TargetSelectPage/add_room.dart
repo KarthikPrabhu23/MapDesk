@@ -1,10 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, camel_case_types, file_names, unused_import, avoid_print, non_constant_identifier_names, library_prefixes, avoid_unnecessary_containers
 import 'dart:math';
+// import 'package:firebase_core_web/firebase_core_web_interop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import "package:flutter/material.dart";
 import 'package:flutter/services.dart';
+import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:google_api_headers/google_api_headers.dart';
+import 'package:google_maps_webservice/places.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
@@ -18,6 +22,7 @@ import 'package:map1/Map/classes.dart';
 import 'package:map1/Record/components/task_complete_card.dart';
 import 'package:map1/TargetSelectPage/components/employee_card.dart';
 import 'package:map1/TargetSelectPage/components/map_dialog.dart';
+import 'package:map1/app_constants.dart';
 import 'package:map1/components/my_button.dart';
 import 'package:map1/my_colors.dart';
 
@@ -62,6 +67,10 @@ class _AddRoomState extends State<AddRoom> {
 
   bool MapTapped = false;
 
+  final Mode _mode = Mode.overlay;
+
+  final homeScaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -79,7 +88,7 @@ class _AddRoomState extends State<AddRoom> {
         .buffer
         .asUint8List();
     targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
-    setState(() {}); 
+    setState(() {});
   }
 
   handleTap(LatLng tappedPoint) {
@@ -146,6 +155,7 @@ class _AddRoomState extends State<AddRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: homeScaffoldKey,
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Colors.white,
@@ -186,8 +196,7 @@ class _AddRoomState extends State<AddRoom> {
                     fillColor: Theme.of(context).primaryColor,
                     prefixIcon: Icon(
                       Icons.work,
-                      color: Theme.of(context)
-                          .primaryColor,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                 ),
@@ -208,8 +217,7 @@ class _AddRoomState extends State<AddRoom> {
                     fillColor: Theme.of(context).primaryColor,
                     prefixIcon: Icon(
                       Icons.location_city,
-                      color: Theme.of(context)
-                          .primaryColor, 
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                 ),
@@ -233,7 +241,24 @@ class _AddRoomState extends State<AddRoom> {
                       color: Theme.of(context)
                           .primaryColor, // Use primary color here
                     ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        Icons.search,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      onPressed: _handlePressButton,
+                    ),
                   ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                  onTap: _handlePressButton,
                 ),
                 const SizedBox(
                   height: 9,
@@ -597,4 +622,66 @@ class _AddRoomState extends State<AddRoom> {
       ),
     );
   }
+
+  Future<void> displayPrediction(
+      Prediction p, ScaffoldState? currentState) async {
+    GoogleMapsPlaces places = GoogleMapsPlaces(
+        apiKey: Constants.apiKey,
+        apiHeaders: await const GoogleApiHeaders().getHeaders());
+
+    PlacesDetailsResponse detail = await places.getDetailsByPlaceId(p.placeId!);
+
+    final lat = detail.result.geometry!.location.lat;
+    final lng = detail.result.geometry!.location.lng;
+
+    myMarker.clear();
+    myMarker.add(Marker(
+        markerId: const MarkerId("0"),
+        position: LatLng(lat, lng),
+        infoWindow: InfoWindow(title: detail.result.name)));
+
+    setState(() {});
+
+    _mapController
+        .animateCamera(CameraUpdate.newLatLngZoom(LatLng(lat, lng), 14.0));
+  }
+
+  Future<void> _handlePressButton() async {
+    Prediction? p = await PlacesAutocomplete.show(
+      context: context,
+      apiKey: Constants.apiKey5,
+      // onError: onError,
+      mode: _mode,
+      language: 'en',
+      strictbounds: false,
+      types: [""],
+      // decoration: InputDecoration(
+      //     hintText: 'Search',
+      //     focusedBorder: OutlineInputBorder(
+      //         borderRadius: BorderRadius.circular(20),
+      //         borderSide: BorderSide(color: Colors.white))),
+      components: [
+        Component(Component.country, "in"),
+        Component(Component.country, "usa")
+      ],
+    );
+
+    displayPrediction(p!, homeScaffoldKey.currentState);
+  }
+
+  // void onError(PlacesAutocompleteResponse response) {
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //     elevation: 0,
+  //     behavior: SnackBarBehavior.floating,
+  //     backgroundColor: Colors.transparent,
+  //     content: AwesomeSnackbarContent(
+  //       title: 'Message',
+  //       message: response.errorMessage!,
+  //       contentType: ContentType.failure,
+  //     ),
+  //   ));
+
+  //   homeScaffoldKey.currentState!
+  //       .showSnackBar(SnackBar(content: Text(response.errorMessage!)));
+  // }
 }

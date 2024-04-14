@@ -20,6 +20,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {
+    
     await Firebase.initializeApp(
         options: FirebaseOptions(
       apiKey: Constants.apiKey,

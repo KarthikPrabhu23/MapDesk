@@ -25,14 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  built_collection:
-    dependency: transitive
-    description:
-      name: built_collection
-      sha256: "376e3dd27b51ea877c28d525560790aee2e6fbb5f20e2f85d5081027d94e2100"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.1"
   characters:
     dependency: transitive
     description:
@@ -121,14 +113,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  dart_either:
-    dependency: transitive
-    description:
-      name: dart_either
-      sha256: "928895b8266ac5906eb4e2993fead563a73b17fc86eec6b40172100d56ca2507"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -326,22 +310,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.0"
-  flutter_bloc_pattern:
-    dependency: transitive
+  flutter_google_places:
+    dependency: "direct main"
     description:
-      name: flutter_bloc_pattern
-      sha256: "76fc4e7cd79cfe770ca69a0ea8133cf1ac180ecf42e86d316db3693fcd871501"
+      name: flutter_google_places
+      sha256: e9fb23ceacdc7359aa759627550146f7fd3ae6c067d16f39f3c50d8feebf4809
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.0"
+    version: "0.3.0"
   flutter_google_places_hoc081098:
     dependency: "direct main"
     description:
       name: flutter_google_places_hoc081098
-      sha256: b416afe9004d61b643d2c6467e6401960fe3102835a5df846683f47875183b0b
+      sha256: "17377aba959d5607e50f8ab955532e2f97f5fcb5eb73da71f1bf8c7ab60f867f"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.0"
+    version: "1.0.0-nullsafety.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -358,14 +342,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.17"
-  flutter_provider:
-    dependency: transitive
-    description:
-      name: flutter_provider
-      sha256: "5bc7d1e9edcf364397f312b9eb901337a644a5e4a907225bcd1d7e9b020ac914"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   flutter_shaders:
     dependency: transitive
     description:
@@ -708,10 +684,10 @@ packages:
     dependency: transitive
     description:
       name: listenable_stream
-      sha256: "5458276035c7eb66477c30f8eab0942e56537ba3d268172574f7af97e265e894"
+      sha256: "2424c41f032af531985587e314b9bdf1b07a883c3c020559e819fbd4e2dc937a"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.0.0"
   location:
     dependency: "direct main"
     description:
@@ -924,18 +900,10 @@ packages:
     dependency: transitive
     description:
       name: rxdart
-      sha256: "0c7c0cedd93788d996e33041ffecda924cc54389199cde4e6a34b440f50044cb"
+      sha256: "2ef8b4e91cb3b55d155e0e34eeae0ac7107974e451495c955ac04ddee8cc21fd"
       url: "https://pub.dev"
     source: hosted
-    version: "0.27.7"
-  rxdart_ext:
-    dependency: transitive
-    description:
-      name: rxdart_ext
-      sha256: ca0b07216b4568e70d88154efd893ded54cf8cea43276c66baae245a843c326f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.9"
+    version: "0.26.0"
   sanitize_html:
     dependency: transitive
     description:

@@ -40,7 +40,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.1.1+1
-  flutter_google_places_hoc081098: ^1.2.0
+  flutter_google_places: ^0.3.0
+  # flutter_google_places_hoc081098: ^1.2.0
+  flutter_google_places_hoc081098: ^1.0.0-nullsafety.1
   font_awesome_flutter: ^10.1.0
   geocoding: ^3.0.0
   geolocator: ^10.1.0
