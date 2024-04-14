@@ -106,15 +106,37 @@ class _RecordLogState extends State<RecordLog> {
                             TabBar(
                               tabs: [
                                 Tab(
-                                  icon: Icon(Icons.home),
+                                  icon: Icon(Icons.done),
+                                  child: Text(
+                                    'Tasks Achieved',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ),
                                 Tab(
-                                  icon: Icon(Icons.airplane_ticket),
-                                 
+                                  icon: Icon(Icons.schedule),
+                                  child: Text(
+                                    'Tasks Pending',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ),
                                 Tab(
-                                  icon: Icon(Icons.man),
-                                  
+                                  icon: Icon(Icons.emoji_events),
+                                  child: Text(
+                                    'Ranking',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
