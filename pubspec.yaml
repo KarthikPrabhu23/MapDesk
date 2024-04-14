@@ -42,10 +42,11 @@ dependencies:
   flutter_animate: ^4.1.1+1
   flutter_google_places_hoc081098: ^1.2.0
   font_awesome_flutter: ^10.1.0
-  geocoding: ^2.1.1
+  geocoding: ^3.0.0
   geolocator: ^10.1.0
   gestures: ^1.0.0
   google_api_headers: ^1.6.0
+  google_fonts: ^4.0.4
   google_maps_flutter: ^2.6.0
   google_maps_webservice: ^0.0.20-nullsafety.5
   image_picker: ^1.0.7
