@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Home/profile_page.dart';
-import 'package:map1/Map/classes.dart';
-import 'package:map1/Record/components/task_complete_card.dart';
+import 'package:map1/Record/target_completion_record.dart';
 import 'package:map1/main.dart';
 
 class RecordLog extends StatefulWidget {
@@ -21,12 +21,14 @@ class _RecordLogState extends State<RecordLog> {
             color: Colors.white,
           ),
           toolbarHeight: 82,
-          title: const Text(
+          title: Text(
             appName,
-            style: TextStyle(
-              fontSize: 31,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
+            style: GoogleFonts.dmSerifDisplay(
+              textStyle: const TextStyle(
+                fontSize: 31,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
             ),
           ),
           centerTitle: true,
@@ -58,85 +60,84 @@ class _RecordLogState extends State<RecordLog> {
             ),
           ],
         ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                child: Text(
-                  'Task completion records',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Center(
-                child: Container(
-                  height: MediaQuery.of(context).size.height * 0.90,
-                  // height: 600,
-                  width: MediaQuery.of(context).size.width * 1,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 192, 187, 238),
-                        Color.fromARGB(255, 221, 219, 224)
-                      ],
+        body: const SizedBox(
+          height: 500,
+          width: 400,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
+                  child: Text(
+                    'Task records',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 20,
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  // child: Container(
+                  //   // height: MediaQuery.of(context).size.height * 0.90,
+                  //   height: 500,
+                  //   width: MediaQuery.of(context).size.width * 1,
+                  //   decoration: const BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //       colors: [
+                  //         Color.fromARGB(255, 192, 187, 238),
+                  //         Color.fromARGB(255, 221, 219, 224)
+                  //       ],
+                  //     ),
+                  //   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SingleChildScrollView(
-                        padding: const EdgeInsets.all(10),
-                        scrollDirection: Axis.vertical,
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.75,
-                          // height: 500,
-                          child: StreamBuilder<List<Target>>(
-                            stream:
-                                FirestoreService.targetLocCollectionStream(),
-                            builder: (context, targetSnapshot) {
-                              if (targetSnapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const CircularProgressIndicator();
-                              } else if (targetSnapshot.hasError) {
-                                return Text('Error: ${targetSnapshot.error}');
-                              } else {
-                                return ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  padding: const EdgeInsets.all(9),
-                                  itemCount: targetSnapshot.data!.length,
-                                  itemBuilder: (context, index) {
-                                    final targetLoc =
-                                        targetSnapshot.data![index];
-
-                                    if (targetLoc.completed) {
-                                      return TaskCard(
-                                        targetLoc: targetLoc,
-                                      );
-                                    } else {
-                                      return Container();
-                                    }
-                                  },
-                                );
-                              }
-                            },
-                          ),
+                      DefaultTabController(
+                        length: 3,
+                        child: Column(
+                          children: [
+                            TabBar(
+                              tabs: [
+                                Tab(
+                                  icon: Icon(Icons.home),
+                                ),
+                                Tab(
+                                  icon: Icon(Icons.airplane_ticket),
+                                 
+                                ),
+                                Tab(
+                                  icon: Icon(Icons.man),
+                                  
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 400,
+                              child: TabBarView(
+                                children: [
+                                  TargetCompletionRecord(),
+                                  TargetCompletionRecord(),
+                                  TargetCompletionRecord(),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
+                      // TargetCompletionRecord(),
                     ],
                   ),
+                  // ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
