@@ -181,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     Text(
                       SessionController().userid.toString(),
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
