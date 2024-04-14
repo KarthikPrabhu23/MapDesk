@@ -30,117 +30,141 @@ class TaskCard extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(15),
-              child: Row(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Image.asset(
-                    'lib/images/completePin.png',
-                    height: 100,
-                    width: 100,
-                    fit: BoxFit.cover,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Image.asset(
+                        'lib/images/completePin.png',
+                        height: 60,
+                        width: 60,
+                        fit: BoxFit.cover,
+                      ),
+                      // Add some spacing between the image and the text
+                      Container(width: 15),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            // Add some spacing between the top of the card and the title
+                            Container(height: 5),
+                            // Add a title widget
+                            Text(
+                              targetLoc.roomName,
+                              style: MyTextSample.title(context)!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            // Add some spacing between the title and the subtitle
+                            Container(height: 5),
+                            // Add a subtitle widget
+                            Text(
+                              targetLoc.roomLocation,
+                              style: MyTextSample.body1(context)!.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            // Add some spacing between the subtitle and the text
+                            Container(height: 10),
+                            // Add a text widget to display some text
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  // Add some spacing between the image and the text
-                  Container(width: 15),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        // Add some spacing between the top of the card and the title
-                        Container(height: 5),
-                        // Add a title widget
-                        Text(
-                          targetLoc.roomName,
-                          style: MyTextSample.title(context)!.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w800,
+                  const SizedBox(height: 10,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'Task Info : ', // Replace 'Heading 1' with your actual heading text
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              Text(
+                                targetLoc.targetInfo,
+                                maxLines: 2,
+                                style: MyTextSample.subhead(context)!.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        // Add some spacing between the title and the subtitle
-                        Container(height: 5),
-                        // Add a subtitle widget
-                        Text(
-                          targetLoc.roomLocation,
-                          style: MyTextSample.body1(context)!.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w500,
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'Deadline :  ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                              Text(
+                                DateFormat('dd-MM-yyyy hh:mm a')
+                                    .format(targetLoc.deadlineTime.toDate()),
+                                maxLines: 2,
+                                style: MyTextSample.subhead(context)!.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        // Add some spacing between the subtitle and the text
-                        Container(height: 10),
-                        // Add a text widget to display some text
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Task Info:', // Replace 'Heading 1' with your actual heading text
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w300,
+                        ],
+                      ),
+                      const SizedBox(
+                          height: 10), // Add spacing between sections
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Text(
+                                'Task achieved : ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w300,
+                                ),
                               ),
-                            ),
-                            Text(
-                              targetLoc.targetInfo,
-                              maxLines: 2,
-                              style: MyTextSample.subhead(context)!.copyWith(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
+                              Text(
+                                // DateFormat('dd-MM-yyyy, hh:mm a')
+                                //     .format(targetLoc.deadlineCompletedAt.toDate()),
+                                targetLoc.deadlineCompletedAt,
+                                maxLines: 2,
+                                style: MyTextSample.subhead(context)!.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10), 
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Deadline :', 
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            Text(
-                              DateFormat('dd-MM-yyyy hh:mm a')
-                                  .format(targetLoc.deadlineTime.toDate()),
-                              maxLines: 2,
-                              style: MyTextSample.subhead(context)!.copyWith(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10), // Add spacing between sections
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Task achieved at :',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            Text(
-                              // DateFormat('dd-MM-yyyy, hh:mm a')
-                              //     .format(targetLoc.deadlineCompletedAt.toDate()),
-                              targetLoc.deadlineCompletedAt,
-                              maxLines: 2,
-                              style: MyTextSample.subhead(context)!.copyWith(
-                                color: Colors.white,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
