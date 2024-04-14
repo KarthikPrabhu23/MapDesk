@@ -31,6 +31,9 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 62,
+         iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         // title: const Text(
         //   'Your Profile',
         //   style: TextStyle(

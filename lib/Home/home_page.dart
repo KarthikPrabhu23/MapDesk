@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Chat/chat_screen.dart';
 import 'package:map1/TargetSelectPage/add_room.dart';
 import 'package:map1/Home/components/banner_home_widget.dart';
@@ -191,12 +192,14 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           automaticallyImplyLeading: false,
           toolbarHeight: 82,
-          title: const Text(
+          title: Text(
             appName,
-            style: TextStyle(
-              fontSize: 31,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
+            style: GoogleFonts.dmSerifDisplay(
+              textStyle: const TextStyle(
+                fontSize: 31,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
             ),
           ),
           centerTitle: true,

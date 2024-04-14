@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Chat/search_page.dart';
 import 'package:map1/Chat/widgets/group_tile.dart';
 import 'package:map1/LoginSignup/components/widgets.dart';
@@ -81,13 +82,15 @@ class _ChatScreenState extends State<ChatScreen> {
         centerTitle: true,
         backgroundColor: Theme.of(context).primaryColor,
         toolbarHeight: 82,
-        title: const Text(
+        title: Text(
           appName,
-          style: TextStyle(
-            fontSize: 31,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
+          style: GoogleFonts.dmSerifDisplay(
+              textStyle: const TextStyle(
+                fontSize: 31,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
         ),
       ),
       body: groupList(),
@@ -277,7 +280,7 @@ class _ChatScreenState extends State<ChatScreen> {
             height: 20,
           ),
           const Text(
-            "You've not joined any groups, tap on the add icon to create a group or also search from top search button.",
+            "You've not joined any groups, Search for a group or create a new group.",
             textAlign: TextAlign.center,
           ),
         ],

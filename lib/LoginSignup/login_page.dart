@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/LoginSignup/components/myTextFormField.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
@@ -93,12 +94,15 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 15,
                     ),
-                    const Text(
+                    Text(
                       appName,
-                      style: TextStyle(
-                          fontSize: 52,
+                      style: GoogleFonts.dmSerifDisplay(
+                        textStyle: const TextStyle(
+                          fontSize: 31,
+                          fontWeight: FontWeight.w600,
                           color: Colors.white,
-                          fontWeight: FontWeight.w600),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 12,
