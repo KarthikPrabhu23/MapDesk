@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Home/profile_page.dart';
 import 'package:map1/Record/target_completion_record.dart';
+import 'package:map1/Record/target_pending_record.dart';
 import 'package:map1/main.dart';
 
 class RecordLog extends StatefulWidget {
@@ -60,106 +61,90 @@ class _RecordLogState extends State<RecordLog> {
             ),
           ],
         ),
-        body: const SizedBox(
-          height: 500,
-          width: 400,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                  child: Text(
-                    'Task records',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                    ),
+        body: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.8,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
+                child: Text(
+                  'Task records',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  // child: Container(
-                  //   // height: MediaQuery.of(context).size.height * 0.90,
-                  //   height: 500,
-                  //   width: MediaQuery.of(context).size.width * 1,
-                  //   decoration: const BoxDecoration(
-                  //     gradient: LinearGradient(
-                  //       colors: [
-                  //         Color.fromARGB(255, 192, 187, 238),
-                  //         Color.fromARGB(255, 221, 219, 224)
-                  //       ],
-                  //     ),
-                  //   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      DefaultTabController(
-                        length: 3,
-                        child: Column(
-                          children: [
-                            TabBar(
-                              tabs: [
-                                Tab(
-                                  icon: Icon(Icons.done),
-                                  child: Text(
-                                    'Tasks Achieved',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue,
-                                    ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Center(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DefaultTabController(
+                      length: 3,
+                      child: Column(
+                        children: [
+                          const TabBar(
+                            tabs: [
+                              Tab(
+                                icon: Icon(Icons.done),
+                                child: Text(
+                                  'Tasks Achieved',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
                                   ),
                                 ),
-                                Tab(
-                                  icon: Icon(Icons.schedule),
-                                  child: Text(
-                                    'Tasks Pending',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue,
-                                    ),
+                              ),
+                              Tab(
+                                icon: Icon(Icons.schedule),
+                                child: Text(
+                                  'Tasks Pending',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
                                   ),
                                 ),
-                                Tab(
-                                  icon: Icon(Icons.emoji_events),
-                                  child: Text(
-                                    'Ranking',
-                                    style: TextStyle(
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue,
-                                    ),
+                              ),
+                              Tab(
+                                icon: Icon(Icons.emoji_events),
+                                child: Text(
+                                  'Ranking',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
                                   ),
                                 ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.635,
+                            child: const TabBarView(
+                              children: [
+                                TargetCompletionRecord(),
+                                TargetPendingRecord(),
+                                TargetCompletionRecord(),
                               ],
                             ),
-                            SizedBox(
-                              height: 400,
-                              child: TabBarView(
-                                children: [
-                                  TargetCompletionRecord(),
-                                  TargetCompletionRecord(),
-                                  TargetCompletionRecord(),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      // TargetCompletionRecord(),
-                    ],
-                  ),
-                  // ),
+                    ),
+                    // TargetCompletionRecord(),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

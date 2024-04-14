@@ -4,10 +4,10 @@ import 'package:map1/Record/components/record_class.dart';
 import 'package:map1/my_colors.dart';
 import 'package:intl/intl.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskPendingCard extends StatelessWidget {
   final Target targetLoc;
 
-  const TaskCard({required this.targetLoc, super.key});
+  const TaskPendingCard({required this.targetLoc, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class TaskCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
           side: const BorderSide(
-            color: Colors.white, 
-            width: 2, 
+            color: Colors.white,
+            width: 2,
           ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -37,7 +37,7 @@ class TaskCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Image.asset(
-                        'lib/images/completePin.png',
+                        'lib/images/targetPin.png',
                         height: 60,
                         width: 60,
                         fit: BoxFit.cover,
@@ -136,7 +136,7 @@ class TaskCard extends StatelessWidget {
                           Row(
                             children: [
                               const Text(
-                                'Task achieved : ',
+                                'Assigned to : ',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 13,
@@ -144,7 +144,7 @@ class TaskCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                targetLoc.deadlineCompletedAt,
+                                targetLoc.assignedToEmployee,
                                 maxLines: 2,
                                 style: MyTextSample.subhead(context)!.copyWith(
                                   color: Colors.white,

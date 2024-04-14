@@ -14,7 +14,7 @@ class RoomScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
       child: Container(
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.41,
@@ -22,7 +22,7 @@ class RoomScrollView extends StatelessWidget {
           color: Color.fromARGB(211, 242, 247, 255),
         ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 4, 0, 5),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
           child: ListView(
             padding: EdgeInsets.zero,
             primary: false,
