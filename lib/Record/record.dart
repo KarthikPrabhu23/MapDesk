@@ -69,13 +69,15 @@ class _RecordLogState extends State<RecordLog> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                child: Text(
-                  'Task records',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 10, 0, 0),
+                 child: Text(
+                  'Target records',
+                  style: GoogleFonts.robotoSlab(
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 21,
+                    ),
                   ),
                 ),
               ),

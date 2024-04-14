@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print, unused_import
 
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_database/firebase_database.dart';
@@ -37,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   LocationData? currentLocation;
   var currentUser = FirebaseAuth.instance.currentUser;
   Query dbRef = FirebaseDatabase.instance.ref().child('Rooms');
+
   late Location location;
   String ufullname = "Default";
 
@@ -248,17 +250,36 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
                 child: BannerHomeWidget(),
               ),
-              const Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.black54,
+                thickness: 1, // Adjust the thickness as needed
+                height: 20,
+                indent: 32,
+                endIndent: 32,
+              ),
+              Padding(
+                padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                 child: Text(
                   'Target visits',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 25,
+                  style: GoogleFonts.robotoSlab(
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 25,
+                    ),
                   ),
                 ),
               ),
               RoomScrollView(dbRef: dbRef),
+              const Divider(
+                color: Colors.black54,
+                thickness: 1, // Adjust the thickness as needed
+                height: 20,
+                indent: 32,
+                endIndent: 32,
+              ),
               MyButton(
                 onPressed: () {
                   Navigator.push(

@@ -62,9 +62,6 @@ class _AddRoomState extends State<AddRoom> {
 
   bool MapTapped = false;
 
-  // String selectedUser = "";
-  // String selectedAssign = "";
-
   @override
   void initState() {
     super.initState();
@@ -82,7 +79,7 @@ class _AddRoomState extends State<AddRoom> {
         .buffer
         .asUint8List();
     targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
-    setState(() {}); // Update the state after loading the icon
+    setState(() {}); 
   }
 
   handleTap(LatLng tappedPoint) {
@@ -190,7 +187,7 @@ class _AddRoomState extends State<AddRoom> {
                     prefixIcon: Icon(
                       Icons.work,
                       color: Theme.of(context)
-                          .primaryColor, // Use primary color here
+                          .primaryColor,
                     ),
                   ),
                 ),
@@ -212,7 +209,7 @@ class _AddRoomState extends State<AddRoom> {
                     prefixIcon: Icon(
                       Icons.location_city,
                       color: Theme.of(context)
-                          .primaryColor, // Use primary color here
+                          .primaryColor, 
                     ),
                   ),
                 ),

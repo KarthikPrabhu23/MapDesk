@@ -48,12 +48,12 @@ class BannerHomeWidget extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontStyle: FontStyle.italic,
-                    fontSize: 18,
+                    fontSize: 17,
                   ),
                 ),
               ),
               SizedBox(
-                height: 15,
+                height: 12,
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
