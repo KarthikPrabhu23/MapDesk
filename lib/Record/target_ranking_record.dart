@@ -23,6 +23,9 @@ class TargetRankingRecord extends StatelessWidget {
             } else if (userSnapshot.hasError) {
               return Text('Error: ${userSnapshot.error}');
             } else {
+              userSnapshot.data!.sort((a, b) => (b.targetCompletionCount ?? 0)
+                  .compareTo(a.targetCompletionCount ?? 0));
+
               return ListView.builder(
                 scrollDirection: Axis.vertical,
                 padding: const EdgeInsets.all(9),
