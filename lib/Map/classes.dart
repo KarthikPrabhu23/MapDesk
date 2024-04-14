@@ -22,15 +22,20 @@ class User {
   final String username;
   final Location location;
   final String userUid;
+  final String? userEmail;
+  final int? targetCompletionCount;
+
 
   User({
     required this.name,
     required this.username,
     required this.location,
     required this.userUid,
+    this.userEmail,
+    this.targetCompletionCount,
   });
 
-  factory User.fromMap(String docId, Map<String, dynamic> map) {
+  factory User.fromMap(String docId, Map<dynamic, dynamic> map) {
     return User(
       userUid : docId,
       name: map['name'],
@@ -39,6 +44,8 @@ class User {
         lat: map['location']['lat'],
         lng: map['location']['lng'],
       ),
+      userEmail : map['email'],
+      targetCompletionCount : map['targetCompletionCount'],
     );
   }
 
