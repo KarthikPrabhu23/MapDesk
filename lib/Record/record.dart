@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Home/profile_page.dart';
 import 'package:map1/Record/target_completion_record.dart';
 import 'package:map1/Record/target_pending_record.dart';
+import 'package:map1/Record/target_ranking_record.dart';
 import 'package:map1/main.dart';
 
 class RecordLog extends StatefulWidget {
@@ -133,7 +134,7 @@ class _RecordLogState extends State<RecordLog> {
                               children: [
                                 TargetCompletionRecord(),
                                 TargetPendingRecord(),
-                                TargetCompletionRecord(),
+                                TargetRankingRecord(),
                               ],
                             ),
                           ),

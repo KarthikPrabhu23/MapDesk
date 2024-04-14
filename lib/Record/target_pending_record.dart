@@ -14,8 +14,7 @@ class TargetPendingRecord extends StatelessWidget {
       scrollDirection: Axis.vertical,
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.75,
-        // height: 200,
-        width: 300,
+        width:  MediaQuery.of(context).size.width,
         child: StreamBuilder<List<Target>>(
           stream: FirestoreService.targetLocCollectionStream(),
           builder: (context, targetSnapshot) {
