@@ -34,22 +34,22 @@ class _ProfilePageState extends State<ProfilePage> {
          iconTheme: const IconThemeData(
           color: Colors.white,
         ),
-        // title: const Text(
-        //   'Your Profile',
-        //   style: TextStyle(
-        //     fontSize: 21,
-        //     fontWeight: FontWeight.w600,
-        //     color: Colors.white,
-        //   ),
-        // ),
-        backgroundColor: Theme.of(context).primaryColor,
-        title: Text(
-          SessionController().userid.toString(),
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
+        title: const Text(
+          'Your Profile',
+          style: TextStyle(
+            fontSize: 21,
+            fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
         ),
+        backgroundColor: Theme.of(context).primaryColor,
+        // title: Text(
+        //   SessionController().userid.toString(),
+        //   style: const TextStyle(
+        //     fontWeight: FontWeight.bold,
+        //     color: Colors.white,
+        //   ),
+        // ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -178,6 +178,13 @@ class _ProfilePageState extends State<ProfilePage> {
                       title: 'Longitude',
                       icondata: Icons.pin_drop,
                       value: userData['longitude'].toString(),
+                    ),
+                    Text(
+                      SessionController().userid.toString(),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 );

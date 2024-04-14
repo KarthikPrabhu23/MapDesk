@@ -74,15 +74,18 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color.fromARGB(255, 106, 69, 185),
       body: Center(
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
           child: Form(
             key: _formKey,
             // height: 700,
             child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(30),
                 gradient: const LinearGradient(
-                  colors: [Color(0xff4338CA), Color(0xff6D28D9)],
+                  colors: [
+                    Color.fromARGB(255, 49, 42, 129),
+                    Color.fromARGB(255, 71, 25, 145)
+                  ],
                 ),
               ),
               child: Padding(
@@ -98,14 +101,73 @@ class _LoginPageState extends State<LoginPage> {
                       appName,
                       style: GoogleFonts.dmSerifDisplay(
                         textStyle: const TextStyle(
-                          fontSize: 31,
+                          fontSize: 61,
                           fontWeight: FontWeight.w600,
                           color: Colors.white,
                         ),
                       ),
                     ),
                     const SizedBox(
-                      height: 12,
+                      height: 1,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 3,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [
+                                    Colors.white,
+                                    Color.fromARGB(255, 71, 25, 145)
+                                  ],
+                                      begin: Alignment.centerRight,
+                                      end: Alignment.centerLeft)),
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: Colors.white,
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 15,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: 3,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [
+                                    Colors.white,
+                                    Color.fromARGB(255, 71, 25, 145)
+                                  ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 25,
                     ),
                     const Text(
                       'Login Page',
@@ -117,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Image.asset("lib/images/user.png"),
+                    // Image.asset("lib/images/user.png"),
                     const SizedBox(height: 10),
                     TextFormField(
                       style: const TextStyle(color: Colors.white),
@@ -200,9 +262,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Text(
                               'Forgot password?',
                               style: TextStyle(
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black45,
-                              ),
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.white54),
                             ),
                           ),
                         ),

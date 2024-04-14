@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
             appName,
             style: GoogleFonts.dmSerifDisplay(
               textStyle: const TextStyle(
-                fontSize: 31,
+                fontSize: 45,
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
               ),

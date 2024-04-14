@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:map1/Chat/chat_page.dart';
@@ -15,6 +16,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/components/helper.dart';
+import 'package:map1/main.dart';
 import 'package:map1/service/auth_service.dart';
 
 class SignUp extends StatefulWidget {
@@ -27,8 +29,8 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
   String userUID = "";
-  String dpUrl = "https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/pfp.png?alt=media&token=e3be88e8-d50c-491d-b52f-2f6c7843fbbc";
-  
+  String dpUrl =
+      "https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/pfp.png?alt=media&token=e3be88e8-d50c-491d-b52f-2f6c7843fbbc";
 
   final _confirmPassword = TextEditingController();
   final _email = TextEditingController();
@@ -102,41 +104,121 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[350],
+      backgroundColor: const Color.fromARGB(255, 106, 69, 185),
       body: Center(
         child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Form(
-              key: _formKey,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  // color: Color.fromARGB(255, 255, 175, 77),
+          child: Form(
+            key: _formKey,
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color.fromARGB(255, 49, 42, 129),
+                    Color.fromARGB(255, 71, 25, 145)
+                  ],
                 ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(28.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(
-                      height: 15,
+                      height: 3,
+                    ),
+                    Text(
+                      appName,
+                      style: GoogleFonts.dmSerifDisplay(
+                        textStyle: const TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 1,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            height: 2,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [
+                                    Colors.white,
+                                    Color.fromARGB(255, 71, 25, 145)
+                                  ],
+                                      begin: Alignment.centerRight,
+                                      end: Alignment.centerLeft)),
+                            ),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 2),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                size: 10,
+                                color: Colors.white,
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 20,
+                                color: Colors.white,
+                              ),
+                              Icon(
+                                Icons.star,
+                                size: 10,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: SizedBox(
+                            height: 2,
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(
+                                      colors: [
+                                    Colors.white,
+                                    Color.fromARGB(255, 71, 25, 145)
+                                  ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 3,
                     ),
                     const Text(
                       'SignUp Page',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 34),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        color: Colors.white70,
+                      ),
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 14,
                     ),
                     GestureDetector(
                       onTap: () {
                         pickUploadImage();
                       },
                       child: Container(
-                        width: 120,
-                        height: 120,
+                        width: 90,
+                        height: 90,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
@@ -158,20 +240,42 @@ class _SignUpState extends State<SignUp> {
                             : Image.network(dpUrl),
                       ),
                     ),
-                    // EmailInputFieldIcon(
-                    //   _email,
-                    //   inputController: _email,
-                    // ),
-                    // const SizedBox(
-                    //   height: 20,
-                    // ),
+                    const SizedBox(
+                      height: 2,
+                    ),
                     TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
                       decoration: textInputDecoration.copyWith(
-                          labelText: "Full Name",
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: Theme.of(context).primaryColor,
-                          )),
+                        labelText: "Username",
+                        focusColor: Colors.white,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(
+                          Icons.person_outlined,
+                          color: Colors.white,
+                        ),
+                      ),
+                      onChanged: (val) {
+                        setState(() {
+                          // password = val;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
+                      decoration: textInputDecoration.copyWith(
+                        labelText: "Full Name",
+                        focusColor: Colors.white,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
+                      ),
                       onChanged: (val) {
                         setState(() {
                           fullName = val;
@@ -187,21 +291,25 @@ class _SignUpState extends State<SignUp> {
                       },
                     ),
                     const SizedBox(
-                      height: 15,
+                      height: 10,
                     ),
                     TextFormField(
+                      style: const TextStyle(color: Colors.white),
+                      cursorColor: Colors.white,
                       decoration: textInputDecoration.copyWith(
-                          labelText: "Email",
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color: Theme.of(context).primaryColor,
-                          )),
+                        labelText: "Email",
+                        focusColor: Colors.white,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(
+                          Icons.email,
+                          color: Colors.white,
+                        ),
+                      ),
                       onChanged: (val) {
                         setState(() {
                           email = val;
                         });
                       },
-
                       // check tha validation
                       validator: (val) {
                         return RegExp(
@@ -211,15 +319,20 @@ class _SignUpState extends State<SignUp> {
                             : "Please enter a valid email";
                       },
                     ),
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 10),
                     TextFormField(
+                      style: const TextStyle(color: Colors.white),
                       obscureText: true,
+                      cursorColor: Colors.white,
                       decoration: textInputDecoration.copyWith(
-                          labelText: "Password",
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: Theme.of(context).primaryColor,
-                          )),
+                        labelText: "Password",
+                        focusColor: Colors.white,
+                        fillColor: Colors.white,
+                        prefixIcon: const Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                        ),
+                      ),
                       validator: (val) {
                         if (val!.length < 6) {
                           return "Password must be at least 6 characters";
@@ -234,16 +347,9 @@ class _SignUpState extends State<SignUp> {
                       },
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
-                    myTextFormField(
-                      MyController: _username,
-                      hintText: "Enter username",
-                      labelText: "Username",
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    
                     // myTextFormField(
                     //   MyController: _email,
                     //   hintText: "Enter email id",
@@ -267,7 +373,7 @@ class _SignUpState extends State<SignUp> {
                     //   // ObscureText: true,
                     // ),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     SizedBox(
                       width: 250,
@@ -283,46 +389,46 @@ class _SignUpState extends State<SignUp> {
                           //     email: _email.text,
                           //     password: _password.text,
                           //   )
-                                // .then((value) {
-                              // ref.child(value.user!.uid.toString()).set(
-                              //   {
-                              //     'uid': value.user!.uid.toString(),
-                              //     'email': value.user!.email.toString(),
-                              //     'username': _username.text.toString(),
-                              //     'status': '',
-                              //   },
-                              // );
+                          // .then((value) {
+                          // ref.child(value.user!.uid.toString()).set(
+                          //   {
+                          //     'uid': value.user!.uid.toString(),
+                          //     'email': value.user!.email.toString(),
+                          //     'username': _username.text.toString(),
+                          //     'status': '',
+                          //   },
+                          // );
                           //     // _uploadImage;
-                              // FirebaseFirestore.instance
-                              //     .collection('users')
-                              //     .doc(value.user!.uid.toString())
-                              //     .set(
-                              //   {
-                              //     // 'location': {
-                              //     //   'lat': latitude,
-                              //     //   'lng': longitude,
-                              //     //   'timestamp':
-                              //     //       firestore.FieldValue.serverTimestamp(),
-                              //     // },
-                              //     // 'emailid': emailId,
-                              //     // 'name': ufullname,
-                              //     'email': _email.text.toString(),
-                              //     'username': _username.text.toString(),
-                              //     'status': '',
-                              //     'profilepic': dpUrl,
-                              //     'targetCompletionCount': 0,
-                              //   },
-                              // );
-                              // SessionController().userid = value.user!.uid;
-                              // SessionController().username =
-                              //     _username.text.toString();
+                          // FirebaseFirestore.instance
+                          //     .collection('users')
+                          //     .doc(value.user!.uid.toString())
+                          //     .set(
+                          //   {
+                          //     // 'location': {
+                          //     //   'lat': latitude,
+                          //     //   'lng': longitude,
+                          //     //   'timestamp':
+                          //     //       firestore.FieldValue.serverTimestamp(),
+                          //     // },
+                          //     // 'emailid': emailId,
+                          //     // 'name': ufullname,
+                          //     'email': _email.text.toString(),
+                          //     'username': _username.text.toString(),
+                          //     'status': '',
+                          //     'profilepic': dpUrl,
+                          //     'targetCompletionCount': 0,
+                          //   },
+                          // );
+                          // SessionController().userid = value.user!.uid;
+                          // SessionController().username =
+                          //     _username.text.toString();
 
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const MyHomePage(),
-                              //   ),
-                              // );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const MyHomePage(),
+                          //   ),
+                          // );
 
                           //   }).catchError(
                           //     (error) {
@@ -359,7 +465,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                     const SizedBox(
-                      height: 25,
+                      height: 5,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -402,33 +508,31 @@ class _SignUpState extends State<SignUp> {
 
   register() async {
     if (_formKey.currentState!.validate()) {
-      setState(() {
-      });
+      setState(() {});
       await authService
-          .registerUserWithEmailandPassword(fullName, _username.text.toString(), dpUrl, email, password)
+          .registerUserWithEmailandPassword(
+              fullName, _username.text.toString(), dpUrl, email, password)
 
-      // await FirebaseAuth.instance
-      //     .createUserWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // )
+          // await FirebaseAuth.instance
+          //     .createUserWithEmailAndPassword(
+          //   email: email,
+          //   password: password,
+          // )
           .then((value) async {
-          await HelperFunctions.saveUserLoggedInStatus(true);
-          await HelperFunctions.saveUserEmailSF(email);
-          await HelperFunctions.saveUserNameSF(fullName);
-          // _uploadImage;
-         
+        await HelperFunctions.saveUserLoggedInStatus(true);
+        await HelperFunctions.saveUserEmailSF(email);
+        await HelperFunctions.saveUserNameSF(fullName);
+        // _uploadImage;
 
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const MyHomePage(),
-            ),
-          );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const MyHomePage(),
+          ),
+        );
 
-          // nextScreenReplace(context, const ChatScreen());
-        } 
-      );
+        // nextScreenReplace(context, const ChatScreen());
+      });
     }
   }
 }

@@ -266,7 +266,7 @@ class _AddRoomState extends State<AddRoom> {
                 Container(
                   decoration: BoxDecoration(
                       border: Border.all(
-                    color: MyColors.ButtonBlue2,
+                    color: MyColors.ButtonBlue,
                     width: 2,
                   )),
                   child: Padding(
@@ -279,7 +279,7 @@ class _AddRoomState extends State<AddRoom> {
                           textAlign: TextAlign.left,
                           style: TextStyle(
                               fontSize: 16,
-                              color: MyColors.ButtonBlue2,
+                              color: MyColors.ButtonBlue,
                               fontWeight: FontWeight.w400),
                         ),
                         Row(
@@ -595,7 +595,7 @@ class _AddRoomState extends State<AddRoom> {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(
-          color: MyColors.ButtonBlue2,
+          color: MyColors.ButtonBlue,
           width: 2,
         ),
       ),
