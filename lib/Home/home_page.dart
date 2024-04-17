@@ -8,6 +8,8 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Chat/chat_screen.dart';
+import 'package:map1/Home/components/add_task_layout.dart';
+import 'package:map1/Home/components/big_button.dart';
 import 'package:map1/TargetSelectPage/add_room.dart';
 import 'package:map1/Home/components/banner_home_widget.dart';
 import 'package:map1/Home/components/room_scrollview_widget.dart';
@@ -19,7 +21,9 @@ import 'package:map1/components/helper.dart';
 import 'package:map1/components/my_button.dart';
 import 'package:map1/main.dart';
 import 'package:map1/my_colors.dart';
+import 'package:permission_handler/permission_handler.dart' as perm_handler;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({
@@ -49,14 +53,78 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    requestPermissions;
     location = Location();
     _userLocationRef = FirebaseDatabase.instance.ref().child('User');
     _getCurrentUser();
     _getLocation();
     firestoreLogin();
     _subscribeToLocationChanges();
+    updateTokenAndSubscribe();
 
     printUsername();
+  }
+
+// Method to request multiple permissions
+  Future<void> requestPermissions() async {
+    // Request permissions using permission_handler
+    Map<perm_handler.Permission, PermissionStatus> statuses = (await [
+      perm_handler.Permission.camera,
+      perm_handler.Permission.location,
+      perm_handler.Permission.locationAlways,
+      perm_handler.Permission.storage,
+    ].request())
+        .cast<perm_handler.Permission, PermissionStatus>();
+
+    // Handle the result of permission requests
+    if (statuses[perm_handler.Permission.storage] != PermissionStatus.granted) {
+      // Handle storage permission not granted
+      perm_handler.openAppSettings();
+      return;
+    }
+    if (statuses[perm_handler.Permission.camera] != PermissionStatus.granted) {
+      // Handle camera permission not granted
+      perm_handler.openAppSettings();
+      return;
+    }
+    if (statuses[perm_handler.Permission.location] !=
+        PermissionStatus.granted) {
+      // Handle location permission not granted
+      perm_handler.openAppSettings();
+      return;
+    }
+    if (statuses[perm_handler.Permission.locationAlways] !=
+        PermissionStatus.granted) {
+      // Handle background location permission not granted
+      perm_handler.openAppSettings();
+      return;
+    }
+  }
+
+  void updateFCMToken(String userId, String token) {
+    firestore.FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .update({
+      'fcmToken': token,
+    }).then((value) {
+      print('FCM token updated successfully');
+    }).catchError((error) {
+      print('Error updating FCM token: $error');
+    });
+  }
+
+// Function to get FCM token and update Firestore
+  void updateTokenAndSubscribe() async {
+    String userId = currUid;
+
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    if (token != null) {
+      updateFCMToken(userId, token);
+    } else {
+      print('User ID or FCM token is null');
+    }
   }
 
   void printUsername() async {
@@ -275,7 +343,19 @@ class _MyHomePageState extends State<MyHomePage> {
               RoomScrollView(dbRef: dbRef),
               const Divider(
                 color: Colors.black54,
-                thickness: 1, // Adjust the thickness as needed
+                thickness: 1,
+                height: 20,
+                indent: 32,
+                endIndent: 32,
+              ),
+
+              const AddTaskLayout(),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.black54,
+                thickness: 1,
                 height: 20,
                 indent: 32,
                 endIndent: 32,
@@ -313,35 +393,35 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        floatingActionButton: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: FloatingActionButton.extended(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AddRoom()),
-                    );
-                  },
-                  icon: const Icon(Icons.add),
-                  label: const Text(
-                    'Add Task',
-                    style: TextStyle(
-                      fontFamily: 'YourCustomFont',
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        // floatingActionButton: Padding(
+        //   padding: const EdgeInsets.all(18.0),
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.end,
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: <Widget>[
+        //       Padding(
+        //         padding: const EdgeInsetsDirectional.fromSTEB(16, 12, 16, 0),
+        //         child: FloatingActionButton.extended(
+        //           onPressed: () {
+        //             Navigator.push(
+        //               context,
+        //               MaterialPageRoute(builder: (context) => const AddRoom()),
+        //             );
+        //           },
+        //           icon: const Icon(Icons.add),
+        //           label: const Text(
+        //             'Add Task',
+        //             style: TextStyle(
+        //               fontFamily: 'YourCustomFont',
+        //               fontSize: 16,
+        //               fontWeight: FontWeight.bold,
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
