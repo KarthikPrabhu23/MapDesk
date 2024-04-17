@@ -232,19 +232,6 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       },
                     ),
-                    // myTextFormField(
-                    //   MyController: _email,
-                    //   hintText: "Enter email id",
-                    //   labelText: "Email ID",
-                    // ),
-                    // const SizedBox(
-                    //   height: 15,
-                    // ),
-                    // myTextFormField(
-                    //   MyController: _password,
-                    //   hintText: "Enter password",
-                    //   labelText: "Password",
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -279,40 +266,12 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           login();
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyHomePage(),
-                            ),
-                          );
-
-                          // if (_formKey.currentState!.validate()) {
-                          //   FirebaseAuth.instance
-                          //       .signInWithEmailAndPassword(
-                          //     email: _email.text,
-                          //     password: _password.text,
-                          //   )
-                          //       .then((value) {
-                          //     SessionController().userid = value.user!.uid;
-                          //     // SessionController().username =
-                          //     //     value.user!.username;
-                          //     Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //         builder: (context) => const MyHomePage(),
-                          //       ),
-                          //     );
-                          //   }).catchError(
-                          //     (error) {
-                          //       print("Error ${error.toString()}");
-                          //       ScaffoldMessenger.of(context).showSnackBar(
-                          //         SnackBar(
-                          //           content: Text(error.toString()),
-                          //         ),
-                          //       );
-                          //     },
-                          //   );
-                          // }
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => const MyHomePage(),
+                          //   ),
+                          // );
                         },
                         child: const Text(
                           "Login",

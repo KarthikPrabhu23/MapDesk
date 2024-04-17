@@ -3,7 +3,7 @@
 import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart' as AuthPackage;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -26,6 +26,9 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
+
+  String currUid = "";
+
   bool targetSliderToggle = true;
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
   late StreamSubscription<Position>? locationStreamSubscription;
@@ -61,12 +64,27 @@ class MapScreenState extends State<MapScreen> {
     _getCurrentLocation();
     setCustomMapPin();
     locationStream();
+     _getCurrentUser();
   }
 
   void onMapCreated(controller) {
     setState(() {
       mapController = controller;
     });
+  }
+
+  void _getCurrentUser() {
+    AuthPackage.FirebaseAuth auth = AuthPackage.FirebaseAuth.instance;
+
+    // Check if the user is signed in
+    if (auth.currentUser != null) {
+      String uid = auth.currentUser!.uid;
+      print('Current User UID: $uid \n _getCurrentUser');
+
+      currUid = uid;
+    } else {
+      print('No user signed in');
+    }
   }
 
   void setCustomMapPin() async {
@@ -297,6 +315,8 @@ class MapScreenState extends State<MapScreen> {
                             if (reachedTarget) {
                               FirestoreService.updateTargetCompletion(
                                   targetElem.targetUid);
+                              FirestoreService.increaseTargetCompletionCount(currUid);
+                              
                             } else {
                               // Use mounted check to ensure the context is valid
                               if (mounted) {

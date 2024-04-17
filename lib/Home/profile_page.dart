@@ -71,125 +71,127 @@ class _ProfilePageState extends State<ProfilePage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: StreamBuilder<DocumentSnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(SessionController().userid)
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return const Center(
-                  child: Text('Something went wrong'),
-                );
-              } else if (!snapshot.hasData || !snapshot.data!.exists) {
-                return const Center(
-                  child: Text('User data not found'),
-                );
-              } else {
-                Map<String, dynamic> userData =
-                    snapshot.data!.data() as Map<String, dynamic>;
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Center(
-                          child: Container(
-                            height: 150,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: MyColors.ButtonBlue,
-                                width: 5,
+          child: SingleChildScrollView(
+            child: StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(SessionController().userid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text('Something went wrong'),
+                  );
+                } else if (!snapshot.hasData || !snapshot.data!.exists) {
+                  return const Center(
+                    child: Text('User data not found'),
+                  );
+                } else {
+                  Map<String, dynamic> userData =
+                      snapshot.data!.data() as Map<String, dynamic>;
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Center(
+                            child: Container(
+                              height: 150,
+                              width: 150,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: MyColors.ButtonBlue,
+                                  width: 5,
+                                ),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: userData['profilepic'].toString().isEmpty
+                                    ? const Icon(
+                                        Icons.person,
+                                        size: 85,
+                                      )
+                                    : Image.network(
+                                        userData['profilepic'],
+                                        fit: BoxFit.cover,
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        },
+                                      ),
                               ),
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: userData['profilepic'].toString().isEmpty
-                                  ? const Icon(
-                                      Icons.person,
-                                      size: 85,
-                                    )
-                                  : Image.network(
-                                      userData['profilepic'],
-                                      fit: BoxFit.cover,
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      },
-                                    ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              // Handle edit profile picture
+                            },
+                            child: const CircleAvatar(
+                              radius: 16,
+                              child: Icon(Icons.edit,
+                                  size: 16, color: Colors.black54),
                             ),
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            // Handle edit profile picture
-                          },
-                          child: const CircleAvatar(
-                            radius: 16,
-                            child: Icon(Icons.edit,
-                                size: 16, color: Colors.black54),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    ReuseableRow(
-                      title: 'Username',
-                      icondata: Icons.person,
-                      value: userData['username'],
-                    ),
-                    ReuseableRow(
-                      title: 'Email',
-                      icondata: Icons.mail,
-                      value: userData['email'],
-                    ),
-                    const ReuseableRow(
-                      title: 'Phone Number',
-                      icondata: Icons.phone,
-                      value: "123456789",
-                    ),
-                    ReuseableRow(
-                      title: 'Status',
-                      icondata: Icons.mark_chat_unread,
-                      value: userData['status'],
-                    ),
-                    ReuseableRow(
-                      title: 'Latitude',
-                      icondata: Icons.pin_drop_outlined,
-                      value: userData['latitude'].toString(),
-                    ),
-                    ReuseableRow(
-                      title: 'Longitude',
-                      icondata: Icons.pin_drop,
-                      value: userData['longitude'].toString(),
-                    ),
-                    Text(
-                      SessionController().userid.toString(),
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                          )
+                        ],
                       ),
-                    ),
-                  ],
-                );
-              }
-            },
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      ReuseableRow(
+                        title: 'Username',
+                        icondata: Icons.person,
+                        value: userData['username'],
+                      ),
+                      ReuseableRow(
+                        title: 'Email',
+                        icondata: Icons.mail,
+                        value: userData['email'],
+                      ),
+                      const ReuseableRow(
+                        title: 'Phone Number',
+                        icondata: Icons.phone,
+                        value: "123456789",
+                      ),
+                      ReuseableRow(
+                        title: 'Status',
+                        icondata: Icons.mark_chat_unread,
+                        value: userData['status'],
+                      ),
+                      ReuseableRow(
+                        title: 'Latitude',
+                        icondata: Icons.pin_drop_outlined,
+                        value: userData['latitude'].toString(),
+                      ),
+                      ReuseableRow(
+                        title: 'Longitude',
+                        icondata: Icons.pin_drop,
+                        value: userData['longitude'].toString(),
+                      ),
+                      Text(
+                        SessionController().userid.toString(),
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),
