@@ -85,12 +85,12 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text(
           appName,
           style: GoogleFonts.dmSerifDisplay(
-              textStyle: const TextStyle(
-                fontSize: 31,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+            textStyle: const TextStyle(
+              fontSize: 31,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
             ),
+          ),
         ),
       ),
       body: groupList(),
@@ -142,10 +142,11 @@ class _ChatScreenState extends State<ChatScreen> {
 
   popUpDialog(BuildContext context) {
     showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(builder: ((context, setState) {
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: ((context, setState) {
             return AlertDialog(
               title: const Text(
                 "Create a group chat",
@@ -167,18 +168,21 @@ class _ChatScreenState extends State<ChatScreen> {
                           },
                           style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor),
-                                  borderRadius: BorderRadius.circular(20)),
-                              errorBorder: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.red),
-                                  borderRadius: BorderRadius.circular(20)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor),
-                                  borderRadius: BorderRadius.circular(20))),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
                         ),
                 ],
               ),
@@ -221,8 +225,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 )
               ],
             );
-          }));
-        });
+          }),
+        );
+      },
+    );
   }
 
   groupList() {

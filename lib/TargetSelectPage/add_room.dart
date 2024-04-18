@@ -156,6 +156,7 @@ class _AddRoomState extends State<AddRoom> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: homeScaffoldKey,
+      
       appBar: AppBar(
         iconTheme: const IconThemeData(
           color: Colors.white,
@@ -173,416 +174,421 @@ class _AddRoomState extends State<AddRoom> {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 8,
-                ),
-                TextFormField(
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+        child: Container(
+          decoration: BoxDecoration(
+            color:  Color.fromARGB(176, 255, 250, 250),
+          ),
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 22),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 8,
                   ),
-                  cursorColor: Theme.of(context).primaryColor,
-                  controller: roomName,
-                  decoration: textInputDecorationPrimary.copyWith(
-                    labelText: 'Task name',
-                    hintText: 'Enter Task name',
-                    border: OutlineInputBorder(),
-                    focusColor: Theme.of(context).primaryColor,
-                    fillColor: Theme.of(context).primaryColor,
-                    prefixIcon: Icon(
-                      Icons.work,
+                  TextFormField(
+                    style: TextStyle(
                       color: Theme.of(context).primaryColor,
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                TextFormField(
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  cursorColor: Theme.of(context).primaryColor,
-                  controller: roomLocation,
-                  decoration: textInputDecorationPrimary.copyWith(
-                    labelText: "Task Location",
-                    hintText: 'Enter Task location',
-                    border: OutlineInputBorder(),
-                    focusColor: Theme.of(context).primaryColor,
-                    fillColor: Theme.of(context).primaryColor,
-                    prefixIcon: Icon(
-                      Icons.location_city,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                TextFormField(
-                  style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  cursorColor: Theme.of(context).primaryColor,
-                  controller: tInfo,
-                  decoration: textInputDecorationPrimary.copyWith(
-                    labelText: 'Task Information',
-                    hintText: 'Enter task information',
-                    border: OutlineInputBorder(),
-                    focusColor: Theme.of(context).primaryColor,
-                    fillColor: Theme.of(context).primaryColor,
-                    prefixIcon: Icon(
-                      Icons.book,
-                      color: Theme.of(context)
-                          .primaryColor, // Use primary color here
-                    ),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        Icons.search,
+                    cursorColor: Theme.of(context).primaryColor,
+                    controller: roomName,
+                    decoration: textInputDecorationPrimary.copyWith(
+                      labelText: 'Task name',
+                      hintText: 'Enter Task name',
+                      border: OutlineInputBorder(),
+                      focusColor: Theme.of(context).primaryColor,
+                      fillColor: Theme.of(context).primaryColor,
+                      prefixIcon: Icon(
+                        Icons.work,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: _handlePressButton,
                     ),
                   ),
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Search',
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.white),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  TextFormField(
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    cursorColor: Theme.of(context).primaryColor,
+                    controller: roomLocation,
+                    decoration: textInputDecorationPrimary.copyWith(
+                      labelText: "Task Location",
+                      hintText: 'Enter Task location',
+                      border: OutlineInputBorder(),
+                      focusColor: Theme.of(context).primaryColor,
+                      fillColor: Theme.of(context).primaryColor,
+                      prefixIcon: Icon(
+                        Icons.location_city,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
-                  onTap: _handlePressButton,
-                ),
-                const SizedBox(
-                  height: 9,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                    color: MyColors.ButtonBlue2,
-                    width: 2,
-                  )),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Deadline : ',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: MyColors.ButtonBlue2,
-                              fontWeight: FontWeight.w400),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  TextFormField(
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    cursorColor: Theme.of(context).primaryColor,
+                    controller: tInfo,
+                    decoration: textInputDecorationPrimary.copyWith(
+                      labelText: 'Task Information',
+                      hintText: 'Enter task information',
+                      border: OutlineInputBorder(),
+                      focusColor: Theme.of(context).primaryColor,
+                      fillColor: Theme.of(context).primaryColor,
+                      prefixIcon: Icon(
+                        Icons.book,
+                        color: Theme.of(context)
+                            .primaryColor, // Use primary color here
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          Icons.search,
+                          color: Theme.of(context).primaryColor,
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              'Time : ${selectedTime.format(context)}',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            SizedBox(width: 6),
-                            IconButton(
-                              onPressed: () => _selectTime(context),
-                              icon: Icon(Icons
-                                  .access_time), // Use your desired icon here
-                              tooltip: 'Select Deadline',
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Date : ${DateFormat.yMMMd().format(selectedDate)}',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            SizedBox(width: 6),
-                            IconButton(
-                              focusColor: Colors.blue.withOpacity(0.7),
-                              onPressed: () => _selectDate(context),
-                              icon: Icon(Icons
-                                  .calendar_month), // Use your desired icon here
-                              tooltip: 'Select Deadline',
-                            ),
-                          ],
-                        ),
-                      ],
+                        onPressed: _handlePressButton,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  'Tap on the map below to choose a target location',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey[600],
-                    fontSize: 12,
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search',
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                    onTap: _handlePressButton,
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                AddRoomMap(context),
-                const SizedBox(
-                  height: 15,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  child: MapTapped
-                      ? Container(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.34,
-                            // height: 600,
-                            width: MediaQuery.of(context).size.width * 0.8,
-
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Color.fromARGB(255, 192, 187, 238),
-                                  Color.fromARGB(255, 221, 219, 224)
+                  const SizedBox(
+                    height: 9,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                      color: MyColors.ButtonBlue2,
+                      width: 2,
+                    )),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Deadline : ',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: MyColors.ButtonBlue2,
+                                fontWeight: FontWeight.w400),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Time : ${selectedTime.format(context)}',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              SizedBox(width: 6),
+                              IconButton(
+                                onPressed: () => _selectTime(context),
+                                icon: Icon(Icons
+                                    .access_time), // Use your desired icon here
+                                tooltip: 'Select Deadline',
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                'Date : ${DateFormat.yMMMd().format(selectedDate)}',
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              SizedBox(width: 6),
+                              IconButton(
+                                focusColor: Colors.blue.withOpacity(0.7),
+                                onPressed: () => _selectDate(context),
+                                icon: Icon(Icons
+                                    .calendar_month), // Use your desired icon here
+                                tooltip: 'Select Deadline',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    'Tap on the map below to choose a target location',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      color: Colors.grey[600],
+                      fontSize: 12,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  AddRoomMap(context),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    child: MapTapped
+                        ? Container(
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * 0.34,
+                              // height: 600,
+                              width: MediaQuery.of(context).size.width * 0.8,
+          
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color.fromARGB(255, 192, 187, 238),
+                                    Color.fromARGB(255, 221, 219, 224)
+                                  ],
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                // mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Text(
+                                      'Your Employees :',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ),
+                                  SingleChildScrollView(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 2, horizontal: 5),
+                                    scrollDirection: Axis.vertical,
+                                    child: SizedBox(
+                                      height: MediaQuery.of(context).size.height *
+                                          0.283,
+                                      // height: 500,
+                                      child: StreamBuilder<List<User>>(
+                                        stream: FirestoreService
+                                            .userCollectionStream(),
+                                        builder: (context, userSnapshot) {
+                                          if (userSnapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const CircularProgressIndicator();
+                                          } else if (userSnapshot.hasError) {
+                                            return Text(
+                                                'Error: ${userSnapshot.error}');
+                                          } else {
+                                            return ListView.builder(
+                                              scrollDirection: Axis.vertical,
+                                              padding: const EdgeInsets.all(9),
+                                              itemCount:
+                                                  userSnapshot.data!.length,
+                                              itemBuilder: (context, index) {
+                                                final user =
+                                                    userSnapshot.data![index];
+          
+                                                // if (user.assignedToEmployee) {
+                                                return EmployeeCard(
+                                                  UserEmployee: user,
+                                                  EmployeeLocation: user.location,
+                                                );
+                                                // } else {
+                                                // return Container();
+                                                // }
+                                              },
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              // mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(3.0),
-                                  child: Text(
-                                    'Your Employees :',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ),
-                                SingleChildScrollView(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 2, horizontal: 5),
-                                  scrollDirection: Axis.vertical,
-                                  child: SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.283,
-                                    // height: 500,
-                                    child: StreamBuilder<List<User>>(
-                                      stream: FirestoreService
-                                          .userCollectionStream(),
-                                      builder: (context, userSnapshot) {
-                                        if (userSnapshot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return const CircularProgressIndicator();
-                                        } else if (userSnapshot.hasError) {
-                                          return Text(
-                                              'Error: ${userSnapshot.error}');
-                                        } else {
-                                          return ListView.builder(
-                                            scrollDirection: Axis.vertical,
-                                            padding: const EdgeInsets.all(9),
-                                            itemCount:
-                                                userSnapshot.data!.length,
-                                            itemBuilder: (context, index) {
-                                              final user =
-                                                  userSnapshot.data![index];
-
-                                              // if (user.assignedToEmployee) {
-                                              return EmployeeCard(
-                                                UserEmployee: user,
-                                                EmployeeLocation: user.location,
-                                              );
-                                              // } else {
-                                              // return Container();
-                                              // }
-                                            },
-                                          );
-                                        }
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ],
+                          )
+                        : SizedBox(),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        }
+          
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        }
+          
+                        List<DropdownMenuItem<MyClass.User>> items = [];
+          
+                        final users = snapshot.data!.docs;
+          
+                        for (var user in users) {
+                          final userData = user.data() as Map<String, dynamic>;
+                          final username = userData['username'] as String;
+                          final userObject = MyClass.User(
+                            name: userData['name'] as String,
+                            username: username,
+                            userUid: user.id,
+                            location: MyClass.Location(
+                              lat: Random().nextDouble() * 180 - 90,
+                              lng: Random().nextDouble() * 360 - 180,
                             ),
-                          ),
-                        )
-                      : SizedBox(),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  child: StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance
-                        .collection('users')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      }
-
-                      if (!snapshot.hasData) {
-                        return CircularProgressIndicator();
-                      }
-
-                      List<DropdownMenuItem<MyClass.User>> items = [];
-
-                      final users = snapshot.data!.docs;
-
-                      for (var user in users) {
-                        final userData = user.data() as Map<String, dynamic>;
-                        final username = userData['username'] as String;
-                        final userObject = MyClass.User(
-                          name: userData['name'] as String,
-                          username: username,
-                          userUid: user.id,
-                          location: MyClass.Location(
-                            lat: Random().nextDouble() * 180 - 90,
-                            lng: Random().nextDouble() * 360 - 180,
-                          ),
-                        );
-                        items.add(
-                          DropdownMenuItem<MyClass.User>(
-                            value: userObject,
-                            child: Text(username),
-                          ),
-                        );
-                      }
-
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Assign task to ',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w300),
-                          ),
-                          DropdownButton<MyClass.User>(
-                            items: items,
-                            onChanged: (selectedItem) {
-                              setState(() {
-                                selectedUser = selectedItem!;
-                                selectedAssign = selectedUser;
-                                IsEmployeeAssigned = true;
-                              });
-                              print('Selected MyClass.User: $selectedUser');
-                              print(
-                                  'SelectedUser uid is : ${selectedUser.userUid}');
-                              print(
-                                  'SelectedAssign uid is : ${selectedAssign.userUid}');
-                              print(
-                                  'SelectedAssign name is : ${selectedAssign.username}');
-                              print('selectedAssign: $selectedAssign');
-                            },
-                            hint: Text(
-                              ' employee',
+                          );
+                          items.add(
+                            DropdownMenuItem<MyClass.User>(
+                              value: userObject,
+                              child: Text(username),
+                            ),
+                          );
+                        }
+          
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Assign task to ',
                               style: TextStyle(
-                                fontWeight: FontWeight.w300,
-                                fontSize: 15,
+                                  fontSize: 16, fontWeight: FontWeight.w300),
+                            ),
+                            DropdownButton<MyClass.User>(
+                              items: items,
+                              onChanged: (selectedItem) {
+                                setState(() {
+                                  selectedUser = selectedItem!;
+                                  selectedAssign = selectedUser;
+                                  IsEmployeeAssigned = true;
+                                });
+                                print('Selected MyClass.User: $selectedUser');
+                                print(
+                                    'SelectedUser uid is : ${selectedUser.userUid}');
+                                print(
+                                    'SelectedAssign uid is : ${selectedAssign.userUid}');
+                                print(
+                                    'SelectedAssign name is : ${selectedAssign.username}');
+                                print('selectedAssign: $selectedAssign');
+                              },
+                              hint: Text(
+                                ' employee',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 15,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
-                Container(
-                  child: IsEmployeeAssigned
-                      ? Text(
-                          'Task Assigned to ${selectedAssign.username}',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 19,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        )
-                      : SizedBox(),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Center(
-                  child: MyButton(
-                    onPressed: () {
-                      Map<dynamic, dynamic> roomsMap = {
-                        'roomName': roomName.text,
-                        'roomLocation': roomLocation.text,
-                        'latitude': lat,
-                        'longitude': long,
-                        'completed': false,
-                        'targetInfo': tInfo.text,
-                      };
-
-                      dbRef.push().set(roomsMap);
-
-                      DateTime dateTime = DateTime(
-                        selectedDate.year,
-                        selectedDate.month,
-                        selectedDate.day,
-                        selectedTime.hour,
-                        selectedTime.minute,
-                      );
-
-                      print("FIRESTORE to store TARGETLOC");
-                      try {
-                        FirebaseFirestore.instance
-                            .collection('TargetLoc')
-                            .doc()
-                            .set(
-                          {
-                            'roomName': roomName.text,
-                            'roomLocation': roomLocation.text,
-                            'completed': false,
-                            'targetInfo': tInfo.text,
-                            'location': {
-                              'lat': lat,
-                              'lng': long,
+                  Container(
+                    child: IsEmployeeAssigned
+                        ? Text(
+                            'Task Assigned to ${selectedAssign.username}',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        : SizedBox(),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Center(
+                    child: MyButton(
+                      onPressed: () {
+                        Map<dynamic, dynamic> roomsMap = {
+                          'roomName': roomName.text,
+                          'roomLocation': roomLocation.text,
+                          'latitude': lat,
+                          'longitude': long,
+                          'completed': false,
+                          'targetInfo': tInfo.text,
+                        };
+          
+                        dbRef.push().set(roomsMap);
+          
+                        DateTime dateTime = DateTime(
+                          selectedDate.year,
+                          selectedDate.month,
+                          selectedDate.day,
+                          selectedTime.hour,
+                          selectedTime.minute,
+                        );
+          
+                        print("FIRESTORE to store TARGETLOC");
+                        try {
+                          FirebaseFirestore.instance
+                              .collection('TargetLoc')
+                              .doc()
+                              .set(
+                            {
+                              'roomName': roomName.text,
+                              'roomLocation': roomLocation.text,
+                              'completed': false,
+                              'targetInfo': tInfo.text,
+                              'location': {
+                                'lat': lat,
+                                'lng': long,
+                              },
+                              'deadlineTime': dateTime,
+                              'deadlineCompletedAt': dateTime.toString(),
+                              'assignedToEmployee': selectedAssign.username,
+                              'assignedToEmployeeID': selectedUser.userUid,
                             },
-                            'deadlineTime': dateTime,
-                            'deadlineCompletedAt': dateTime.toString(),
-                            'assignedToEmployee': selectedAssign.username,
-                            'assignedToEmployeeID': selectedUser.userUid,
-                          },
-                        );
-                        print('Data stored successfully');
-                      } catch (e) {
-                        print('Error storing data: $e');
-                      }
-
-                      try {
-                        FirebaseFirestore.instance
-                            .collection('users')
-                            .doc(selectedUser.userUid)
-                            .update(
-                          {
-                            'assignedToTask': roomName.text,
-                          },
-                        );
-                        print('Data stored successfully');
-                      } catch (e) {
-                        print('Error storing data: $e');
-                      }
-
-                      Navigator.pop(context);
-                    },
-                    buttonIcon: Icons.map,
-                    buttonText: 'Create Task',
+                          );
+                          print('Data stored successfully');
+                        } catch (e) {
+                          print('Error storing data: $e');
+                        }
+          
+                        try {
+                          FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(selectedUser.userUid)
+                              .update(
+                            {
+                              'assignedToTask': roomName.text,
+                            },
+                          );
+                          print('Data stored successfully');
+                        } catch (e) {
+                          print('Error storing data: $e');
+                        }
+          
+                        Navigator.pop(context);
+                      },
+                      buttonIcon: Icons.map,
+                      buttonText: 'Create Task',
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 55,
-                ),
-              ],
+                  const SizedBox(
+                    height: 55,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
