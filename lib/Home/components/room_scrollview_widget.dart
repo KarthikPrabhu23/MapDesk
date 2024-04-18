@@ -19,7 +19,7 @@ class RoomScrollView extends StatelessWidget {
         width: double.infinity,
         height: MediaQuery.of(context).size.height * 0.41,
         decoration: const BoxDecoration(
-          color: Color.fromARGB(211, 242, 247, 255),
+          // color: Color.fromARGB(211, 242, 247, 255),
         ),
         child: Padding(
           padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),

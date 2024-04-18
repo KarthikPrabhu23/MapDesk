@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
       title: appName,
       theme: ThemeData(
         primaryColor: MyColors.ButtonBlue,
-        // scaffoldBackgroundColor: Color(0xFFE7F6FF),
+        scaffoldBackgroundColor: Color.fromARGB(176, 255, 250, 250),
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.ButtonBlue),
         useMaterial3: true,
       ),

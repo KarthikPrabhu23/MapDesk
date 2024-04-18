@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:map1/Home/home_page.dart';
+import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Map/components/confirmationDialog.dart';
@@ -17,6 +19,7 @@ import 'package:map1/Map/components/target_slider.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'package:map1/Map/methods/location_util.dart';
 import 'package:map1/Map/methods/map_screen_functions.dart';
+import 'package:map1/bottom_navigation_bar.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -545,7 +548,8 @@ class MapScreenState extends State<MapScreen> {
                 children: [
                   FloatingActionButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      // Navigator.pop(context);
+                      nextScreenReplace(context, const MyBottomNavigationBar());
                     },
                     backgroundColor:
                         const Color(0xff4338CA), // Set the background color

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:map1/Chat/chat_screen.dart';
 import 'package:map1/Home/home_page.dart';
 import 'package:map1/Home/profile_page.dart';
+import 'package:map1/LoginSignup/components/widgets.dart';
+import 'package:map1/Map/map_screen.dart';
 import 'package:map1/Record/record.dart';
 import 'package:map1/my_colors.dart';
 
@@ -51,24 +53,30 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          body: _pages[_selectedIndex],
-          bottomNavigationBar: BottomBarInspiredInside(
-            items: items,
-            backgroundColor: MyColors.ButtonBlue,
-            color: Colors.white,
-            colorSelected: Colors.white,
-            indexSelected: _selectedIndex,
-            onTap: (int index) => setState(() {
-              _selectedIndex = index;
-            }),
-            chipStyle: const ChipStyle(convexBridge: true),
-            itemStyle: ItemStyle.circle,
-            animated: false,
-          ),
+    return SafeArea(
+      child: Scaffold(
+        body: _pages[_selectedIndex],
+        bottomNavigationBar: BottomBarInspiredInside(
+          items: items,
+          backgroundColor: MyColors.ButtonBlue,
+          color: Colors.white,
+          colorSelected: Colors.white,
+          indexSelected: _selectedIndex,
+          onTap: (int index) => {
+            if (index == 2)
+              {
+                nextScreenReplace(context, const MapScreen())
+              }
+            else
+              {
+                setState(() {
+                  _selectedIndex = index;
+                }),
+              }
+          },
+          chipStyle: const ChipStyle(convexBridge: true),
+          itemStyle: ItemStyle.circle,
+          animated: false,
         ),
       ),
     );
