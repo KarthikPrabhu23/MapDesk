@@ -21,7 +21,7 @@ class BigButton extends StatelessWidget {
 
     return SizedBox(
       width: screenSize.width * 0.7,
-      height: screenSize.height * 0.18,
+      height: screenSize.height * 0.15,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: MyColors.ButtonBlue2,

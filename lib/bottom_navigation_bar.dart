@@ -55,7 +55,6 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          scaffoldBackgroundColor: 
           body: _pages[_selectedIndex],
           bottomNavigationBar: BottomBarInspiredInside(
             items: items,

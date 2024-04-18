@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Chat/chat_screen.dart';
 import 'package:map1/Home/components/add_task_layout.dart';
 import 'package:map1/Home/components/big_button.dart';
+import 'package:map1/Home/components/open_map_layout.dart';
 import 'package:map1/TargetSelectPage/add_room.dart';
 import 'package:map1/Home/components/banner_home_widget.dart';
 import 'package:map1/Home/components/room_scrollview_widget.dart';
@@ -360,37 +361,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 indent: 32,
                 endIndent: 32,
               ),
-              MyButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MapScreen()),
-                  );
-                },
-                buttonIcon: Icons.map,
-                buttonText: 'Open Map',
+              const OpenMap(),
+              const SizedBox(
+                height: 10,
+              ),
+              const Divider(
+                color: Colors.black54,
+                thickness: 1,
+                height: 20,
+                indent: 32,
+                endIndent: 32,
               ),
               // MyButton(
               //   onPressed: () {
               //     Navigator.push(
               //       context,
-              //       MaterialPageRoute(builder: (context) => const RecordLog()),
+              //       MaterialPageRoute(builder: (context) => const MapScreen()),
               //     );
               //   },
-              //   buttonIcon: Icons.book,
-              //   buttonText: 'Record Logs',
+              //   buttonIcon: Icons.map,
+              //   buttonText: 'Open Map',
               // ),
-              // MyButton(
-              //   onPressed: () {
-              //     Navigator.push(
-              //       context,
-              //       MaterialPageRoute(builder: (context) => const ChatScreen()),
-              //     );
-              //   },
-              //   buttonIcon: Icons.book,
-              //   buttonText: 'Chat Screen',
-              // ),
-           
             ],
           ),
         ),
