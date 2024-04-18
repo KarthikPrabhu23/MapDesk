@@ -73,8 +73,8 @@ class _MyAppState extends State<MyApp> {
       title: appName,
       theme: ThemeData(
         primaryColor: MyColors.ButtonBlue,
-        scaffoldBackgroundColor: Color(0xFFE7F6FF),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // scaffoldBackgroundColor: Color(0xFFE7F6FF),
+        colorScheme: ColorScheme.fromSeed(seedColor: MyColors.ButtonBlue),
         useMaterial3: true,
       ),
       // home: const MyHomePage()

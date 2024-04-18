@@ -13,9 +13,8 @@ class TargetCompletionRecord extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       scrollDirection: Axis.vertical,
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.45,
-        // height: 200,
-        width: 300,
+        height: MediaQuery.of(context).size.height * 0.75,
+        width:  MediaQuery.of(context).size.width,
         child: StreamBuilder<List<Target>>(
           stream: FirestoreService.targetLocCollectionStream(),
           builder: (context, targetSnapshot) {
