@@ -203,11 +203,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getLocation() async {
     try {
       LocationData locationData = await location.getLocation();
-      setState(
-        () {
+      if (mounted) {
+        setState(() {
           currentLocation = locationData;
-        },
-      );
+        });
+      }
       _updateLocationInDatabase(locationData);
     } catch (e) {
       print('Error: $e');
@@ -370,26 +370,27 @@ class _MyHomePageState extends State<MyHomePage> {
                 buttonIcon: Icons.map,
                 buttonText: 'Open Map',
               ),
-              MyButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const RecordLog()),
-                  );
-                },
-                buttonIcon: Icons.book,
-                buttonText: 'Record Logs',
-              ),
-              MyButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ChatScreen()),
-                  );
-                },
-                buttonIcon: Icons.book,
-                buttonText: 'Chat Screen',
-              ),
+              // MyButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => const RecordLog()),
+              //     );
+              //   },
+              //   buttonIcon: Icons.book,
+              //   buttonText: 'Record Logs',
+              // ),
+              // MyButton(
+              //   onPressed: () {
+              //     Navigator.push(
+              //       context,
+              //       MaterialPageRoute(builder: (context) => const ChatScreen()),
+              //     );
+              //   },
+              //   buttonIcon: Icons.book,
+              //   buttonText: 'Chat Screen',
+              // ),
+           
             ],
           ),
         ),

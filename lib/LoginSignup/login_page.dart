@@ -9,6 +9,7 @@ import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/LoginSignup/reset_password.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
+import 'package:map1/bottom_navigation_bar.dart';
 import 'package:map1/components/helper.dart';
 import 'package:map1/main.dart';
 import 'package:map1/service/auth_service.dart';
@@ -337,7 +338,8 @@ class _LoginPageState extends State<LoginPage> {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
           await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
-          nextScreenReplace(context, const MyHomePage());
+          nextScreenReplace(context, MyBottomNavigationBar());
+          // nextScreenReplace(context, MyHomePage());
         } else {
           showSnackbar(context, Colors.red, value);
           setState(() {});

@@ -15,6 +15,7 @@ import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/LoginSignup/login_page.dart';
+import 'package:map1/bottom_navigation_bar.dart';
 import 'package:map1/components/helper.dart';
 import 'package:map1/main.dart';
 import 'package:map1/service/auth_service.dart';
@@ -527,7 +528,7 @@ class _SignUpState extends State<SignUp> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const MyHomePage(),
+            builder: (context) => MyBottomNavigationBar(),
           ),
         );
 
