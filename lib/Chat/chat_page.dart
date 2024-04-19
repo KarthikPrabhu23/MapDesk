@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:map1/Chat/group_info.dart';
 import 'package:map1/Chat/widgets/message_tile.dart';
 import 'package:map1/LoginSignup/components/widgets.dart';
+import 'package:map1/my_colors.dart';
 import 'package:map1/service/database_service.dart';
 
 class ChatPage extends StatefulWidget {
@@ -62,73 +63,113 @@ class _ChatPageState extends State<ChatPage> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                nextScreen(
-                    context,
-                    GroupInfo(
-                      groupId: widget.groupId,
-                      groupName: widget.groupName,
-                      adminName: admin,
-                    ));
-              },
-              icon: const Icon(Icons.info))
+            onPressed: () {
+              nextScreen(
+                context,
+                GroupInfo(
+                  groupId: widget.groupId,
+                  groupName: widget.groupName,
+                  adminName: admin,
+                ),
+              );
+            },
+            icon: const Icon(Icons.info),
+          )
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          color: Color.fromARGB(176, 255, 250, 250),
-        ),
-        child: Stack(
-          children: <Widget>[
-            // chat messages here
-            chatMessages(),
-            Container(
-              alignment: Alignment.bottomCenter,
-              width: MediaQuery.of(context).size.width,
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  'lib/images/chatBG.jpg',
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Opacity(
+              opacity: 0.3,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                color: Color.fromARGB(255, 16, 28, 85),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: chatMessages(),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
+              child: Container(
+                alignment: Alignment.bottomCenter,
                 width: MediaQuery.of(context).size.width,
-                color: Colors.grey[700],
-                child: Row(children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: messageController,
-                      style: const TextStyle(color: Colors.white),
-                      decoration: const InputDecoration(
-                        hintText: "Send a message...",
-                        hintStyle: TextStyle(color: Colors.white, fontSize: 16),
-                        border: InputBorder.none,
-                      ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      // color: MyColors.ButtonBlue,
+                      color: Colors.white,
+                      width: 2,
                     ),
+                    borderRadius: BorderRadius.circular(35),
+                    // color: Colors.grey[300],
+                    color: MyColors.ButtonBlue,
                   ),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      sendMessage();
-                    },
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.send,
-                          color: Colors.white,
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: messageController,
+                          style: const TextStyle(
+                            // color: MyColors.ButtonBlue,
+                            color: Colors.white,
+                          ),
+                          decoration: const InputDecoration(
+                            hintText: "Send a message...",
+                            hintStyle: TextStyle(
+                              // color: MyColors.ButtonBlue,
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ]),
+                      const SizedBox(
+                        width: 12,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          sendMessage();
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: const Center(
+                            child: Icon(
+                              Icons.send,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
