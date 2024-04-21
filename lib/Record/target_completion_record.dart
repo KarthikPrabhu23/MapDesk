@@ -9,40 +9,44 @@ class TargetCompletionRecord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(10),
-      scrollDirection: Axis.vertical,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.75,
-        width:  MediaQuery.of(context).size.width,
-        child: StreamBuilder<List<Target>>(
-          stream: FirestoreService.targetLocCollectionStream(),
-          builder: (context, targetSnapshot) {
-            if (targetSnapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
-            } else if (targetSnapshot.hasError) {
-              return Text('Error: ${targetSnapshot.error}');
-            } else {
-              return ListView.builder(
-                scrollDirection: Axis.vertical,
-                padding: const EdgeInsets.all(9),
-                itemCount: targetSnapshot.data!.length,
-                itemBuilder: (context, index) {
-                  final targetLoc = targetSnapshot.data![index];
-
-                  if (targetLoc.completed) {
-                    return TaskCard(
-                      targetLoc: targetLoc,
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              );
-            }
-          },
+    return Column(
+      children: [
+        SingleChildScrollView(
+          padding: const EdgeInsets.all(10),
+          scrollDirection: Axis.vertical,
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.55,
+            width:  MediaQuery.of(context).size.width,
+            child: StreamBuilder<List<Target>>(
+              stream: FirestoreService.targetLocCollectionStream(),
+              builder: (context, targetSnapshot) {
+                if (targetSnapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (targetSnapshot.hasError) {
+                  return Text('Error: ${targetSnapshot.error}');
+                } else {
+                  return ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    padding: const EdgeInsets.all(9),
+                    itemCount: targetSnapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      final targetLoc = targetSnapshot.data![index];
+            
+                      if (targetLoc.completed) {
+                        return TaskCard(
+                          targetLoc: targetLoc,
+                        );
+                      } else {
+                        return Container();
+                      }
+                    },
+                  );
+                }
+              },
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

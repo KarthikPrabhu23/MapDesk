@@ -91,6 +91,7 @@ class _RecordLogState extends State<RecordLog> {
                   children: [
                     DefaultTabController(
                       length: 3,
+                      initialIndex: 1,
                       child: Column(
                         children: [
                           const TabBar(
