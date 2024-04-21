@@ -5,6 +5,7 @@ import 'package:map1/Record/target_completion_record.dart';
 import 'package:map1/Record/target_pending_record.dart';
 import 'package:map1/Record/target_ranking_record.dart';
 import 'package:map1/main.dart';
+import 'package:map1/my_colors.dart';
 
 class RecordLog extends StatefulWidget {
   const RecordLog({super.key});
@@ -52,8 +53,7 @@ class _RecordLogState extends State<RecordLog> {
                   backgroundColor: Color.fromARGB(222, 21, 30, 132),
                   child: CircleAvatar(
                     radius: 20.0,
-                    backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
+                    backgroundImage: NetworkImage(MyColors.man3),
                     //   backgroundImage: NetworkImage(
                     //       HelperFunctions.getUserDPurlSF()),
                   ),
@@ -71,7 +71,7 @@ class _RecordLogState extends State<RecordLog> {
             children: [
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(16, 10, 0, 0),
-                 child: Text(
+                child: Text(
                   'Target records',
                   style: GoogleFonts.robotoSlab(
                     textStyle: const TextStyle(

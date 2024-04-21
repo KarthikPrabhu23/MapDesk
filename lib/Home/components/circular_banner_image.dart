@@ -18,6 +18,8 @@ class CircularBannerImage extends StatelessWidget {
           imageUrl,
           width: 44,
           height: 44,
+          cacheHeight: 800,
+          cacheWidth: 800,
           fit: BoxFit.cover,
         ),
       ),

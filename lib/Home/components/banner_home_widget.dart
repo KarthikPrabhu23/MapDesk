@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:map1/Home/components/circular_banner_image.dart';
+import 'package:map1/my_colors.dart';
 
 class BannerHomeWidget extends StatelessWidget {
   const BannerHomeWidget({
@@ -72,16 +73,13 @@ class BannerHomeWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     CircularBannerImage(
-                      imageUrl:
-                          'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60',
+                      imageUrl: MyColors.man1,
                     ),
                     CircularBannerImage(
-                      imageUrl:
-                          'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
+                      imageUrl: MyColors.man2,
                     ),
                     CircularBannerImage(
-                      imageUrl:
-                          'https://www.google.com/maps/d/u/0/thumbnail?mid=1A4gtHz4iHLjSs1S_fI_f__3baxs&hl=en_US',
+                      imageUrl: MyColors.man3,
                     ),
                   ],
                 ),
@@ -93,4 +91,3 @@ class BannerHomeWidget extends StatelessWidget {
     );
   }
 }
-

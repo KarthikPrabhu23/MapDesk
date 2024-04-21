@@ -292,8 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   backgroundColor: Color.fromARGB(222, 21, 30, 132),
                   child: CircleAvatar(
                     radius: 20.0,
-                    backgroundImage: NetworkImage(
-                        'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=900&q=60'),
+                    backgroundImage: NetworkImage(MyColors.man3),
                     //   backgroundImage: NetworkImage(
                     //       HelperFunctions.getUserDPurlSF()),
                   ),
@@ -372,7 +371,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 indent: 32,
                 endIndent: 32,
               ),
-               const SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               // MyButton(
