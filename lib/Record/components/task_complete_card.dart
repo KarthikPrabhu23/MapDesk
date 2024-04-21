@@ -20,8 +20,8 @@ class TaskCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
           side: const BorderSide(
-            color: Colors.white, 
-            width: 2, 
+            color: Colors.white,
+            width: 2,
           ),
         ),
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -50,6 +50,8 @@ class TaskCard extends StatelessWidget {
                             const SizedBox(height: 5),
                             Text(
                               targetLoc.roomName,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                               style: MyTextSample.title(context)!.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800,
@@ -58,6 +60,8 @@ class TaskCard extends StatelessWidget {
                             const SizedBox(height: 5),
                             Text(
                               targetLoc.roomLocation,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: MyTextSample.body1(context)!.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -90,6 +94,7 @@ class TaskCard extends StatelessWidget {
                               ),
                               Text(
                                 targetLoc.targetInfo,
+                                overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 style: MyTextSample.subhead(context)!.copyWith(
                                   color: Colors.white,

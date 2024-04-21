@@ -49,6 +49,8 @@ class TaskRankingCard extends StatelessWidget {
                             Container(height: 5),
                             Text(
                               userItem.username,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                               style: MyTextSample.title(context)!.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w800,
@@ -57,6 +59,8 @@ class TaskRankingCard extends StatelessWidget {
                             Container(height: 5),
                             Text(
                               userItem.name,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: MyTextSample.body1(context)!.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
@@ -89,7 +93,8 @@ class TaskRankingCard extends StatelessWidget {
                               ),
                               Text(
                                 userItem.userEmail ?? "email",
-                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
                                 style: MyTextSample.subhead(context)!.copyWith(
                                   color: Colors.white,
                                   fontSize: 13,
@@ -115,7 +120,8 @@ class TaskRankingCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                               userItem.targetCompletionCount?.toString() ?? '0',
+                                userItem.targetCompletionCount?.toString() ??
+                                    '0',
                                 maxLines: 2,
                                 style: MyTextSample.subhead(context)!.copyWith(
                                   color: Colors.white,

@@ -200,17 +200,19 @@ class MapScreenState extends State<MapScreen> {
                 ),
                 // Content container
                 Expanded(
-                  // Expand to fill remaining space
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0), // Add some padding
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       mainAxisAlignment:
-                          MainAxisAlignment.center, // Align content vertically
+                          MainAxisAlignment.center, 
                       crossAxisAlignment:
-                          CrossAxisAlignment.start, // Align text to left
+                          CrossAxisAlignment.start, 
                       children: [
                         Text(
                           targetElem.roomName.toString(),
+                          overflow: TextOverflow
+                              .ellipsis, 
+                          maxLines: 1,
                           style: const TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
@@ -218,6 +220,9 @@ class MapScreenState extends State<MapScreen> {
                         ),
                         Text(
                           targetElem.roomLocation.toString(),
+                          overflow: TextOverflow
+                              .ellipsis, 
+                          maxLines: 1,
                           style: const TextStyle(
                             fontSize: 12.0,
                             color: Colors.white70,
@@ -267,6 +272,8 @@ class MapScreenState extends State<MapScreen> {
                                       ),
                                       Text(
                                         'Assignee : ${targetElem.assignedToEmployee}',
+                                        overflow: TextOverflow.ellipsis, 
+  maxLines: 1, 
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontSize: 10,

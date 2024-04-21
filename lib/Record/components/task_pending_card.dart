@@ -58,6 +58,8 @@ class TaskPendingCard extends StatelessWidget {
                             Container(height: 5),
                             Text(
                               targetLoc.roomLocation,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                               style: MyTextSample.body1(context)!.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w500,
