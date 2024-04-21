@@ -165,11 +165,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         icondata: Icons.phone,
                         value: "123456789",
                       ),
-                      ReuseableRow(
-                        title: 'Status',
-                        icondata: Icons.mark_chat_unread,
-                        value: userData['status'],
-                      ),
+                      // ReuseableRow(
+                      //   title: 'Status',
+                      //   icondata: Icons.mark_chat_unread,
+                      //   value: userData['status'],
+                      // ),
                       ReuseableRow(
                         title: 'Latitude',
                         icondata: Icons.pin_drop_outlined,
