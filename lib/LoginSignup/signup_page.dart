@@ -41,6 +41,7 @@ class _SignUpState extends State<SignUp> {
   final _picker = ImagePicker();
 
   String email = "";
+  String username = "";
   String password = "";
   String fullName = "";
   AuthService authService = AuthService();
@@ -117,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                 gradient: const LinearGradient(
                   colors: [
                     Color.fromARGB(255, 49, 42, 129),
-                    Color.fromARGB(255, 71, 25, 145)
+                    Color.fromARGB(255, 71, 25, 145),
                   ],
                 ),
               ),
@@ -150,13 +151,15 @@ class _SignUpState extends State<SignUp> {
                             height: 2,
                             child: Container(
                               decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                      colors: [
+                                gradient: LinearGradient(
+                                  colors: [
                                     Colors.white,
-                                    Color.fromARGB(255, 71, 25, 145)
+                                    Color.fromARGB(255, 71, 25, 145),
                                   ],
-                                      begin: Alignment.centerRight,
-                                      end: Alignment.centerLeft)),
+                                  begin: Alignment.centerRight,
+                                  end: Alignment.centerLeft,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -187,13 +190,20 @@ class _SignUpState extends State<SignUp> {
                             height: 2,
                             child: Container(
                               decoration: const BoxDecoration(
-                                  gradient: LinearGradient(
-                                      colors: [
+                                gradient: LinearGradient(
+                                  colors: [
                                     Colors.white,
-                                    Color.fromARGB(255, 71, 25, 145)
+                                    Color.fromARGB(
+                                      255,
+                                      71,
+                                      25,
+                                      145,
+                                    )
                                   ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight)),
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -259,6 +269,7 @@ class _SignUpState extends State<SignUp> {
                       onChanged: (val) {
                         setState(() {
                           // password = val;
+                          username = val;
                         });
                       },
                     ),
@@ -350,7 +361,7 @@ class _SignUpState extends State<SignUp> {
                     const SizedBox(
                       height: 10,
                     ),
-                    
+
                     // myTextFormField(
                     //   MyController: _email,
                     //   hintText: "Enter email id",
@@ -512,7 +523,7 @@ class _SignUpState extends State<SignUp> {
       setState(() {});
       await authService
           .registerUserWithEmailandPassword(
-              fullName, _username.text.toString(), dpUrl, email, password)
+              fullName, username, dpUrl, email, password)
 
           // await FirebaseAuth.instance
           //     .createUserWithEmailAndPassword(

@@ -246,7 +246,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   return GroupTile(
                       groupId: getId(snapshot.data['groups'][reverseIndex]),
                       groupName: getName(snapshot.data['groups'][reverseIndex]),
-                      userName: snapshot.data['fullName']);
+                      userName: snapshot.data['fullName'],);
                 },
               );
             } else {

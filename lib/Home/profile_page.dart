@@ -135,16 +135,16 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
-                          InkWell(
-                            onTap: () {
-                              // Handle edit profile picture
-                            },
-                            child: const CircleAvatar(
-                              radius: 16,
-                              child: Icon(Icons.edit,
-                                  size: 16, color: Colors.black54),
-                            ),
-                          )
+                          // InkWell(
+                          //   onTap: () {
+                          //     // Handle edit profile picture
+                          //   },
+                          //   child: const CircleAvatar(
+                          //     radius: 16,
+                          //     child: Icon(Icons.edit,
+                          //         size: 16, color: Colors.black54),
+                          //   ),
+                          // )
                         ],
                       ),
                       const SizedBox(
@@ -173,12 +173,12 @@ class _ProfilePageState extends State<ProfilePage> {
                       ReuseableRow(
                         title: 'Latitude',
                         icondata: Icons.pin_drop_outlined,
-                        value: userData['latitude'].toString(),
+                        value: userData['location']['lat'].toString(),
                       ),
                       ReuseableRow(
                         title: 'Longitude',
                         icondata: Icons.pin_drop,
-                        value: userData['longitude'].toString(),
+                        value: userData['location']['lng'].toString(),
                       ),
                       Text(
                         SessionController().userid.toString(),

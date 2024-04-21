@@ -46,6 +46,7 @@ class AuthService {
               // 'name': ufullname,
               'email': email,
               'username': username,
+              'fullName' : fullName,
               'status': '',
               'profilepic': dpUrl,
               'targetCompletionCount': 0,
