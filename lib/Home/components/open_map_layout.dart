@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:map1/Home/components/big_button.dart';
-import 'package:map1/TargetSelectPage/add_room.dart';
+import 'package:map1/Map/map_screen.dart';
 import 'package:map1/my_colors.dart';
 
 class OpenMap extends StatelessWidget {
@@ -36,7 +36,7 @@ class OpenMap extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const AddRoom()),
+                  MaterialPageRoute(builder: (context) => const MapScreen()),
                 );
               },
             ),
@@ -46,4 +46,3 @@ class OpenMap extends StatelessWidget {
     );
   }
 }
-
