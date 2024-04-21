@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 
-class ConfirmationDialog extends StatelessWidget {
+class PopUpWindow extends StatelessWidget {
   final Function() onYesPressed;
   final String title;
   final String message;
   final String gifPath;
 
-  const ConfirmationDialog({
+  const PopUpWindow({
     super.key,
     required this.onYesPressed,
     required this.title,
     required this.message,
-    
     required this.gifPath,
   });
 
@@ -30,9 +29,9 @@ class ConfirmationDialog extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             Image.asset(
-               gifPath,
+              gifPath,
               fit: BoxFit.cover,
             ),
           ],
@@ -41,16 +40,10 @@ class ConfirmationDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.pop(context); 
+            Navigator.pop(context);
             onYesPressed();
           },
-          child: const Text("Yes"),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context); 
-          },
-          child: const Text("No"),
+          child: const Text("OK"),
         ),
       ],
     );

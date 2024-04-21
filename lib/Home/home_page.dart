@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Query dbRef = FirebaseDatabase.instance.ref().child('Rooms');
 
   late Location location;
-  String ufullname = "Default";
+  String ufullname = "";
 
   late DatabaseReference _userLocationRef;
 
@@ -179,7 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
           'lat': latitude,
           'lng': longitude,
         },
-        'name': "Default",
+        // 'name': "Default",
       });
       print('User location updated ');
     } catch (error) {

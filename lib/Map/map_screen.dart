@@ -13,7 +13,7 @@ import 'package:map1/LoginSignup/components/widgets.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/Map/components/confirmationDialog.dart';
-import 'package:map1/Map/components/custom_info_window.dart';
+import 'package:map1/Map/components/popup_window.dart';
 import 'package:map1/Map/components/target_card.dart';
 import 'package:map1/Map/components/target_slider.dart';
 import 'package:custom_info_window/custom_info_window.dart';
@@ -29,7 +29,6 @@ class MapScreen extends StatefulWidget {
 }
 
 class MapScreenState extends State<MapScreen> {
-
   String currUid = "";
 
   bool targetSliderToggle = true;
@@ -67,7 +66,7 @@ class MapScreenState extends State<MapScreen> {
     _getCurrentLocation();
     setCustomMapPin();
     locationStream();
-     _getCurrentUser();
+    _getCurrentUser();
   }
 
   void onMapCreated(controller) {
@@ -287,7 +286,8 @@ class MapScreenState extends State<MapScreen> {
                   icon: const Icon(
                     Icons.location_on,
                     color: Colors.white,
-                  ), // Replace with your desired icon
+                  ),
+                  color: Colors.blueAccent,
                   onPressed: () async {
                     zoomInMarker(targetElem);
                     showDialog(
@@ -296,6 +296,7 @@ class MapScreenState extends State<MapScreen> {
                         return ConfirmationDialog(
                           title: "Have you reached the Target Location",
                           message: "Are you within 10 meters?",
+                          gifPath: 'lib/images/TaskReachedGif.gif',
                           onYesPressed: () async {
                             zoomInMarker(targetElem);
 
@@ -315,22 +316,37 @@ class MapScreenState extends State<MapScreen> {
                             print(
                                 '${targetElem.roomName.toString()} is ${reachedTarget ? 'visited' : 'NOT visited'}');
 
+                            // DISPLAY RESULTS USING PopUp
                             if (reachedTarget) {
                               FirestoreService.updateTargetCompletion(
                                   targetElem.targetUid);
-                              FirestoreService.increaseTargetCompletionCount(currUid);
-                              
-                            } else {
-                              // Use mounted check to ensure the context is valid
+                              FirestoreService.increaseTargetCompletionCount(
+                                  currUid);
+
                               if (mounted) {
                                 showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return ConfirmationDialog(
+                                    return PopUpWindow(
                                       onYesPressed: () {},
-                                      title: "Task not reached yet",
+                                      title: "Task achieved",
+                                      message: "Well done!",
+                                      gifPath: 'lib/images/TaskReachedGif.gif',
+                                    );
+                                  },
+                                );
+                              }
+                            } else {
+                              if (mounted) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return PopUpWindow(
+                                      onYesPressed: () {},
+                                      title: "Task not achieved yet",
                                       message:
                                           "Reach within 10 meters to the target location",
+                                      gifPath: 'lib/images/TaskReachedGif.gif',
                                     );
                                   },
                                 );
@@ -561,22 +577,22 @@ class MapScreenState extends State<MapScreen> {
                   const SizedBox(
                     height: 460,
                   ),
-                  FloatingActionButton(
-                    onPressed: () {
-                      print("MAP button clicked");
-                      setState(
-                        () {
-                          targetSliderToggle = !targetSliderToggle;
-                        },
-                      );
-                    },
-                    backgroundColor: const Color.fromARGB(
-                        255, 42, 40, 65), // Set the background color
-                    foregroundColor: Colors.white,
-                    tooltip: 'Second',
-                    heroTag: 'Second',
-                    child: const Icon(Icons.control_point_rounded),
-                  ),
+                  // FloatingActionButton(
+                  //   onPressed: () {
+                  //     print("MAP button clicked");
+                  //     setState(
+                  //       () {
+                  //         targetSliderToggle = !targetSliderToggle;
+                  //       },
+                  //     );
+                  //   },
+                  //   backgroundColor: const Color.fromARGB(
+                  //       255, 42, 40, 65), // Set the background color
+                  //   foregroundColor: Colors.white,
+                  //   tooltip: 'Second',
+                  //   heroTag: 'Second',
+                  //   child: const Icon(Icons.control_point_rounded),
+                  // ),
                 ],
               ),
             ],
