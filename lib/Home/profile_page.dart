@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:map1/LoginSignup/components/session_controller.dart';
 import 'package:map1/LoginSignup/login_page.dart';
+import 'package:map1/bottom_navigation_bar.dart';
 import 'package:map1/my_colors.dart';
 import 'package:map1/service/auth_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 62,
-         iconTheme: const IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
         title: const Text(
@@ -41,6 +42,16 @@ class _ProfilePageState extends State<ProfilePage> {
             fontWeight: FontWeight.w600,
             color: Colors.white,
           ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const MyBottomNavigationBar()),
+            );
+          },
         ),
         backgroundColor: Theme.of(context).primaryColor,
         // title: Text(
@@ -163,7 +174,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       const ReuseableRow(
                         title: 'Phone Number',
                         icondata: Icons.phone,
-                        value: "123456789",
+                        value: "6364562341",
                       ),
                       // ReuseableRow(
                       //   title: 'Status',
@@ -180,11 +191,17 @@ class _ProfilePageState extends State<ProfilePage> {
                         icondata: Icons.pin_drop,
                         value: userData['location']['lng'].toString(),
                       ),
+                      // ReuseableRow(
+                      //   title: 'Employee ID',
+                      //   icondata: Icons.bookmark,
+                      //   value: SessionController().userid.toString(),
+                      // ),
                       Text(
-                        SessionController().userid.toString(),
+                        'User UID: ${SessionController().userid.toString()}',
                         style: const TextStyle(
-                          fontSize: 20,
+                          fontSize: 13,
                           fontWeight: FontWeight.bold,
+                          color: Colors.black54,
                         ),
                       ),
                     ],
@@ -221,6 +238,8 @@ class ReuseableRow extends StatelessWidget {
           leading: Icon(icondata),
           trailing: Text(
             value,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
             style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
           ),
         ),

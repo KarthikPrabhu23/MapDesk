@@ -42,12 +42,12 @@ class TaskCard extends StatelessWidget {
                         width: 60,
                         fit: BoxFit.cover,
                       ),
-                      Container(width: 15),
+                      const SizedBox(width: 15),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Container(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               targetLoc.roomName,
                               style: MyTextSample.title(context)!.copyWith(
@@ -55,7 +55,7 @@ class TaskCard extends StatelessWidget {
                                 fontWeight: FontWeight.w800,
                               ),
                             ),
-                            Container(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               targetLoc.roomLocation,
                               style: MyTextSample.body1(context)!.copyWith(
@@ -63,7 +63,7 @@ class TaskCard extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            Container(height: 10),
+                            const SizedBox(height: 10),
                           ],
                         ),
                       ),
