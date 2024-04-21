@@ -44,6 +44,7 @@ class _SignUpState extends State<SignUp> {
   String username = "";
   String password = "";
   String fullName = "";
+  String name = "";
   AuthService authService = AuthService();
 
   void pickUploadImage() async {

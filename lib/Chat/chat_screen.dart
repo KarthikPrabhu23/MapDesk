@@ -244,9 +244,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 itemBuilder: (context, index) {
                   int reverseIndex = snapshot.data['groups'].length - index - 1;
                   return GroupTile(
-                      groupId: getId(snapshot.data['groups'][reverseIndex]),
-                      groupName: getName(snapshot.data['groups'][reverseIndex]),
-                      userName: snapshot.data['fullName'],);
+                    groupId: getId(snapshot.data['groups'][reverseIndex]),
+                    groupName: getName(snapshot.data['groups'][reverseIndex]),
+                    userName: snapshot.data['fullName'],
+                  );
                 },
               );
             } else {
@@ -256,10 +257,11 @@ class _ChatScreenState extends State<ChatScreen> {
             return noGroupWidget();
           }
         } else {
-          return Center(
-            child: CircularProgressIndicator(
-                color: Theme.of(context).primaryColor),
-          );
+          // return Center(
+          //   child: CircularProgressIndicator(
+          //       color: Theme.of(context).primaryColor),
+          // );
+          return noGroupWidget();
         }
       },
     );
