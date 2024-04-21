@@ -246,25 +246,25 @@ class _AddRoomState extends State<AddRoom> {
                         color: Theme.of(context)
                             .primaryColor, // Use primary color here
                       ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          Icons.search,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        onPressed: _handlePressButton,
-                      ),
+                      // suffixIcon: IconButton(
+                      //   icon: Icon(
+                      //     Icons.search,
+                      //     color: Theme.of(context).primaryColor,
+                      //   ),
+                      //   onPressed: _handlePressButton,
+                      // ),
                     ),
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: 'Search',
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                    ),
-                    onTap: _handlePressButton,
-                  ),
+                  // TextField(
+                  //   decoration: InputDecoration(
+                  //     hintText: 'Search',
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(20),
+                  //       borderSide: BorderSide(color: Colors.white),
+                  //     ),
+                  //   ),
+                  //   onTap: _handlePressButton,
+                  // ),
                   const SizedBox(
                     height: 9,
                   ),

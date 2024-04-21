@@ -64,7 +64,7 @@ class _GroupTileState extends State<GroupTile> {
                     ),
                   ),
                   subtitle: Text(
-                    "Join the as ${widget.userName}",
+                    "Join as ${widget.userName}",
                     style: const TextStyle(
                       fontSize: 13,
                       color: Colors.white54,

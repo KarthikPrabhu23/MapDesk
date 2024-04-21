@@ -66,7 +66,7 @@ class _MessageTileState extends State<MessageTile> {
               style: const TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: Colors.white54,
                 letterSpacing: -0.5,
               ),
             ),
@@ -78,7 +78,7 @@ class _MessageTileState extends State<MessageTile> {
               textAlign: TextAlign.start,
               style: const TextStyle(
                 fontSize: 16,
-                color: Colors.white,
+                color: Color.fromARGB(255, 255, 222, 222),
               ),
             ),
           ],
