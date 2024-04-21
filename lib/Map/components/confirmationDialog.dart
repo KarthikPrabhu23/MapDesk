@@ -11,7 +11,6 @@ class ConfirmationDialog extends StatelessWidget {
     required this.onYesPressed,
     required this.title,
     required this.message,
-    
     required this.gifPath,
   });
 
@@ -32,7 +31,7 @@ class ConfirmationDialog extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Image.asset(
-               gifPath,
+              gifPath,
               fit: BoxFit.cover,
             ),
           ],
@@ -41,14 +40,14 @@ class ConfirmationDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.pop(context); 
+            Navigator.pop(context);
             onYesPressed();
           },
           child: const Text("Yes"),
         ),
         TextButton(
           onPressed: () {
-            Navigator.pop(context); 
+            Navigator.pop(context);
           },
           child: const Text("No"),
         ),

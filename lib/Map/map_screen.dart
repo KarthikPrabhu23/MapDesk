@@ -296,7 +296,7 @@ class MapScreenState extends State<MapScreen> {
                         return ConfirmationDialog(
                           title: "Have you reached the Target Location",
                           message: "Are you within 10 meters?",
-                          gifPath: 'lib/images/TaskReachedGif.gif',
+                          gifPath: 'lib/images/LocationCheckGif.gif',
                           onYesPressed: () async {
                             zoomInMarker(targetElem);
 
@@ -346,7 +346,7 @@ class MapScreenState extends State<MapScreen> {
                                       title: "Task not achieved yet",
                                       message:
                                           "Reach within 10 meters to the target location",
-                                      gifPath: 'lib/images/TaskReachedGif.gif',
+                                      gifPath: 'lib/images/NotReachedGif.gif',
                                     );
                                   },
                                 );
