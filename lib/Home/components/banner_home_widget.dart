@@ -13,15 +13,11 @@ class BannerHomeWidget extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.24,
       decoration: BoxDecoration(
         color: Colors.black12,
-        // image: const DecorationImage(
-        //   fit: BoxFit.cover,
-        //   image: NetworkImage(
-        //       'https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/bg1.png?alt=media&token=f98fb95f-bcd0-45cf-b344-78d82489390a'),
-        // ),
-         image: const DecorationImage(
-                image: AssetImage('lib/images/background.png'), 
-                fit: BoxFit.cover,
-              ),
+        image: const DecorationImage(
+          fit: BoxFit.cover,
+          image: NetworkImage(
+              'https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/bg1.png?alt=media&token=f98fb95f-bcd0-45cf-b344-78d82489390a'),
+        ),
         boxShadow: const [
           BoxShadow(
             blurRadius: 6,
