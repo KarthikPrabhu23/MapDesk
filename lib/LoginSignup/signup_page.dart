@@ -18,6 +18,7 @@ import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/bottom_navigation_bar.dart';
 import 'package:map1/components/helper.dart';
 import 'package:map1/main.dart';
+import 'package:map1/my_colors.dart';
 import 'package:map1/service/auth_service.dart';
 
 class SignUp extends StatefulWidget {
@@ -30,8 +31,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   DatabaseReference ref = FirebaseDatabase.instance.ref().child('User');
   String userUID = "";
-  String dpUrl =
-      "https://firebasestorage.googleapis.com/v0/b/map1-6175b.appspot.com/o/pfp.png?alt=media&token=e3be88e8-d50c-491d-b52f-2f6c7843fbbc";
+  String dpUrl = MyColors.PFP_Blue;
 
   final _confirmPassword = TextEditingController();
   final _email = TextEditingController();
@@ -238,7 +238,7 @@ class _SignUpState extends State<SignUp> {
                             ? Container(
                                 decoration: const BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: Color.fromARGB(255, 41, 36, 36),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                 ),
                                 child: const Center(
                                   child: Icon(
