@@ -116,6 +116,9 @@ class _SearchPageState extends State<SearchPage> {
       setState(() {
         isLoading = true;
       });
+      print("Search is ");
+      print(searchController.text);
+
       await DatabaseService()
           .searchByName(searchController.text)
           .then((snapshot) {
@@ -123,6 +126,8 @@ class _SearchPageState extends State<SearchPage> {
           searchSnapshot = snapshot;
           isLoading = false;
           hasUserSearched = true;
+
+          print("Inside searchByName ");
         });
       });
     }
@@ -150,7 +155,6 @@ class _SearchPageState extends State<SearchPage> {
     await DatabaseService(uid: user!.uid)
         .isUserJoined(groupname, groupId, userName)
         .then((value) {
-      if (!mounted) return;
       setState(() {
         isJoined = value;
       });
@@ -182,7 +186,8 @@ class _SearchPageState extends State<SearchPage> {
             setState(() {
               isJoined = !isJoined;
             });
-            showSnackbar(context, Colors.green, "Successfully joined he group");
+            showSnackbar(
+                context, Colors.green, "Successfully joined the group");
             Future.delayed(const Duration(seconds: 2), () {
               nextScreen(
                   context,
