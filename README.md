@@ -11,12 +11,9 @@ ______________________________________
 - Firebase CloudFirestore to save and display user images.
 
 ## Under development features (Will be added soon)
-- Polylines
+<!-- - Polylines --> 
 - Push Notifications
-- Chat feature
 - Analysis of data
-- Record creation
-- Improvements in UI
 
 
 ### Tech stack :-
@@ -28,26 +25,48 @@ ______________________________________
  ______________________________________
 #### Demo ⭐
 
+#### SignUp, Login, Profile, Forgot password
+
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/6cf88d26-77f2-4268-bf7e-33a93de3349d" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/4d92108e-8a84-4682-a003-b208d6ea4e83" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/f55b43cf-361f-4c4c-b8c9-0982dc434e9e" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/d2242691-375e-4b68-ae66-5afa407ae5c8" width="200" height="400" />
+
 
 #### Home screen
 
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/db46f89f-2f55-42ad-be03-e270af2bccf8" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/06d652ee-554d-4546-b823-8983296a854a" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/98a17b83-d675-4559-8ce2-f338a291966c" width="200" height="400" />
+
 
 #### Map screen
 
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/6fcf01da-49fc-4db3-b393-45af4809dd19" width="200" height="400" />
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/d1f49324-1291-44bd-a7bb-092366d89b50" width="200" height="400" />
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/a692f9b1-63e7-492c-be74-e5c6a77153cb" width="200" height="400" />
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/fb3bef5f-f8b8-4c3e-8257-d2c17ccb4950" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/db2111e7-fcdd-4a4f-9158-ce1cb0827a53" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/0bf826ae-615a-45c5-80c2-bd62373624e2" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/0ff425a3-05cc-4dc5-8587-0b9539c60174" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/2eef7e75-eabf-4945-a138-29cc27d870f7" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/8e74983c-ca30-44dc-8354-379d0b03eff1" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/93935ddd-34bd-43a3-926e-69f1c78bdf86" width="200" height="400" />
+
 
 #### Task, Location input screen
 
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/c3db195d-937d-473d-950f-e1a5cba460c6" width="200" height="400" />
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/a0fdc601-c678-49aa-bada-0003bede0cdb" width="200" height="400" />
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/90307133-a210-461b-a246-3224268b9efd" width="200" height="400" />
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/382b38ae-79b6-47e0-a675-38cbbf2ee32d" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/0f857dfa-8e5c-47c0-bdf0-bd7767dad6f9" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/cd5ee03b-db29-403a-beff-7c20353cf528" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/9bf77233-ee40-4d4f-97b9-33768253dc1d" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/1b1aabb3-e0f9-4a05-a217-b7d13e69ab1c" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/566d31a7-ac17-4a9a-a1e3-e1db6b5fa282" width="200" height="400" />
 
 
-#### Task completion screen
-<img src="https://github.com/KarthikPrabhu23/TrackNow/assets/85951820/0763d0b7-dc7c-432b-a90a-9b0bb66b96d4" width="200" height="400" />
+#### Chat section
 
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/5bc92b23-e041-479d-9d8e-906c8fe7c12e" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/b09566c6-88f4-4405-9fb1-e297e1b11234" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/30112053-dfa8-43e3-a303-3c38980f1c88" width="200" height="400" />
+
+
+
+#### Task Records
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/00284c2e-0c66-4ca0-bb83-34322dadbbeb" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/dee8ec72-52da-4b74-8341-72b77e67bc5e" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/89035bbf-4e30-477b-b9a7-4c995988f809" width="200" height="400" />
