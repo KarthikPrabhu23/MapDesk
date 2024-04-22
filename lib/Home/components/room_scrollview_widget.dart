@@ -17,12 +17,12 @@ class RoomScrollView extends StatelessWidget {
       padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.41,
+        height: MediaQuery.of(context).size.height * 0.3105,
         decoration: const BoxDecoration(
-          // color: Color.fromARGB(211, 242, 247, 255),
-        ),
+            // color: Color.fromARGB(211, 242, 247, 255),
+            ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 5),
+          padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
           child: ListView(
             padding: EdgeInsets.zero,
             primary: false,
@@ -33,7 +33,7 @@ class RoomScrollView extends StatelessWidget {
 
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.1,
                 child: FirebaseAnimatedList(
                   scrollDirection: Axis.horizontal,
                   query: dbRef.orderByChild("roomName"),
@@ -43,7 +43,10 @@ class RoomScrollView extends StatelessWidget {
 
                     room['key'] = snapshot.key;
 
-                    return RoomElementWidget(context: context, room: room);
+                    return RoomElementWidget(
+                      context: context,
+                      room: room,
+                    );
                   },
                 ),
               ),
