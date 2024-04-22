@@ -540,7 +540,7 @@ class _SignUpState extends State<SignUp> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MyBottomNavigationBar(),
+            builder: (context) => const MyBottomNavigationBar(),
           ),
         );
 

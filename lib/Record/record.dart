@@ -132,7 +132,7 @@ class _RecordLogState extends State<RecordLog> {
                             ],
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.58,
+                            height: MediaQuery.of(context).size.height * 0.6,
                             child: const TabBarView(
                               children: [
                                 TargetCompletionRecord(),
