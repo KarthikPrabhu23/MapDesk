@@ -6,6 +6,7 @@ import 'package:map1/Record/target_pending_record.dart';
 import 'package:map1/Record/target_ranking_record.dart';
 import 'package:map1/main.dart';
 import 'package:map1/my_colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RecordLog extends StatefulWidget {
   const RecordLog({super.key});
@@ -17,6 +18,14 @@ class RecordLog extends StatefulWidget {
 class _RecordLogState extends State<RecordLog> {
   @override
   Widget build(BuildContext context) {
+    // Initialize ScreenUtil
+    ScreenUtil.init(
+      context,
+      designSize: const Size(375, 812), // Design size based on your design prototype
+      minTextAdapt: true,
+      splitScreenMode: true,
+    );
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -132,7 +141,8 @@ class _RecordLogState extends State<RecordLog> {
                             ],
                           ),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.6,
+                            // height: MediaQuery.of(context).size.height * 0.6 ,
+                            height: 0.57.sh,
                             child: const TabBarView(
                               children: [
                                 TargetCompletionRecord(),

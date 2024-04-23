@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:map1/Map/classes.dart';
 import 'package:map1/Record/components/task_ranking_card.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TargetRankingRecord extends StatelessWidget {
   const TargetRankingRecord({
@@ -9,14 +10,25 @@ class TargetRankingRecord extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // Initialize ScreenUtil
+    ScreenUtil.init(
+      context,
+      designSize: const Size(375, 812), 
+      minTextAdapt: true,
+      splitScreenMode: true,
+    );
+
     return Column(
       children: [
         SingleChildScrollView(
           padding: const EdgeInsets.all(10),
           scrollDirection: Axis.vertical,
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.55,
-            width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height * 0.55,
+            // width:  MediaQuery.of(context).size.width,
+            height: 0.54.sh,
+            width: 1.sw,
             child: StreamBuilder<List<User>>(
               stream: FirestoreService.userCollectionStream(),
               builder: (context, userSnapshot) {
