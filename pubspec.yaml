@@ -45,6 +45,7 @@ dependencies:
   flutter_google_places: ^0.3.0
   # flutter_google_places_hoc081098: ^1.2.0
   flutter_google_places_hoc081098: ^1.0.0-nullsafety.1
+  flutter_onboarding_slider: ^1.0.11
   flutter_screenutil: ^5.9.0
   font_awesome_flutter: ^10.1.0
   geocoding: ^3.0.0

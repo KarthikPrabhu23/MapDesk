@@ -91,7 +91,7 @@ class _ChatPageState extends State<ChatPage> {
             child: Opacity(
               opacity: 0.3,
               child: Container(
-                color: Color.fromARGB(255, 16, 28, 85),
+                color: const Color.fromARGB(255, 16, 28, 85),
               ),
             ),
           ),

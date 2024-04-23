@@ -11,6 +11,7 @@ import 'package:map1/Map/map_loc.dart';
 import 'package:map1/app_constants.dart';
 import 'package:map1/components/helper.dart';
 import 'package:map1/my_colors.dart';
+import 'package:map1/onboarding_slider.dart';
 import 'firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
@@ -82,7 +83,8 @@ class _MyAppState extends State<MyApp> {
       // home: MapLoc(),
       // home: const SignUpWidget(),
       // home: const SignUp(),
-      home: LoginPage(),
+      // home: LoginPage(),
+      home: OnboardingSlider(),
 
       // home: isSignedIn ? MyHomePage() : LoginPage(),
     );

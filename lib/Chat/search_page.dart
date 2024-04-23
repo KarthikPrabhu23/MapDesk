@@ -116,8 +116,6 @@ class _SearchPageState extends State<SearchPage> {
       setState(() {
         isLoading = true;
       });
-      print("Search is ");
-      print(searchController.text);
 
       await DatabaseService()
           .searchByName(searchController.text)
@@ -127,7 +125,6 @@ class _SearchPageState extends State<SearchPage> {
           isLoading = false;
           hasUserSearched = true;
 
-          print("Inside searchByName ");
         });
       });
     }
