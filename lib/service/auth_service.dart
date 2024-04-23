@@ -50,7 +50,7 @@ class AuthService {
               'name' : fullName,
               'status': '',
               'profilepic': dpUrl,
-              "groups": [],
+              // "groups": [],
               'targetCompletionCount': 0,
             },
           );
@@ -73,7 +73,7 @@ class AuthService {
               'username': username,
               'status': '',
               'profilepic': dpUrl,
-              "groups": [],
+              // "groups": [],
               'targetCompletionCount': 0,
             },
           );
