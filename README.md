@@ -1,4 +1,4 @@
-# TrackNow
+# MapDesk
 
 Under development project. 
 
@@ -6,6 +6,8 @@ ______________________________________
 #### Functionality ⭐
 - A many-to-many realtime location sharing application.
 - User can create target location to visit and enter the work to be completed at the location.
+- Group chat feature.
+- Assign work to the nearest employee, set deadlines.
 - Cloud Firestore, Realtime database of Firebase used to store and fetch location coordinates on a realtime.
 - Firebase Authentication for SignUp, Login pages
 - Firebase CloudFirestore to save and display user images.
@@ -17,13 +19,24 @@ ______________________________________
 
 
 ### Tech stack :-
-<img src="https://github.com/KarthikPrabhu23/HeyConvo/assets/85951820/3b6eaefe-46e4-4ebc-8b6a-d0d5d01dc5ba" width="200" height="100" />
 <img src="https://github.com/KarthikPrabhu23/OTP_Flutter/assets/85951820/912f3bd9-d435-40e6-aa8b-4dd8e2470554" width="200" height="100" />
+<img src="https://github.com/KarthikPrabhu23/HeyConvo/assets/85951820/3b6eaefe-46e4-4ebc-8b6a-d0d5d01dc5ba" width="200" height="100" />
 <img src="https://github.com/KarthikPrabhu23/OTP_Flutter/assets/85951820/bbe9368f-d2b7-4252-9f12-3e922096361c" width="200" height="100" />
 <img src="https://github.com/KarthikPrabhu23/HeyConvo/assets/85951820/0655fd19-6288-497d-a427-9e4c7df4cbbc" width="190" height="100" />
 
  ______________________________________
 #### Demo ⭐
+
+#### Slider
+
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/a0b00786-7149-4a66-9b6d-e7dc0c40619b" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/9627a30e-e405-4c30-ab67-2d15e5f94ba9" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/cb1c7381-2bd0-4f5c-b9cf-9baeb0dc032b" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/85d9d2ea-9eee-4b5f-ae34-159c9686a384" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/852d5d18-dba9-40ed-983d-73004153c640" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/d25d98a9-0a23-4dfb-8e56-0a9af7211424" width="200" height="400" />
+<img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/04cfffe7-ad22-4933-99e8-808387301eb7" width="200" height="400" />
+
 
 #### SignUp, Login, Profile, Forgot password
 
