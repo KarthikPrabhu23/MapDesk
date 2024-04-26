@@ -83,3 +83,14 @@ ______________________________________
 <img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/00284c2e-0c66-4ca0-bb83-34322dadbbeb" width="200" height="400" />
 <img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/dee8ec72-52da-4b74-8341-72b77e67bc5e" width="200" height="400" />
 <img src="https://github.com/KarthikPrabhu23/MapDesk/assets/85951820/89035bbf-4e30-477b-b9a7-4c995988f809" width="200" height="400" />
+
+
+______________________________________
+#### Prerequisites ⭐
+Before you begin, ensure you have the following requirement:
+<br> ✅   Google Maps API key from Google Cloud Console.
+<br>
+<h3 align="left">Connect with me for any queries : 📫</h3>
+<p align="left">
+<a href="https://www.linkedin.com/in/karthik-prabhu23/" target="blank"><img align="center" src="https://www.vectorlogo.zone/logos/linkedin/linkedin-tile.svg" alt="karthik prabhu" height="40" width="40" /></a>
+<a href="https://instagram.com/karthik_prabhu_2003" target="blank"><img align="center" src="https://www.vectorlogo.zone/logos/instagram/instagram-icon.svg" alt="karthik_prabhu_2003" height="40" width="40" /></a>
