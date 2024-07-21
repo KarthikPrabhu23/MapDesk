@@ -14,6 +14,8 @@ import 'package:map1/components/helper.dart';
 import 'package:map1/main.dart';
 import 'package:map1/service/auth_service.dart';
 import 'package:map1/service/database_service.dart';
+
+import '../onboarding_slider.dart';
 // import 'package:map1/LoginSignup/auth_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -313,6 +315,25 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OnboardingSlider()),
+                        );
+                      },
+                      child: const Text(
+                        'Back to Slider',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     ),
                   ],
                 ),

@@ -615,7 +615,7 @@ class _AddRoomState extends State<AddRoom> {
           myLocationEnabled: true,
           markers: Set.from(myMarker),
           onTap: handleTap,
-          mapType: MapType.normal,
+          mapType: MapType.hybrid,
           gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
             Factory<OneSequenceGestureRecognizer>(
               () => EagerGestureRecognizer(),
