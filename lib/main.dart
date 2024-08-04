@@ -9,10 +9,12 @@ import 'package:map1/LoginSignup/login_page.dart';
 import 'package:map1/LoginSignup/signup_page.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/app_constants.dart';
+import 'package:map1/firebase_options.dart';
+
 import 'package:map1/components/helper.dart';
 import 'package:map1/my_colors.dart';
 import 'package:map1/onboarding_slider.dart';
-import 'firebase_options.dart';
+// import 'firebase_options.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
 const String appName = "MapDesk";
@@ -21,13 +23,16 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {
-    
     await Firebase.initializeApp(
         options: FirebaseOptions(
-      apiKey: Constants.apiKey,
-      appId: Constants.appId,
-      messagingSenderId: Constants.messagingSenderId,
-      projectId: Constants.projectId,
+      apiKey: DefaultFirebaseOptions.web.apiKey,
+      authDomain: DefaultFirebaseOptions.web.authDomain,
+      storageBucket: DefaultFirebaseOptions.web.storageBucket,
+      appId: DefaultFirebaseOptions.web.appId,
+      messagingSenderId: DefaultFirebaseOptions.web.messagingSenderId,
+      databaseURL: DefaultFirebaseOptions.web.databaseURL,
+      projectId: DefaultFirebaseOptions.web.projectId,
+      measurementId: DefaultFirebaseOptions.web.measurementId,
     ));
   } else {
     await Firebase.initializeApp(
@@ -35,11 +40,6 @@ void main() async {
     );
   }
 
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  // TODO:
-  // FirebaseAppCheck.instance.activate(webRecaptchaSiteKey: 'YOUR_RECAPTCHA_SITE_KEY');
   runApp(const MyApp());
 }
 
