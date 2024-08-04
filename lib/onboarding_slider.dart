@@ -13,6 +13,7 @@ class OnboardingSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnBoardingSlider(
+      centerBackground: true,
       finishButtonText: 'SignUp',
       onFinish: () {
         Navigator.push(

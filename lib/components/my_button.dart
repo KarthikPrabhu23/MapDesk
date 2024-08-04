@@ -53,13 +53,13 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        elevation: MaterialStateProperty.all(0),
+        elevation: WidgetStateProperty.all(0),
         alignment: Alignment.center,
-        padding: MaterialStateProperty.all(
+        padding: WidgetStateProperty.all(
           const EdgeInsets.only(right: 45, left: 45, top: 15, bottom: 15),
         ),
-        backgroundColor: MaterialStateProperty.all(Colors.transparent),
-        shape: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(Colors.transparent),
+        shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         ),
       ),
