@@ -86,128 +86,126 @@ class OnboardingSlider extends StatelessWidget {
       ],
       speed: 1.8,
       pageBodies: [
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                gradient: const LinearGradient(
-                  colors: [
-                    Color.fromARGB(255, 49, 42, 129),
-                    Color.fromARGB(255, 71, 25, 145),
-                  ],
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Image.asset(
-                    'lib/images/MapDesk.png',
-                    height: 200,
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    appName,
-                    style: GoogleFonts.dmSerifDisplay(
-                      textStyle: const TextStyle(
-                        fontSize: 67,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 2,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white,
-                                  Color.fromARGB(255, 71, 25, 145),
-                                ],
-                                begin: Alignment.centerRight,
-                                end: Alignment.centerLeft,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 2),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              size: 10,
-                              color: Colors.white,
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 20,
-                              color: Colors.white,
-                            ),
-                            Icon(
-                              Icons.star,
-                              size: 10,
-                              color: Colors.white,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 2,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white,
-                                  Color.fromARGB(
-                                    255,
-                                    71,
-                                    25,
-                                    145,
-                                  )
-                                ],
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    'Track, manage, navigate with ease...',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white54,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
+        Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              gradient: const LinearGradient(
+                colors: [
+                  Color.fromARGB(255, 49, 42, 129),
+                  Color.fromARGB(255, 71, 25, 145),
                 ],
               ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                const SizedBox(
+                  height: 50,
+                ),
+                Image.asset(
+                  'lib/images/MapDesk.png',
+                  height: 200,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Text(
+                  appName,
+                  style: GoogleFonts.dmSerifDisplay(
+                    textStyle: const TextStyle(
+                      fontSize: 67,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SizedBox(
+                        height: 2,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.white,
+                                Color.fromARGB(255, 71, 25, 145),
+                              ],
+                              begin: Alignment.centerRight,
+                              end: Alignment.centerLeft,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 2),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.star,
+                            size: 10,
+                            color: Colors.white,
+                          ),
+                          Icon(
+                            Icons.star,
+                            size: 20,
+                            color: Colors.white,
+                          ),
+                          Icon(
+                            Icons.star,
+                            size: 10,
+                            color: Colors.white,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        height: 2,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                Colors.white,
+                                Color.fromARGB(
+                                  255,
+                                  71,
+                                  25,
+                                  145,
+                                )
+                              ],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  'Track, manage, navigate with ease...',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white54,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
