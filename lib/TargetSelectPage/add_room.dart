@@ -87,7 +87,7 @@ class _AddRoomState extends State<AddRoom> {
     Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png'))
         .buffer
         .asUint8List();
-    targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
+    targetLocationIcon = BitmapDescriptor.bytes(imageData);
     setState(() {});
   }
 
@@ -149,7 +149,7 @@ class _AddRoomState extends State<AddRoom> {
     Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png'))
         .buffer
         .asUint8List();
-    targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
+    targetLocationIcon = BitmapDescriptor.bytes(imageData);
   }
 
   @override

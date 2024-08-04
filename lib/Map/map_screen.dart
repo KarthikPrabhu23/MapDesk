@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as AuthPackage;
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -90,18 +91,18 @@ class MapScreenState extends State<MapScreen> {
   }
 
   void setCustomMapPin() async {
-    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
+    pinLocationIcon = await BitmapDescriptor.asset(
         const ImageConfiguration(devicePixelRatio: 2.5), 'lib/images/user.png');
 
     Uint8List imageData = (await rootBundle.load('lib/images/targetPin.png'))
         .buffer
         .asUint8List();
-    targetLocationIcon = BitmapDescriptor.fromBytes(imageData);
+    targetLocationIcon = BitmapDescriptor.bytes(imageData);
 
     Uint8List imageData2 = (await rootBundle.load('lib/images/completePin.png'))
         .buffer
         .asUint8List();
-    completeLocationIcon = BitmapDescriptor.fromBytes(imageData2);
+    completeLocationIcon = BitmapDescriptor.bytes(imageData2);
   }
 
   StreamSubscription<Position>? locationStream() {
