@@ -3,10 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class Constants {
 
   // APIKEY For BROWSER
-  String? apiKey = dotenv.env['APIKEY'];
-  String? apiKey4 = dotenv.env['APIKEY4'];
-  String? apiKey5 = dotenv.env['APIKEY5'];
-  
+  static String? apiKey = dotenv.env['APIKEY'];
+  static String? apiKey4 = dotenv.env['APIKEY4'];
+  static String? apiKey5 = dotenv.env['APIKEY5'];
+
   static String authDomain = "map1-6175b.firebaseapp.com";
   static String databaseURL = "https://map1-6175b-default-rtdb.firebaseio.com";
   static String projectId = "map1-6175b";
