@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,7 @@ import 'package:map1/LoginSignup/signup_page.dart';
 import 'package:map1/Map/map_loc.dart';
 import 'package:map1/app_constants.dart';
 import 'package:map1/firebase_options.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:map1/components/helper.dart';
 import 'package:map1/my_colors.dart';
 import 'package:map1/onboarding_slider.dart';
@@ -19,7 +18,8 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 
 const String appName = "MapDesk";
 
-void main() async {
+Future main() async {
+  await dotenv.load(fileName: "lib/.env");
   WidgetsFlutterBinding.ensureInitialized();
 
   if (kIsWeb) {

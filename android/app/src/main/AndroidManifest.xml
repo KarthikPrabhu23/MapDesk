@@ -12,6 +12,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/tracknow">
 
+        <!-- Replace with your API key value in android:value=  -->
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyAP14xUw0sMffll9Vn20eGPbmf2EqH4XJw"/>
 
